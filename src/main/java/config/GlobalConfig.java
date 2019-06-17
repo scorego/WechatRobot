@@ -3,6 +3,7 @@ package config;
 import io.github.biezhi.wechat.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.io.InputStreamReader;
 import java.util.Properties;
 
@@ -22,11 +23,11 @@ public class GlobalConfig {
     }
 
     public static String getValue(String key, String defaultValue) {
-        String value = pp.getProperty(key);
-        if (StringUtils.isEmpty(value)){
+        if (StringUtils.isEmpty(key)) {
             return defaultValue;
         }
-        return value;
+        String value = pp.getProperty(key);
+        return StringUtils.isEmpty(value) ? defaultValue : value;
     }
 }
 
