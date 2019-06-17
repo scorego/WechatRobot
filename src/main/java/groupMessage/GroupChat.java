@@ -56,7 +56,7 @@ public class GroupChat {
         String response;
         if (keyword.startsWith("天气") || keyword.endsWith("天气")) {
             // 查询天气
-            response = WeatherApi.dealWeatherMsg(message);
+            response = dealWeatherQueryMsg(message);
         } else {
             // 不是查询天气就调用对话api
             response = ChatApi.chat(message);
