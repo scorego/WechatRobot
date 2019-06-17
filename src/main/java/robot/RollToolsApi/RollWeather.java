@@ -8,7 +8,7 @@ import utils.HttpRequestUtil;
 
 public class RollWeather {
 
-    private static final String ROLL_WEATHER = GlobalConfig.getValue("rollWeather","");
+    private static final String ROLL_WEATHER = GlobalConfig.getValue("RollToolsApi.weather","");
 
 
     public static String getWeatherByKeyword(String keyword) {

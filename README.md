@@ -1,11 +1,12 @@
 ## 微信机器人
 
-自动回复好友消息、群聊陪聊、查询天气。  
+自动回复好友消息、群聊陪聊、查询天气，基于[wechat-api](https://github.com/biezhi/wechat-api)构建。  
 
 ---
 
-### 微信API
-[wechat-api](https://github.com/biezhi/wechat-api)  
+### 配置及使用
+  
+配置文件是`resource/config.properties`。
 
 ### 数据来源
 

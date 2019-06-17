@@ -1,5 +1,6 @@
 package friendMessage;
 
+import api.ChatApi;
 import config.GlobalConfig;
 import io.github.biezhi.wechat.api.model.WeChatMessage;
 
@@ -11,18 +12,25 @@ import io.github.biezhi.wechat.api.model.WeChatMessage;
  */
 public class FriendChat {
 
-   private static final boolean autoReplyFriend = GlobalConfig.getValue("autoReplyFriend", "false").equalsIgnoreCase("true");
+    private static final boolean autoReplyFriend = GlobalConfig.getValue("autoReplyFriend", "false").equalsIgnoreCase("true");
 
-   private static final String autoReplyFriendMsg = GlobalConfig.getValue("autoReplyFriendMsg", "");
+    private static final String autoReplyFriendMsg = GlobalConfig.getValue("autoReplyFriendMsg", "");
 
-   public static String friendChat(WeChatMessage message){
-         if (autoReplyFriend){
+    public static String dealFriendMsg(WeChatMessage message) {
+        if (autoReplyFriend) {
             return autoReplyFriend(message);
-         }
-         return null;
-   }
+        }
+        switch (CheckFriendType.checkFriendType(message.getFromUserName())) {
+            case FRIEND_WHITE:
+                return ChatApi.chat(message.getText());
+            case FRIEND_DEFAULT:
+            case FRIEND_BLACK:
+            default:
+                return null;
+        }
+    }
 
-   private static String autoReplyFriend(WeChatMessage message){
-         return autoReplyFriendMsg;
-   }
+    private static String autoReplyFriend(WeChatMessage message) {
+        return autoReplyFriendMsg;
+    }
 }

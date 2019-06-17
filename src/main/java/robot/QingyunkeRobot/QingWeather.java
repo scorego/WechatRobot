@@ -9,7 +9,7 @@ import utils.HttpRequestUtil;
 
 public class QingWeather {
 
-    private static final String QING_WEATHER = GlobalConfig.getValue("qingWeather","");
+    private static final String QING_WEATHER = GlobalConfig.getValue("QingyunkeRobot.weather","");
 
     public static String getWeatherByCityId(String cityId) {
         if (StringUtils.isEmpty(cityId)) {

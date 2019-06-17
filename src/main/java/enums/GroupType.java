@@ -8,27 +8,27 @@ public enum GroupType {
     /**
      * 默认级别
      */
-    DEFAULT,
+    GROUP_DEFAULT,
     /**
      * 白名单，回复一切信息
      */
-    WHITELIST,
+    GROUP_WHITELIST,
     /**
      * 只回复查询天气
      */
-    WEATHER_ONLY,
+    GROUP_WEATHER_ONLY,
     /**
-     * 只回复@我的信息
+     * 只回复@我的信息， 尚未实现
      */
-    AT_ME_ONLY,
+    GROUP_AT_ME_ONLY,
     /**
      * 黑名单，不回复任何信息
      */
-    BLACKLIST,
+    GROUP_BLACKLIST,
     /**
      * 群不存在
      */
-    NOT_EXISTS;
+    GROUP_NOT_EXISTS;
 
     private int status;
 }
