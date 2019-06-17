@@ -39,9 +39,10 @@ public class QingWeather {
         if (cityName.endsWith("市")) {
             cityName = cityName.substring(0, cityName.length() - 1);
         }
-        if (cityName.endsWith("区")) {
-            cityName = cityName.substring(0, cityName.length() - 1);
-        }
+        // 有些区和市重名，比如北京朝阳区和辽宁朝阳市。
+//        if (cityName.endsWith("区")) {
+//            cityName = cityName.substring(0, cityName.length() - 1);
+//        }
         if (cityName.endsWith("县")) {
             cityName = cityName.substring(0, cityName.length() - 1);
         }

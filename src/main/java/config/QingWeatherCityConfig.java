@@ -19,7 +19,7 @@ public class QingWeatherCityConfig {
     private static volatile QingWeatherCityConfig INSTANCE;
 
     private QingWeatherCityConfig(){
-        String filePath = QingWeatherCityConfig.class.getResource("..").getPath() + CITY_JSON_FILE;
+        String filePath = CITY_JSON_FILE;
         StringBuilder sb = new StringBuilder();
         try {
             InputStream is = new FileInputStream(filePath);
