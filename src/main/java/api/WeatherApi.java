@@ -39,9 +39,9 @@ public class WeatherApi {
     private static String getWeatherByCityName(String cityName) {
         log.info("WeatherApi:getWeatherByCityName, WEATHER_ROBOT:{}, cityName:{}", WEATHER_ROBOT, cityName);
         switch (WEATHER_ROBOT) {
-            case "QingWeather":
+            case "QingyunkeRobot":
                 return QingWeather.getWeatherByCityName(cityName);
-            case "RollWeather":
+            case "RollToolsApi":
                 return RollWeather.getWeatherByCityName(cityName);
             default:
                 return null;
