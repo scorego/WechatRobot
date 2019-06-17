@@ -13,7 +13,7 @@
 智能机器人API：https://www.sojson.com/api/semantic.html  
 青云客天气API：https://www.sojson.com/api/weather.html
 
-友情提示：人工智障在线陪聊，注意尬场。  
+友情提示：人工智障在线陪聊，冷场利器、分手大师。  
 
 #### 2. RollToolsApi
 

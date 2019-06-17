@@ -4,14 +4,6 @@
     <list default="true" id="9474e16f-404e-4a77-8637-e7fad0bba1b8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/WechatBot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/WechatBot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/config/GlobalConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/GlobalConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/friendMessage/FriendChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/friendMessage/FriendChat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/WechatBot.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/WechatBot.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/api/WeatherApi.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/api/WeatherApi.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/config/GlobalConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/config/GlobalConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/friendMessage/FriendChat.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/friendMessage/FriendChat.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -140,8 +132,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="494">
-                <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+              <first_editor relative-caret-position="297">
+                <caret line="11" column="11" lean-forward="true" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
               </first_editor>
               <second_editor />
             </state>
@@ -404,12 +396,12 @@
       <workItem from="1560658674925" duration="14051000" />
       <workItem from="1560745212164" duration="7169000" />
       <workItem from="1560752723056" duration="3033000" />
-      <workItem from="1560755794949" duration="2542000" />
+      <workItem from="1560755794949" duration="2696000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42400000" />
+    <option name="totallyTimeSpent" value="42554000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -424,7 +416,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7554859" visible="true" weight="0.2054721" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7554859" visible="true" weight="0.2054721" />
       <window_info id="Structure" order="1" sideWeight="0.24451411" side_tool="true" visible="true" weight="0.2054721" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -440,7 +432,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Problems" order="9" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.2911111" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.2911111" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="13" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -822,8 +814,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="494">
-            <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+          <first_editor relative-caret-position="297">
+            <caret line="11" column="11" lean-forward="true" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
           </first_editor>
           <second_editor />
         </state>
