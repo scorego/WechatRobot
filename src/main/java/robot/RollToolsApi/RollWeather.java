@@ -25,6 +25,9 @@ public class RollWeather {
             return null;
         }
         String response = HttpRequestUtil.doGet(ROLL_WEATHER + cityName);
+        if (StringUtils.isEmpty(response)){
+            return null;
+        }
         RollWeatherEntity weather = JSON.parseObject(response, RollWeatherEntity.class);
         return weather.getWeatherDefaultNull();
     }

@@ -20,20 +20,25 @@ public class WechatBot extends WeChatBot {
         super(config);
     }
 
-//    @Bind(msgType = MsgType.TEXT , accountType = AccountType.TYPE_FRIEND)
-//    public void friendTextMsg(WeChatMessage message) {
-//        if (StringUtils.isNotEmpty(message.getName())) {
-//            System.out.println("接收到朋友 [{" + message.getName() + "}] 的消息:  " +  message.getText());
-//            this.sendMsg(message.getFromUserName(), "自动回复: " + message.getText());
-//        }
-//    }
+    @Bind(msgType = MsgType.TEXT , accountType = AccountType.TYPE_FRIEND)
+    public void friendTextMsg(WeChatMessage message) {
+        if (StringUtils.isNotEmpty(message.getName())) {
+            log.info("接收消息，好友：{}, 内容：{}, 全部消息：{}" , message.getName() ,message.getText(), message.toString());
+            String response = DealMessage.dealFriendMsg(message);
+            if (StringUtils.isNotEmpty(response)){
+                response = PREFIX + response;
+                log.info("回复消息, 好友：{}, 消息：{}", message.getFromUserName(), response);
+                this.sendMsg(message.getFromUserName(),  response);
+            }
+        }
+    }
 
     @Bind(msgType = MsgType.TEXT, accountType = AccountType.TYPE_GROUP)
-    public void groupTextMessage(WeChatMessage message) {
+    public void groupTextMsg(WeChatMessage message) {
         if (StringUtils.isNotEmpty(message.getName())) {
             log.info("接收消息，群：{}, 内容：{}, 全部消息：{}" , message.getName() ,message.getText(), message.toString());
-            String response = DealMessage.getInstance().dealGroupMsg(message);
-            if (response != null){
+            String response = DealMessage.dealGroupMsg(message);
+            if (StringUtils.isNotEmpty(response)){
                 response = PREFIX + response;
                 log.info("回复消息, 群：{}, 消息：{}", message.getFromUserName(), response);
                 this.sendMsg(message.getFromUserName(),  response);

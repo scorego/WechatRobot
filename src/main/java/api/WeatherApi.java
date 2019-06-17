@@ -15,7 +15,7 @@ public class WeatherApi {
 
     private static final Logger log = LoggerFactory.getLogger(WeatherApi.class);
 
-    private static final String WEATHER_ROBOT = GlobalConfig.getValue("chatRobot", "");
+    private static final String WEATHER_ROBOT = GlobalConfig.getValue("weatherApi", "");
 
     /**
      * 根据关键字查询天气接口

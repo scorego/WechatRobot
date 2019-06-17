@@ -14,7 +14,7 @@ import robot.QingyunkeRobot.QingyunkeRobot;
 public class ChatApi {
     private static final Logger log = LoggerFactory.getLogger(ChatApi.class);
 
-    private static final String CHAT_ROBOT = GlobalConfig.getValue("chatRobot", "");
+    private static final String CHAT_ROBOT = GlobalConfig.getValue("chatApi", "");
 
     public static String chat(String keyword) {
         log.info("ChatApi::chat, keyword: {}",keyword);

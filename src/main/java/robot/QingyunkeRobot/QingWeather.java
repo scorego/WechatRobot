@@ -16,7 +16,9 @@ public class QingWeather {
             return null;
         }
         String response = HttpRequestUtil.doGet(QING_WEATHER + cityId);
-
+        if (StringUtils.isEmpty(response)){
+            return null;
+        }
         QingWeatherEntity weather = JSON.parseObject(response, QingWeatherEntity.class);
 
         return weather.isValid() ? weather.getWeather() : null;
