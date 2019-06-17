@@ -16,7 +16,7 @@ public class WechatBot extends WeChatBot {
 
     private static final String PREFIX = GlobalConfig.getValue("reply-prefix","Auto: ");
 
-    public WechatBot(Config config) {
+    private WechatBot(Config config) {
         super(config);
     }
 
