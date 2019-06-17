@@ -59,7 +59,7 @@ public class GroupChat {
             response = WeatherApi.dealWeatherMsg(message);
         } else {
             // 不是查询天气就调用对话api
-            response = ChatApi.chat(keyword);
+            response = ChatApi.chat(message);
         }
 
         if (StringUtils.isEmpty(response)) {
