@@ -20,7 +20,7 @@ public class FriendChat {
         if (autoReplyFriend) {
             return autoReplyFriend(message);
         }
-        switch (CheckFriendType.checkFriendType(message.getFromUserName())) {
+        switch (CheckFriendType.checkFriendType(message.getFromNickName())) {
             case FRIEND_WHITE:
                 return ChatApi.chat(message);
             case FRIEND_DEFAULT:
