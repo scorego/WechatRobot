@@ -1,14 +1,24 @@
-### 微信机器人
+## 微信机器人
 
 自动回复好友消息、陪聊、查询天气。  
 
 ---
 
-微信api：[wechat-api](https://github.com/biezhi/wechat-api)  
+### 微信API
+[wechat-api](https://github.com/biezhi/wechat-api)  
 
-陪聊机器人
+### 数据来源
 
+#### 1. 青云客
+智能机器人API：https://www.sojson.com/api/semantic.html  
+青云客天气API：https://www.sojson.com/api/weather.html
 
-#### 协议
+友情提示：人工智障在线陪聊，注意尬场。  
 
-[MIT]()
+#### 2. RollToolsApi
+
+RollToolsApi：https://github.com/MZCretin/RollToolsApi  
+
+### 协议
+
+[MIT](https://github.com/scorego/WechatRobot/blob/master/LICENSE.md)
