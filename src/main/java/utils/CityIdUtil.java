@@ -11,7 +11,6 @@ public class CityIdUtil {
 
     private  CityIdUtil(){
         cityList = QingWeatherCityConfig.getInstance().getCityList();
-        cityList.forEach(System.out::println);
     }
 
     public static CityIdUtil getInstance(){

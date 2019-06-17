@@ -20,7 +20,6 @@ public class QingWeatherCityConfig {
 
     private QingWeatherCityConfig() {
         String filePath = QingWeatherCityConfig.class.getClassLoader().getResource("").getPath() + CITY_JSON_FILE;
-        System.out.println(filePath);
         StringBuilder sb = new StringBuilder();
         try {
             InputStream is = new FileInputStream(filePath);
