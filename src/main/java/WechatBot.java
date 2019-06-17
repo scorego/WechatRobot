@@ -14,7 +14,7 @@ public class WechatBot extends WeChatBot {
 
     private static final Logger log = LoggerFactory.getLogger(WechatBot.class);
 
-    private static final String PREFIX = GlobalConfig.getValue("reply-prefix","Auto: ");
+    private static final String PREFIX = GlobalConfig.getValue("reply-prefix","");
 
     private WechatBot(Config config) {
         super(config);

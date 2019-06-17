@@ -24,10 +24,10 @@ public class GlobalConfig {
         }
     }
 
-    public static String getValue(String key, String defalutValue) {
+    public static String getValue(String key, String defaultValue) {
         String value = pp.getProperty(key);
         if (StringUtils.isEmpty(value)){
-            return defalutValue;
+            return defaultValue;
         }
         return value;
     }
