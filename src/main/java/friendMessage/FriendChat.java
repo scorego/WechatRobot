@@ -22,7 +22,7 @@ public class FriendChat {
         }
         switch (CheckFriendType.checkFriendType(message.getFromUserName())) {
             case FRIEND_WHITE:
-                return ChatApi.chat(message.getText());
+                return ChatApi.chat(message);
             case FRIEND_DEFAULT:
             case FRIEND_BLACK:
             default:

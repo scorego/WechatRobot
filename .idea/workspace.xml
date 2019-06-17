@@ -3,15 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9474e16f-404e-4a77-8637-e7fad0bba1b8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/config/QingWeatherCityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/QingWeatherCityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/robot/QingyunkeRobot/QingWeather.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/robot/QingyunkeRobot/QingWeather.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/city.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/city.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/HttpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/HttpTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/city.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/city.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/config/QingWeatherCityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/config/QingWeatherCityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/robot/QingyunkeRobot/QingWeather.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/robot/QingyunkeRobot/QingWeather.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/HttpTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/HttpTest.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -126,11 +118,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/HttpTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="23" selection-start-column="23" selection-end-column="23" />
+              <caret column="22" selection-start-column="22" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="297">
+                <caret line="11" column="46" selection-start-line="11" selection-start-column="46" selection-end-line="11" selection-end-column="46" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -202,12 +206,12 @@
         <option value="$PROJECT_DIR$/src/main/java/friendMessage/CheckFriendType.java" />
         <option value="$PROJECT_DIR$/src/main/java/DealMessage.java" />
         <option value="$PROJECT_DIR$/src/main/java/friendMessage/FriendChat.java" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/LICENSE.md" />
         <option value="$PROJECT_DIR$/src/main/resources/config.properties" />
         <option value="$PROJECT_DIR$/src/main/java/config/QingWeatherCityConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/robot/QingyunkeRobot/QingWeather.java" />
         <option value="$PROJECT_DIR$/src/test/java/HttpTest.java" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -429,12 +433,12 @@
       <workItem from="1560658674925" duration="14051000" />
       <workItem from="1560745212164" duration="7169000" />
       <workItem from="1560752723056" duration="3033000" />
-      <workItem from="1560755794949" duration="8005000" />
+      <workItem from="1560755794949" duration="8166000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47863000" />
+    <option name="totallyTimeSpent" value="48024000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -449,15 +453,15 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.58677685" visible="true" weight="0.2054721" />
-      <window_info id="Structure" order="1" sideWeight="0.41322315" side_tool="true" visible="true" weight="0.2054721" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5859519" visible="true" weight="0.2054721" />
+      <window_info id="Structure" order="1" sideWeight="0.41404805" side_tool="true" visible="true" weight="0.2054721" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="TODO" order="2" />
-      <window_info active="true" anchor="bottom" id="Run" order="3" visible="true" weight="0.19333333" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.47333333" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.9577778" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
@@ -465,7 +469,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Problems" order="9" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.3988889" />
+      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.3988889" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="13" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -801,16 +805,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="378">
-            <caret line="23" selection-start-line="23" selection-end-line="23" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/LICENSE.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -874,7 +868,17 @@
     <entry file="file://$PROJECT_DIR$/src/test/java/HttpTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="23" selection-start-column="23" selection-end-column="23" />
+          <caret column="22" selection-start-column="22" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="297">
+            <caret line="11" column="46" selection-start-line="11" selection-start-column="46" selection-end-line="11" selection-end-column="46" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
