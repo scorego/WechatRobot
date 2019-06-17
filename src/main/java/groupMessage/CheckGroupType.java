@@ -3,6 +3,8 @@ package groupMessage;
 import config.GlobalConfig;
 import enums.GroupType;
 import io.github.biezhi.wechat.utils.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -16,6 +18,8 @@ import java.util.stream.Collectors;
  * @date 2019/6/17 16:07
  */
 public class CheckGroupType {
+
+    private static final Logger log = LoggerFactory.getLogger(CheckGroupType.class);
 
     private static final String GROUP_WHITELIST = GlobalConfig.getValue("group.whitelist", "");
 

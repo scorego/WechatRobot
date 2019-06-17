@@ -31,4 +31,5 @@ public enum GroupType {
     GROUP_NOT_EXISTS;
 
     private int status;
+
 }

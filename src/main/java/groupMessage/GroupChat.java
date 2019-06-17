@@ -2,10 +2,17 @@ package groupMessage;
 
 import api.ChatApi;
 import api.WeatherApi;
+import enums.GroupType;
 import io.github.biezhi.wechat.api.model.WeChatMessage;
 import io.github.biezhi.wechat.utils.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.security.acl.Group;
 
 public class GroupChat {
+
+    private static final Logger log = LoggerFactory.getLogger(GroupChat.class);
 
     private static volatile GroupChat INSTANCE;
 
@@ -25,8 +32,10 @@ public class GroupChat {
 
 
     public String dealGroupMsg(WeChatMessage message) {
-        String groupType = message.getName();
-        switch (CheckGroupType.checkGroupType(groupType)) {
+        String groupName = message.getName();
+        GroupType groupType = CheckGroupType.checkGroupType(groupName);
+        log.info("GroupChat::dealGroupMsg, 群:{}, GroupType:{}",groupName, groupType);
+        switch (groupType) {
             case GROUP_WHITELIST:
                 return dealAllMsg(message);
             case GROUP_DEFAULT:
