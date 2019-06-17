@@ -29,9 +29,9 @@ public class GroupChat {
         switch (CheckGroupType.checkGroupType(groupType)) {
             case GROUP_WHITELIST:
                 return dealAllMsg(message);
+            case GROUP_DEFAULT:
             case GROUP_WEATHER_ONLY:
                 return dealWeatherQueryMsg(message);
-            case GROUP_DEFAULT:
             case GROUP_NOT_EXISTS:
             case GROUP_BLACKLIST:
             default:
@@ -65,9 +65,8 @@ public class GroupChat {
         if (StringUtils.isEmpty(response)) {
             return response;
         }
-        String atMePreFix = message.isAtMe() ?
-                "@" + message.getFromNickName() + " "
-                : "";
+        String atMePreFix = message.isAtMe() ? "@" + message.getFromNickName() + " " : "";
+
         return atMePreFix + response;
     }
 }

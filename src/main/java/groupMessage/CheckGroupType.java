@@ -7,6 +7,7 @@ import io.github.biezhi.wechat.utils.StringUtils;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by IntelliJ IDEA.
@@ -41,17 +42,17 @@ public class CheckGroupType {
     private static List<String> BLACK_LIST = new LinkedList<>();
 
     static {
-        WHITE_LIST.addAll(Arrays.asList(GROUP_WHITELIST.split("#")));
+        WHITE_LIST.addAll(Arrays.stream(GROUP_WHITELIST.split("#")).filter(StringUtils::isNotEmpty).collect(Collectors.toList()));
 
-        WHITE_KEYWORD_LIST.addAll(Arrays.asList(GROUP_WHITE_KEYWORD.split("#")));
+        WHITE_KEYWORD_LIST.addAll(Arrays.stream(GROUP_WHITE_KEYWORD.split("#")).filter(StringUtils::isNotEmpty).collect(Collectors.toList()));
 
-        BLACK_KEYWORD_LIST.addAll(Arrays.asList(GROUP_BLACK_KEYWORD.split("#")));
+        BLACK_KEYWORD_LIST.addAll(Arrays.stream(GROUP_BLACK_KEYWORD.split("#")).filter(StringUtils::isNotEmpty).collect(Collectors.toList()));
 
-        BLACK_LIST.addAll(Arrays.asList(GROUP_BLACKLIST.split("#")));
+        BLACK_LIST.addAll(Arrays.stream(GROUP_BLACKLIST.split("#")).filter(StringUtils::isNotEmpty).collect(Collectors.toList()));
 
-        WEATHER_ONLY_LIST.addAll(Arrays.asList(GROUP_WEATHER_ONLY.split("#")));
+        WEATHER_ONLY_LIST.addAll(Arrays.stream(GROUP_WEATHER_ONLY.split("#")).filter(StringUtils::isNotEmpty).collect(Collectors.toList()));
 
-        WEATHER_KEYWORD_LIST.addAll(Arrays.asList(GROUP_WEATHER_KEYWORD.split("#")));
+        WEATHER_KEYWORD_LIST.addAll(Arrays.stream(GROUP_WEATHER_KEYWORD.split("#")).filter(StringUtils::isNotEmpty).collect(Collectors.toList()));
     }
 
 

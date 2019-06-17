@@ -3,8 +3,6 @@ package utils;
 import config.QingWeatherCityConfig;
 import entity.QingWeatherCityEntity;
 import io.github.biezhi.wechat.utils.StringUtils;
-
-import java.sql.SQLOutput;
 import java.util.List;
 
 public class CityIdUtil {

@@ -7,6 +7,7 @@ import io.github.biezhi.wechat.utils.StringUtils;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by IntelliJ IDEA.
@@ -25,9 +26,9 @@ public class CheckFriendType {
     private static List<String> FRIEND_WHITE_LIST = new LinkedList<>();
 
     static {
-        FRIEND_BLACK_LIST.addAll(Arrays.asList(FRIEND_BLACK.split("#")));
+        FRIEND_BLACK_LIST.addAll(Arrays.stream(FRIEND_BLACK.split("#")).filter(StringUtils::isNotEmpty).collect(Collectors.toList()));
 
-        FRIEND_WHITE_LIST.addAll(Arrays.asList(FRIEND_WHITE.split("#")));
+        FRIEND_WHITE_LIST.addAll(Arrays.stream(FRIEND_WHITE.split("#")).filter(StringUtils::isNotEmpty).collect(Collectors.toList()));
     }
 
     public static FriendType checkFriendType(String friendName){
