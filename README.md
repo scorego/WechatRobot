@@ -4,6 +4,13 @@
 
 ---
 
+## TODO
+
+- 每日一句
+- AT_ME消息的识别
+
+---
+
 ### 配置及使用
   
 配置文件是[`resource/config.properties`](https://github.com/scorego/WechatRobot/blob/master/src/main/resources/config.properties)。  
@@ -36,6 +43,6 @@
 
 RollToolsApi：https://github.com/MZCretin/RollToolsApi  
 
-### 协议
+### LICENSE
 
 [MIT](https://github.com/scorego/WechatRobot/blob/master/LICENSE.md)
