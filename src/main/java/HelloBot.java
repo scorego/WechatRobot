@@ -10,13 +10,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class WechatBot extends WeChatBot {
+public class HelloBot extends WeChatBot {
 
-    private static final Logger log = LoggerFactory.getLogger(WechatBot.class);
+    private static final Logger log = LoggerFactory.getLogger(HelloBot.class);
 
     private static final String PREFIX = GlobalConfig.getValue("reply-prefix","");
 
-    private WechatBot(Config config) {
+    private HelloBot(Config config) {
         super(config);
     }
 
@@ -47,7 +47,7 @@ public class WechatBot extends WeChatBot {
     }
 
     public static void main(String[] args) {
-        new WechatBot(Config.me().autoLogin(true).showTerminal(true)).start();
+        new HelloBot(Config.me().autoLogin(true).showTerminal(true)).start();
     }
 
 

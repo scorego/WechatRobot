@@ -1,3 +1,4 @@
+import api.EveryDayHelloApi;
 import api.WeatherApi;
 
 public class HttpTest {
@@ -10,5 +11,8 @@ public class HttpTest {
             String response = WeatherApi.getWeatherByKeyword(cityName + "天气");
             System.out.println(response);
         }
+
+        String everydayHello = EveryDayHelloApi.getEverydayHello();
+        System.out.println(everydayHello);
     }
 }
