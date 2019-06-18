@@ -6,7 +6,7 @@
 
 ### 配置及使用
   
-配置文件是`resource/config.properties`。  
+配置文件是[`resource/config.properties`](https://github.com/scorego/WechatRobot/blob/master/src/main/resources/config.properties)。  
 程序入口：`WechatBot.java`  
 启动程序后使用微信扫描控制台输出的二维码。有时候需要多扫几次才能成功登陆。停止程序短时间内可免扫码直接登陆。   
 提示：任何非官方途径登陆网页微信都有可能导致封停账号登陆网页微信的权限。建议使用小号。   
@@ -18,7 +18,7 @@
 
 #### 2. 自动回复好友
 
-将配置文件相应配置设为`true`，便自动回复好友消息。
+将配置文件`autoReplyFriend`设为`true`，便自动回复好友消息。
 
 #### 3. 聊天
 

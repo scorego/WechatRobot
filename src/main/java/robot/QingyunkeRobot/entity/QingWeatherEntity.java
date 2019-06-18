@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 public class QingWeatherEntity {
-    private final int SUCCESS = 200;
+    private static final int SUCCESS = 200;
     private String time;
     private CityInfo cityInfo;
     private String date;
