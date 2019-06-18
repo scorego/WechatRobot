@@ -3,6 +3,8 @@ package config;
 import com.alibaba.fastjson.JSON;
 import lombok.Getter;
 import entity.QingWeatherCityEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -10,6 +12,8 @@ import java.util.List;
 
 
 public class QingWeatherCityConfig {
+
+    private static final Logger log = LoggerFactory.getLogger(QingWeatherCityConfig.class);
 
     private static final String CITY_JSON_FILE = GlobalConfig.getValue("cityJsonFile", "");
 
@@ -32,7 +36,7 @@ public class QingWeatherCityConfig {
             is.close();
             cityList = JSON.parseArray(sb.toString(), QingWeatherCityEntity.class);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("QingWeather::读取city数据出错!", e);
         } finally {
             if (cityList == null) {
                 cityList = new ArrayList<>(0);
