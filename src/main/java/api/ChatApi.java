@@ -1,7 +1,8 @@
 package api;
 
 import config.GlobalConfig;
-import io.github.biezhi.wechat.api.model.WeChatMessage;
+import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
+import me.xuxiaoxiao.chatapi.wechat.entity.message.WXText;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import robot.QingyunkeRobot.QingyunkeRobot;
@@ -17,8 +18,8 @@ public class ChatApi {
 
     private static final String CHAT_ROBOT = GlobalConfig.getValue("chatApi", "");
 
-    public static String chat(WeChatMessage message) {
-        String keyword = message.getText();
+    public static String chat(WXMessage message) {
+        String keyword = message.content;
         log.info("ChatApi::chat, keyword: {}",keyword);
 
         switch (CHAT_ROBOT) {

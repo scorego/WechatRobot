@@ -1,9 +1,9 @@
 package robot.QingyunkeRobot;
 
 import config.GlobalConfig;
+import org.apache.commons.lang3.StringUtils;
 import robot.QingyunkeRobot.entity.QingWeatherEntity;
 import com.alibaba.fastjson.JSON;
-import io.github.biezhi.wechat.utils.StringUtils;
 import utils.CityIdUtil;
 import utils.HttpRequestUtil;
 
@@ -12,11 +12,11 @@ public class QingWeather {
     private static final String QING_WEATHER = GlobalConfig.getValue("QingyunkeRobot.weather","");
 
     public static String getWeatherByCityId(String cityId) {
-        if (StringUtils.isEmpty(cityId)) {
+        if (StringUtils.isBlank(cityId)) {
             return null;
         }
         String response = HttpRequestUtil.doGet(QING_WEATHER + cityId);
-        if (StringUtils.isEmpty(response)){
+        if (StringUtils.isBlank(response)){
             return null;
         }
         QingWeatherEntity weather = JSON.parseObject(response, QingWeatherEntity.class);
@@ -25,7 +25,7 @@ public class QingWeather {
     }
 
     public static String getWeatherByKeyword(String keyWord) {
-        if (StringUtils.isEmpty(keyWord)) {
+        if (StringUtils.isBlank(keyWord)) {
             return null;
         }
         String cityName = keyWord.startsWith("天气") ?
@@ -33,7 +33,7 @@ public class QingWeather {
         return QingWeather.getWeatherByCityName(cityName);
     }
     public static String getWeatherByCityName(String cityName) {
-        if (StringUtils.isEmpty(cityName)) {
+        if (StringUtils.isBlank(cityName)) {
             return null;
         }
         if (cityName.endsWith("市")) {

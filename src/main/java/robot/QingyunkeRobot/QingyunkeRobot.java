@@ -1,9 +1,9 @@
 package robot.QingyunkeRobot;
 
 import config.GlobalConfig;
+import org.apache.commons.lang3.StringUtils;
 import robot.QingyunkeRobot.entity.QingyunkeResponseEntity;
 import com.alibaba.fastjson.JSON;
-import io.github.biezhi.wechat.utils.StringUtils;
 import utils.HttpRequestUtil;
 
 public class QingyunkeRobot {
@@ -12,11 +12,11 @@ public class QingyunkeRobot {
 
 
     public static String getResponse(String keyWord) {
-        if (StringUtils.isEmpty(keyWord)) {
+        if (StringUtils.isBlank(keyWord)) {
             return null;
         }
         String response = HttpRequestUtil.doGet(ChatRobot + keyWord);
-        if (StringUtils.isEmpty(response)) {
+        if (StringUtils.isBlank(response)) {
             return null;
         }
         QingyunkeResponseEntity qingResponse = JSON.parseObject(response, QingyunkeResponseEntity.class);
@@ -25,7 +25,7 @@ public class QingyunkeRobot {
     }
 
     private static String replaceBr(String content) {
-        if (StringUtils.isEmpty(content)) {
+        if (StringUtils.isBlank(content)) {
             return null;
         }
         return content.replace("{br}", "\n");

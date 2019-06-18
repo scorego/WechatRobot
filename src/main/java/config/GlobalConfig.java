@@ -1,10 +1,11 @@
 package config;
 
-import io.github.biezhi.wechat.utils.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 public class GlobalConfig {
@@ -16,18 +17,18 @@ public class GlobalConfig {
     static {
         pp = new Properties();
         try {
-            pp.load(new InputStreamReader(GlobalConfig.class.getResourceAsStream("/config.properties"), "UTF-8"));
+            pp.load(new InputStreamReader(GlobalConfig.class.getResourceAsStream("/config.properties"), StandardCharsets.UTF_8));
         } catch (Exception e) {
             log.error("读取config.properties文件异常!", e);
         }
     }
 
     public static String getValue(String key, String defaultValue) {
-        if (StringUtils.isEmpty(key)) {
+        if (StringUtils.isBlank(key)) {
             return defaultValue;
         }
         String value = pp.getProperty(key);
-        return StringUtils.isEmpty(value) ? defaultValue : value;
+        return StringUtils.isBlank(value) ? defaultValue : value;
     }
 }
 

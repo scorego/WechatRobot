@@ -1,12 +1,13 @@
 package api;
 
 import config.GlobalConfig;
-import io.github.biezhi.wechat.api.model.WeChatMessage;
+import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import robot.QingyunkeRobot.QingWeather;
-import io.github.biezhi.wechat.utils.StringUtils;
 import robot.RollToolsApi.RollWeather;
+import utils.AtMeMsg;
 
 /**
  * 查询天气API
@@ -28,7 +29,7 @@ public class WeatherApi {
             return null;
         }
         String cityName = keyword.startsWith("天气") ? keyword.substring(2) : keyword.substring(0, keyword.length() - 2);
-        String response =getWeatherByCityName(cityName);
+        String response = getWeatherByCityName(cityName);
         if (StringUtils.isEmpty(response)) {
             response = "抱歉，未查询到\"" + keyword + "\"。" + "只支持查询国内(部分)市、区、县天气。";
         }
@@ -49,13 +50,16 @@ public class WeatherApi {
     }
 
 
-    public static String dealWeatherMsg(WeChatMessage message){
-        String keyword = message.getText();
-        if (StringUtils.isEmpty(keyword)){
+    public static String dealWeatherMsg(WXMessage message) {
+        String keyword = AtMeMsg.removeAtFix(message);
+        if (StringUtils.isEmpty(keyword)) {
             return null;
         }
-        if ("天气预报".equals(keyword)){
-            return getWeatherByCityName("北京") + "输入指定市/区/县查天气。";
+        if ("天气预报".equals(keyword) || "天气".equals(keyword)) {
+            String fromUserCity = message.fromUser.city;
+            String response = getWeatherByCityName(fromUserCity);
+            return StringUtils.isBlank(response) ?
+                    getWeatherByCityName("北京") + "输入指定市/区/县查天气。" : response;
         }
         if (keyword.startsWith("天气") || keyword.endsWith("天气")) {
             return getWeatherByKeyword(keyword);

@@ -1,8 +1,8 @@
 package everydayHelloMessage;
 
 import config.GlobalConfig;
-import io.github.biezhi.wechat.utils.StringUtils;
 import lombok.Getter;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -21,9 +21,9 @@ public class EveryDayHelloWhiteList {
 
     private EveryDayHelloWhiteList(){
         group = new LinkedList<>();
-        group.addAll(Arrays.stream(EVERYDAY_HELLO_GROUP_WHITE_LIST.split("#")).filter(StringUtils::isNotEmpty).collect(Collectors.toList()));
+        group.addAll(Arrays.stream(EVERYDAY_HELLO_GROUP_WHITE_LIST.split("#")).filter(StringUtils::isNoneBlank).collect(Collectors.toList()));
         friend = new LinkedList<>();
-        friend.addAll(Arrays.stream(EVERYDAY_HELLO_FRIEND_WHITE_LIST.split("#")).filter(StringUtils::isNotEmpty).collect(Collectors.toList()));
+        friend.addAll(Arrays.stream(EVERYDAY_HELLO_FRIEND_WHITE_LIST.split("#")).filter(StringUtils::isNoneBlank).collect(Collectors.toList()));
     }
 
     public static EveryDayHelloWhiteList getInstance(){

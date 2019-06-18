@@ -3,12 +3,12 @@ package groupMessage;
 import api.ChatApi;
 import api.WeatherApi;
 import enums.GroupType;
-import io.github.biezhi.wechat.api.model.WeChatMessage;
-import io.github.biezhi.wechat.utils.StringUtils;
+import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.AtMeMsg;
 
-import java.security.acl.Group;
 
 public class GroupChat {
 
@@ -31,8 +31,8 @@ public class GroupChat {
     }
 
 
-    public String dealGroupMsg(WeChatMessage message) {
-        String groupName = message.getName();
+    public String dealGroupMsg(WXMessage message) {
+        String groupName = message.fromGroup.name;
         GroupType groupType = CheckGroupType.checkGroupType(groupName);
         log.info("GroupChat::dealGroupMsg, 群:{}, GroupType:{}",groupName, groupType);
         switch (groupType) {
@@ -49,17 +49,17 @@ public class GroupChat {
     }
 
 
-    private String dealWeatherQueryMsg(WeChatMessage message) {
-        String keyword = message.getText();
+    private String dealWeatherQueryMsg(WXMessage message) {
+        String keyword = AtMeMsg.removeAtFix(message);
         if (keyword != null && (keyword.startsWith("天气") || keyword.endsWith("天气"))) {
             return WeatherApi.dealWeatherMsg(message);
         }
         return null;
     }
 
-    private String dealAllMsg(WeChatMessage message) {
-        String keyword = message.getText();
-        if (StringUtils.isEmpty(keyword)) {
+    private String dealAllMsg(WXMessage message) {
+        String keyword = AtMeMsg.removeAtFix(message);
+        if (StringUtils.isBlank(keyword)) {
             return null;
         }
         String response;
@@ -74,7 +74,7 @@ public class GroupChat {
         if (StringUtils.isEmpty(response)) {
             return response;
         }
-        String atMePreFix = message.isAtMe() ? "@" + message.getFromNickName() + " " : "";
+        String atMePreFix = AtMeMsg.isAtMe(message) ?  " @" + message.fromUser.name + " " : "";
 
         return atMePreFix + response;
     }

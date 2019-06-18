@@ -2,13 +2,15 @@ package groupMessage;
 
 import config.GlobalConfig;
 import enums.GroupType;
-import io.github.biezhi.wechat.utils.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 /**
@@ -46,53 +48,59 @@ public class CheckGroupType {
     private static List<String> BLACK_LIST = new LinkedList<>();
 
     static {
-        WHITE_LIST.addAll(Arrays.stream(GROUP_WHITELIST.split("#")).filter(StringUtils::isNotEmpty).collect(Collectors.toList()));
+        WHITE_LIST.addAll(Arrays.stream(GROUP_WHITELIST.split("#")).filter(StringUtils::isNoneBlank).collect(Collectors.toList()));
 
-        WHITE_KEYWORD_LIST.addAll(Arrays.stream(GROUP_WHITE_KEYWORD.split("#")).filter(StringUtils::isNotEmpty).collect(Collectors.toList()));
+        WHITE_KEYWORD_LIST.addAll(Arrays.stream(GROUP_WHITE_KEYWORD.split("#")).filter(StringUtils::isNoneBlank).collect(Collectors.toList()));
 
-        BLACK_KEYWORD_LIST.addAll(Arrays.stream(GROUP_BLACK_KEYWORD.split("#")).filter(StringUtils::isNotEmpty).collect(Collectors.toList()));
+        BLACK_KEYWORD_LIST.addAll(Arrays.stream(GROUP_BLACK_KEYWORD.split("#")).filter(StringUtils::isNoneBlank).collect(Collectors.toList()));
 
-        BLACK_LIST.addAll(Arrays.stream(GROUP_BLACKLIST.split("#")).filter(StringUtils::isNotEmpty).collect(Collectors.toList()));
+        BLACK_LIST.addAll(Arrays.stream(GROUP_BLACKLIST.split("#")).filter(StringUtils::isNoneBlank).collect(Collectors.toList()));
 
-        WEATHER_ONLY_LIST.addAll(Arrays.stream(GROUP_WEATHER_ONLY.split("#")).filter(StringUtils::isNotEmpty).collect(Collectors.toList()));
+        WEATHER_ONLY_LIST.addAll(Arrays.stream(GROUP_WEATHER_ONLY.split("#")).filter(StringUtils::isNoneBlank).collect(Collectors.toList()));
 
-        WEATHER_KEYWORD_LIST.addAll(Arrays.stream(GROUP_WEATHER_KEYWORD.split("#")).filter(StringUtils::isNotEmpty).collect(Collectors.toList()));
+        WEATHER_KEYWORD_LIST.addAll(Arrays.stream(GROUP_WEATHER_KEYWORD.split("#")).filter(StringUtils::isNoneBlank).collect(Collectors.toList()));
     }
 
+    private static Map<String, GroupType> cache = new ConcurrentHashMap<>();
 
     public static GroupType checkGroupType(String from) {
-        if (StringUtils.isEmpty(from)) {
+        if (StringUtils.isBlank(from)) {
             return GroupType.GROUP_NOT_EXISTS;
         }
 
+        if (cache.containsKey(from)) {
+            return cache.getOrDefault(from, GroupType.GROUP_NOT_EXISTS);
+        }
+
+        GroupType type = GroupType.GROUP_DEFAULT;
         for (String s : BLACK_KEYWORD_LIST) {
             if (from.contains(s))
-                return GroupType.GROUP_BLACKLIST;
+                type = GroupType.GROUP_BLACKLIST;
         }
         for (String s : BLACK_LIST) {
             if (from.equals(s))
-                return GroupType.GROUP_BLACKLIST;
+                type = GroupType.GROUP_BLACKLIST;
         }
 
         for (String s : WHITE_KEYWORD_LIST) {
             if (from.contains(s))
-                return GroupType.GROUP_WHITELIST;
+                type = GroupType.GROUP_WHITELIST;
         }
         for (String s : WHITE_LIST) {
             if (from.equals(s))
-                return GroupType.GROUP_WHITELIST;
+                type = GroupType.GROUP_WHITELIST;
         }
 
-        for (String s : WEATHER_KEYWORD_LIST){
-            if (from.contains(s)){
-                return GroupType.GROUP_WEATHER_ONLY;
+        for (String s : WEATHER_KEYWORD_LIST) {
+            if (from.contains(s)) {
+                type = GroupType.GROUP_WEATHER_ONLY;
             }
         }
         for (String s : WEATHER_ONLY_LIST) {
             if (from.equals(s))
-                return GroupType.GROUP_WEATHER_ONLY;
+                type = GroupType.GROUP_WEATHER_ONLY;
         }
-
-        return GroupType.GROUP_DEFAULT;
+        cache.put(from, type);
+        return type;
     }
 }

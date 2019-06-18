@@ -1,16 +1,17 @@
+package main;
 
 import friendMessage.FriendChat;
 import groupMessage.GroupChat;
-import io.github.biezhi.wechat.api.model.WeChatMessage;
+import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
 
 public class DealMessage {
 
 
-    public static String dealGroupMsg(WeChatMessage message) {
+    public static String dealGroupMsg(WXMessage message) {
         return GroupChat.getInstance().dealGroupMsg(message);
     }
 
-    public static String dealFriendMsg(WeChatMessage message) {
+    public static String dealFriendMsg(WXMessage message) {
         return FriendChat.dealFriendMsg(message);
     }
 

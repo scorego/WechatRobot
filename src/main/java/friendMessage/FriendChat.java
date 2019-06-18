@@ -2,7 +2,7 @@ package friendMessage;
 
 import api.ChatApi;
 import config.GlobalConfig;
-import io.github.biezhi.wechat.api.model.WeChatMessage;
+import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,11 +16,11 @@ public class FriendChat {
 
     private static final String autoReplyFriendMsg = GlobalConfig.getValue("autoReplyFriendMsg", "");
 
-    public static String dealFriendMsg(WeChatMessage message) {
+    public static String dealFriendMsg(WXMessage message) {
         if (autoReplyFriend) {
             return autoReplyFriend(message);
         }
-        switch (CheckFriendType.checkFriendType(message.getFromNickName())) {
+        switch (CheckFriendType.checkFriendType(message.fromUser.name)) {
             case FRIEND_WHITE:
                 return ChatApi.chat(message);
             case FRIEND_DEFAULT:
@@ -30,7 +30,7 @@ public class FriendChat {
         }
     }
 
-    private static String autoReplyFriend(WeChatMessage message) {
+    private static String autoReplyFriend(WXMessage message) {
         return autoReplyFriendMsg;
     }
 }

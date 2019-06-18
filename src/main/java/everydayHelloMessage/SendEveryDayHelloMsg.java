@@ -1,8 +1,6 @@
 package everydayHelloMessage;
 
 import api.EveryDayHelloApi;
-import io.github.biezhi.wechat.WeChatBot;
-import io.github.biezhi.wechat.api.WeChatApi;
 
 /**
  * Created by IntelliJ IDEA.

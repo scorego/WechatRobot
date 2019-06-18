@@ -1,7 +1,7 @@
 package api;
 
 import config.GlobalConfig;
-import io.github.biezhi.wechat.utils.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import robot.Ciba.CibaEveryDayHello;
 
 /**
@@ -18,7 +18,7 @@ public class EveryDayHelloApi {
 
     public static String getEverydayHello() {
         String msg = getMsg();
-        return StringUtils.isEmpty(msg) ? DEFAULT_EVERYDAY_HELLO : msg;
+        return StringUtils.isBlank(msg) ? DEFAULT_EVERYDAY_HELLO : msg;
     }
 
     private static String getMsg() {

@@ -1,7 +1,7 @@
 package robot.QingyunkeRobot.entity;
 
 
-import io.github.biezhi.wechat.utils.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class QingyunkeResponseEntity {
 
@@ -11,7 +11,7 @@ public class QingyunkeResponseEntity {
 
 
     public boolean isValid(){
-        return code == 0 && StringUtils.isNotEmpty(content);
+        return code == 0 && StringUtils.isNotBlank(content);
     }
 
     public int getCode() {

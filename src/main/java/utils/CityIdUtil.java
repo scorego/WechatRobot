@@ -2,7 +2,7 @@ package utils;
 
 import config.QingWeatherCityConfig;
 import entity.QingWeatherCityEntity;
-import io.github.biezhi.wechat.utils.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 
 public class CityIdUtil {
@@ -29,11 +29,11 @@ public class CityIdUtil {
 
 
     public  String getCityId(String cityName) {
-        if (StringUtils.isEmpty(cityName)) {
+        if (StringUtils.isBlank(cityName)) {
             return null;
         }
         for (QingWeatherCityEntity cityEntity : cityList) {
-            if (cityEntity.getCity_name().equals(cityName) && StringUtils.isNotEmpty(cityEntity.getCity_code())) {
+            if (cityEntity.getCity_name().equals(cityName) && StringUtils.isNotBlank(cityEntity.getCity_code())) {
                 return cityEntity.getCity_code();
             }
         }
