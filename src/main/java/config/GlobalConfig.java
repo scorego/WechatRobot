@@ -16,7 +16,7 @@ public class GlobalConfig {
     static {
         pp = new Properties();
         try {
-            pp.load(new InputStreamReader(GlobalConfig.class.getResourceAsStream("/config.properties"), "GBK"));
+            pp.load(new InputStreamReader(GlobalConfig.class.getResourceAsStream("/config.properties"), "UTF-8"));
         } catch (Exception e) {
             log.error("读取config.properties文件异常!", e);
         }

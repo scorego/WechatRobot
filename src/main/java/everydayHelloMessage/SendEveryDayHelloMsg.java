@@ -12,7 +12,7 @@ import io.github.biezhi.wechat.api.WeChatApi;
  */
 public class SendEveryDayHelloMsg {
 
-//
+
 //    public static void SendEveryDayHelloMsg(){
 //        String msg = EveryDayHelloApi.getEverydayHello()
 //
