@@ -29,6 +29,7 @@ public class WeatherApi {
             return null;
         }
         String cityName = keyword.startsWith("天气") ? keyword.substring(2) : keyword.substring(0, keyword.length() - 2);
+        cityName = cityName.trim();
         String response = getWeatherByCityName(cityName);
         if (StringUtils.isEmpty(response)) {
             response = "抱歉，未查询到\"" + keyword + "\"。" + "只支持查询国内(部分)市、区、县天气。";
@@ -59,7 +60,7 @@ public class WeatherApi {
             String fromUserCity = message.fromUser.city;
             String response = getWeatherByCityName(fromUserCity);
             return StringUtils.isBlank(response) ?
-                    "抱歉，未获取到您所在城市(" + fromUserCity +")天气，可输入指定市/区/县查天气。" : response;
+                    "抱歉，未获取到您所在城市(" + fromUserCity + ")天气，可输入指定市/区/县查天气。" : response;
         }
         if (keyword.startsWith("天气") || keyword.endsWith("天气")) {
             return getWeatherByKeyword(keyword);

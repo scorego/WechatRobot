@@ -52,10 +52,10 @@ public class GroupChat {
     private String dealWeatherQueryMsg(WXMessage message) {
         String keyword = message.content;
         // 太长的句子不太像是查询天气的
-        if (keyword.length() > 8){
+        if (keyword == null || keyword.length() > 8){
             return null;
         }
-        if (keyword != null && (keyword.startsWith("天气") || keyword.endsWith("天气"))) {
+        if ((keyword.startsWith("天气") || keyword.endsWith("天气"))) {
             return WeatherApi.dealWeatherMsg(message);
         }
         return null;
