@@ -51,7 +51,7 @@ public class WeatherApi {
 
 
     public static String dealWeatherMsg(WXMessage message) {
-        String keyword = AtMeMsg.removeAtFix(message);
+        String keyword = message.content;
         if (StringUtils.isEmpty(keyword)) {
             return null;
         }
@@ -59,7 +59,7 @@ public class WeatherApi {
             String fromUserCity = message.fromUser.city;
             String response = getWeatherByCityName(fromUserCity);
             return StringUtils.isBlank(response) ?
-                    getWeatherByCityName("北京") + "输入指定市/区/县查天气。" : response;
+                    "抱歉，未获取到您所在城市(" + fromUserCity +")天气，可输入指定市/区/县查天气。" : response;
         }
         if (keyword.startsWith("天气") || keyword.endsWith("天气")) {
             return getWeatherByKeyword(keyword);

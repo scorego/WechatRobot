@@ -1,7 +1,9 @@
 package robot.QingyunkeRobot.entity;
 
+import cons.WxMsg;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -20,9 +22,15 @@ public class QingWeatherEntity {
     }
 
     public String getWeather() {
-        return cityInfo.getCity()
-                + "今日天气:" + data.toString()
-                + "更新时间:" + time.substring(11);
+        String today = date.substring(date.length() - 2);
+        for (OtherDay thisDay : data.getForecast()) {
+            if (thisDay.getDate().equals(today)) {
+                return cityInfo.getCity() + " " + thisDay.getWeather();
+            }
+        }
+        return cityInfo.getCity() + "今日天气:"
+                + data.toString()
+                + "更新时间" + time.substring(11);
     }
 }
 
@@ -44,6 +52,7 @@ class WeatherData {
     private String ganmao;
     private OtherDay yesterday;
     private List<OtherDay> forecast;
+
 
     @Override
     public String toString() {
@@ -70,4 +79,12 @@ class OtherDay {
     private String fl;
     private String type;
     private String notice;
+
+    String getWeather() {
+        return ymd + " " + week + WxMsg.LINE
+                + "【天气】 " + type + WxMsg.LINE
+                + "【温度】 " + high + " ," + low + WxMsg.LINE
+                + "【风力】 " + fx + " " + fl + WxMsg.LINE
+                + "【提示】 " + notice + WxMsg.LINE;
+    }
 }

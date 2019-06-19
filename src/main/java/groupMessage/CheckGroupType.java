@@ -33,7 +33,7 @@ public class CheckGroupType {
 
     private static final String GROUP_WEATHER_ONLY = GlobalConfig.getValue("group.weatherOnly", "");
 
-    private static final String GROUP_WEATHER_KEYWORD = GlobalConfig.getValue("group.weatherKeyword", "");
+    private static final String GROUP_WEATHER_KEYWORD = GlobalConfig.getValue("group.weatherOnlyKeyword", "");
 
     private static List<String> WHITE_LIST = new LinkedList<>();
 

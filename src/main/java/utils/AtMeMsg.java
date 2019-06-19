@@ -1,9 +1,15 @@
 package utils;
 
+import com.alibaba.fastjson.asm.MethodWriter;
 import config.GlobalConfig;
+import cons.WxMsg;
+import me.xuxiaoxiao.chatapi.wechat.entity.contact.WXGroup;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
 /**
@@ -13,6 +19,8 @@ import java.util.regex.Pattern;
  * @date 2019/6/18 20:34
  */
 public class AtMeMsg {
+
+    private static final Logger log = LoggerFactory.getLogger(AtMeMsg.class);
 
     private static final String USER_NICKNAME = GlobalConfig.getValue("userNickName", "");
 
@@ -29,26 +37,34 @@ public class AtMeMsg {
      * @return
      */
     public static boolean isAtMe(WXMessage message) {
-        return StringUtils.isNotBlank(USER_NICKNAME) && message.content.contains(AT_ME_STRING);
+        return message.content.contains(atMeFix(message));
     }
-
-    public static String removeAtFix(WXMessage message) {
-        String content = message.content;
-        if (StringUtils.isBlank(content)) {
-            return "";
-        }
-        while (content.contains("@")) {
-            int i = firstIndex(content,'@');
-            int j = firstIndex(content,' ');
-            if (i > 0 && j > 0) {
-                content = content.substring(0, i + 1) + content.substring(j + 1);
-            } else if (i > 0) {
-                content = content.substring(0, i + 1);
-            }else{
+    private static String atMeFix(WXMessage message){
+        String myName = message.toContact.name;
+        HashMap<String, WXGroup.Member> members = message.fromGroup.members;
+        for(HashMap.Entry<String, WXGroup.Member> entry : members.entrySet()){
+            if (myName.equals(entry.getValue().name)){
+                if (StringUtils.isNotBlank( entry.getValue().display)){
+                    myName = entry.getValue().display;
+                }
                 break;
             }
         }
-        return content;
+        return "@" + myName+ WxMsg.AT_ME_SPACE;
+    }
+
+    public static void removeAtFix(WXMessage message) {
+        String content = message.content;
+        if (StringUtils.isBlank(content)) {
+            return ;
+        }
+        String prefix = atMeFix(message);
+
+        if (!content.contains(prefix)) {
+             return;
+        }
+        message.content = content.replace(prefix, " ").trim();
+        log.info("AtMeMsg::removeAtFix, content:{}, newContent:{}", content, message.content);
     }
 
     private static int firstIndex(String s, char c) {

@@ -1,10 +1,13 @@
 package main;
 
+import api.EveryDayHelloApi;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import config.GlobalConfig;
+import cons.WxMsg;
 import me.xuxiaoxiao.chatapi.wechat.WeChatClient;
 import me.xuxiaoxiao.chatapi.wechat.entity.contact.WXContact;
+import me.xuxiaoxiao.chatapi.wechat.entity.contact.WXGroup;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXLocation;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXText;
@@ -43,6 +46,10 @@ public class WechatBot {
         @Override
         public void onLogin(@Nonnull WeChatClient client) {
             log.info("onLogin：您有{}名好友，活跃微信群{}个", client.userFriends().size(), client.userGroups().size());
+            WXGroup group = client.userGroups().getOrDefault("EverydayWechat 交流群", null);
+            if (group != null) {
+                client.sendText(group, EveryDayHelloApi.getEverydayHello());
+            }
         }
 
         @Override
@@ -50,9 +57,10 @@ public class WechatBot {
             log.info("获取到消息：{}", GSON.toJson(message));
 
             if (message instanceof WXVerify) {
-                log.info("判定为好友请求消息。");
-                //是好友请求消息，自动同意好友申请
-                client.passVerify((WXVerify) message);
+                //是好友请求消息
+                log.info("判定为好友请求消息。来自:{}", message.fromUser.name);
+//                同意好友请求
+//                client.passVerify((WXVerify) message);
             } else if (message instanceof WXLocation && message.fromUser != null && !message.fromUser.id.equals(client.userMe().id)) {
 //                // 如果对方告诉我他的位置，发送消息的不是自己，则我也告诉他我的位置
 //                if (message.fromGroup != null) {
@@ -64,17 +72,26 @@ public class WechatBot {
 //                }
             } else if (message instanceof WXText && message.fromUser != null && !message.fromUser.id.equals(client.userMe().id)) {
                 //是文字消息，并且发送消息的人不是自己
+
                 if (message.fromGroup != null) {
-                    log.info("判定为文字消息。来自于群：{}, 内容: {}", message.fromGroup.name, message.content);
-                    String response = DealMessage.dealGroupMsg(message);
+                    boolean isAtMe = AtMeMsg.isAtMe(message);
+                    log.info("判定为文字消息。来自于群：{}, 群成员: {}，@我: {}, 内容: {}", message.fromGroup.name, message.fromUser.name, isAtMe, message.content);
+                    String response = null;
+                    if (isAtMe) {
+                        AtMeMsg.removeAtFix(message);
+                        response = DealMessage.dealGroupMsg(message);
+                    } else {
+                        response = DealMessage.dealGroupMsg(message);
+                    }
+
                     if (StringUtils.isNotBlank(response)) {
-                        String atMePrefix = AtMeMsg.isAtMe(message) ? " @" + message.fromUser.name + " " : " ";
+                        String atMePrefix = " @" + message.fromUser.name + WxMsg.AT_ME_SPACE + WxMsg.LINE;
                         response = REPLY_PREFIX + atMePrefix + response;
                         log.info("回复消息，to:{}, content: {}", message.fromGroup.name, response);
                         client.sendText(message.fromGroup, response);
                     }
                 } else {
-                    log.info("判定为文字消息。来自于好友：{}，内容: {}", message.fromUser.name, message.content);
+                    log.info("判定为文字消息。来自于好友：{}, 好友备注: {}，内容: {}", message.fromUser.name, message.fromUser.remark, message.content);
                     String response = DealMessage.dealFriendMsg(message);
                     if (StringUtils.isNotBlank(response)) {
                         response = REPLY_PREFIX + response;
@@ -87,7 +104,7 @@ public class WechatBot {
 
         @Override
         public void onContact(@Nonnull WeChatClient client, @Nullable WXContact oldContact, @Nullable WXContact newContact) {
-            log.info("检测到联系人变更:旧联系人名称：{}, 新联系人名称：{}", (oldContact == null ? "null" : oldContact.name), (newContact == null ? "null" : newContact.name));
+            log.info("检测到联系人变更: 旧联系人名称：{}, 新联系人名称：{}", (oldContact == null ? "null" : oldContact.name), (newContact == null ? "null" : newContact.name));
         }
     };
 

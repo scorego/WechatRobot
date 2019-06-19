@@ -8,6 +8,7 @@ public class DealMessage {
 
 
     public static String dealGroupMsg(WXMessage message) {
+
         return GroupChat.getInstance().dealGroupMsg(message);
     }
 

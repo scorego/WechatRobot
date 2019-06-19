@@ -29,7 +29,7 @@ public class CibaEveryDayHelloEntity {
     private String fenxiang_img;
 
     public String getSentence() {
-        return content + "\n" + note;
+        return content  + note;
     }
 }
 
