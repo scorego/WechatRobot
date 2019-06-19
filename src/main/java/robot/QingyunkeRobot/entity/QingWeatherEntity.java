@@ -25,10 +25,10 @@ public class QingWeatherEntity {
         String today = date.substring(date.length() - 2);
         for (OtherDay thisDay : data.getForecast()) {
             if (thisDay.getDate().equals(today)) {
-                return cityInfo.getCity() + " " + thisDay.getWeather();
+                return cityInfo.getCityName() + " " + thisDay.getWeather();
             }
         }
-        return cityInfo.getCity() + "今日天气:"
+        return cityInfo.getCityName() + "今日天气:"
                 + data.toString()
                 + "更新时间" + time.substring(11);
     }
@@ -40,6 +40,20 @@ class CityInfo {
     private String cityID;
     private String parent;
     private String updateTime;
+
+    String getCityName() {
+        switch (city) {
+            case "北京市":
+            case "天津市":
+            case "重庆市":
+            case "上海市":
+                return city;
+            default:
+                return parent + city;
+        }
+
+    }
+
 }
 
 @Data
