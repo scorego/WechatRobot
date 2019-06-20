@@ -1,10 +1,13 @@
 package main;
 
+import IdentifyCommand.PreProcessMessage;
 import api.EveryDayHelloApi;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import config.GlobalConfig;
 import cons.WxMsg;
+import main.facade.DealMessage;
+import main.facade.DoCommand;
 import me.xuxiaoxiao.chatapi.wechat.WeChatClient;
 import me.xuxiaoxiao.chatapi.wechat.entity.contact.WXContact;
 import me.xuxiaoxiao.chatapi.wechat.entity.contact.WXGroup;
@@ -15,7 +18,6 @@ import me.xuxiaoxiao.chatapi.wechat.entity.message.WXVerify;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import utils.AtMeMsg;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -62,33 +64,31 @@ public class WechatBot {
 //                同意好友请求
 //                client.passVerify((WXVerify) message);
             } else if (message instanceof WXLocation && message.fromUser != null && !message.fromUser.id.equals(client.userMe().id)) {
-//                // 如果对方告诉我他的位置，发送消息的不是自己，则我也告诉他我的位置
-//                if (message.fromGroup != null) {
-//                    // 群消息
+                // 位置消息
+                if (message.fromGroup != null) {
+                    // 群消息
+                    log.info("判定为位置消息。来自群: {}，用户: {}", message.fromGroup.name, message.fromUser.name);
 //                    // client.sendLocation(message.fromGroup, "120.14556", "30.23856", "我在这里", "西湖");
-//                } else {
-//                    // 用户消息
-//                    client.sendLocation(message.fromUser, "120.14556", "30.23856", "我在这里", "西湖");
-//                }
+                } else {
+                    // 用户消息
+                    log.info("判定为位置消息。来自用户: {}", message.fromUser.name);
+                    client.sendLocation(message.fromUser, "120.14556", "30.23856", "我在这里", "西湖");
+                }
             } else if (message instanceof WXText && message.fromUser != null && !message.fromUser.id.equals(client.userMe().id)) {
                 //是文字消息，并且发送消息的人不是自己
 
                 if (message.fromGroup != null) {
-                    boolean isAtMe = AtMeMsg.isAtMe(message);
-                    log.info("判定为文字消息。来自于群：{}, 群成员: {}，isAtMe: {}, 内容: {}", message.fromGroup.name, message.fromUser.name, isAtMe, message.content);
-                    String response = null;
-                    if (isAtMe) {
-                        AtMeMsg.removeAtFix(message);
-                        response = DealMessage.dealGroupMsg(message);
-                    } else {
-                        response = DealMessage.dealGroupMsg(message);
-                    }
-
-                    if (StringUtils.isNotBlank(response)) {
-                        String atMePrefix = " @" + message.fromUser.name + WxMsg.AT_ME_SPACE + WxMsg.LINE;
-                        response = REPLY_PREFIX + atMePrefix + response;
-                        log.info("回复消息，to:{}, content: {}", message.fromGroup.name, response);
-                        client.sendText(message.fromGroup, response);
+                    boolean isCommand = PreProcessMessage.isCommand(message);
+                    log.info("判定为文字消息。来自于群：{}, 群成员: {}，isCommand: {}, 内容: {}", message.fromGroup.name, message.fromUser.name, isCommand, message.content);
+                    if (isCommand) {
+                        PreProcessMessage.removeCommandFix(message);
+                        String response = DoCommand.doGroupCommand(message);
+                        if (StringUtils.isNotBlank(response)) {
+                            String atMePrefix = " @" + message.fromUser.name + WxMsg.AT_ME_SPACE + WxMsg.LINE;
+                            response = REPLY_PREFIX + atMePrefix + response;
+                            log.info("回复消息，to:{}, content: {}", message.fromGroup.name, response);
+                            client.sendText(message.fromGroup, response);
+                        }
                     }
                 } else {
                     log.info("判定为文字消息。来自于好友：{}, 好友备注: {}，内容: {}", message.fromUser.name, message.fromUser.remark, message.content);

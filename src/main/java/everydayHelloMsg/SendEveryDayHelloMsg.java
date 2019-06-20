@@ -1,6 +1,4 @@
-package everydayHelloMessage;
-
-import api.EveryDayHelloApi;
+package everydayHelloMsg;
 
 /**
  * Created by IntelliJ IDEA.

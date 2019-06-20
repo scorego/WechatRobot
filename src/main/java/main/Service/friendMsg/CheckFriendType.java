@@ -1,4 +1,4 @@
-package friendMessage;
+package main.Service.friendMsg;
 
 import config.GlobalConfig;
 import enums.FriendType;

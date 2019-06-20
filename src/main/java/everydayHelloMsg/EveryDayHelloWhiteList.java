@@ -1,4 +1,4 @@
-package everydayHelloMessage;
+package everydayHelloMsg;
 
 import config.GlobalConfig;
 import lombok.Getter;
