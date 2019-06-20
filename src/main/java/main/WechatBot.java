@@ -75,7 +75,7 @@ public class WechatBot {
 
                 if (message.fromGroup != null) {
                     boolean isAtMe = AtMeMsg.isAtMe(message);
-                    log.info("判定为文字消息。来自于群：{}, 群成员: {}，@我: {}, 内容: {}", message.fromGroup.name, message.fromUser.name, isAtMe, message.content);
+                    log.info("判定为文字消息。来自于群：{}, 群成员: {}，isAtMe: {}, 内容: {}", message.fromGroup.name, message.fromUser.name, isAtMe, message.content);
                     String response = null;
                     if (isAtMe) {
                         AtMeMsg.removeAtFix(message);
