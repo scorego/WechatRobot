@@ -56,7 +56,7 @@ public class PreProcessMessage {
     }
 
     public static String getCommandPrefix() {
-        return IS_DEFAULT_COMMAND_PREFIX ? "??" : CONFIG_COMMAND_PREFIX;
+        return IS_DEFAULT_COMMAND_PREFIX ? "？？" : CONFIG_COMMAND_PREFIX;
     }
 
     public static void removeCommandFix(WXMessage message) {
