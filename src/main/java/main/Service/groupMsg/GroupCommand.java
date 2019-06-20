@@ -39,7 +39,7 @@ public class GroupCommand {
             if (StringUtils.isBlank(response)) {
                 return null;
             }
-            return response + "【极速天气模式】更多模式输入" + PreProcessMessage.getCommandPrefix() + "了解。" + WxMsg.LINE;
+            return response + "【极速模式】更多模式输入" + PreProcessMessage.getCommandPrefix() + "了解。" + WxMsg.LINE;
         }
         switch (CheckCommandType.getInstance().checkCommandType(message.content)) {
             case COMMAND_HELP:
