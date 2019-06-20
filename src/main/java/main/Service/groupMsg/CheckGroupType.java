@@ -1,6 +1,7 @@
 package main.Service.groupMsg;
 
 import config.GlobalConfig;
+import enums.FriendType;
 import enums.GroupType;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -65,14 +66,19 @@ public class CheckGroupType {
 
     public static GroupType checkGroupType(String from) {
         if (StringUtils.isBlank(from)) {
+            log.info("checkGroupType, GroupName: {}, GroupType: {}", from, GroupType.GROUP_NOT_EXISTS);
             return GroupType.GROUP_NOT_EXISTS;
         }
 
+        GroupType type = GroupType.GROUP_DEFAULT;
+
         if (cache.containsKey(from)) {
-            return cache.getOrDefault(from, GroupType.GROUP_NOT_EXISTS);
+            type = cache.getOrDefault(from, GroupType.GROUP_NOT_EXISTS);
+            log.info("checkGroupType, GroupName: {}, GroupType: {}, fromCache: true", from, type);
+            return type;
         }
 
-        GroupType type = GroupType.GROUP_DEFAULT;
+
         for (String s : BLACK_KEYWORD_LIST) {
             if (from.contains(s))
                 type = GroupType.GROUP_BLACKLIST;
@@ -101,6 +107,7 @@ public class CheckGroupType {
                 type = GroupType.GROUP_WEATHER_ONLY;
         }
         cache.put(from, type);
+        log.info("checkGroupType, GroupName: {}, GroupType: {}, fromCache: false", from, type);
         return type;
     }
 }

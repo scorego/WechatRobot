@@ -3,6 +3,8 @@ package main.Service.friendMsg;
 import config.GlobalConfig;
 import enums.FriendType;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -18,6 +20,8 @@ import java.util.stream.Collectors;
  * @date 2019/6/17 16:52
  */
 public class CheckFriendType {
+
+    private static final Logger log = LoggerFactory.getLogger(CheckFriendType.class);
 
     private static final String FRIEND_BLACK = GlobalConfig.getValue("friend.blacklist", "");
 
@@ -37,13 +41,18 @@ public class CheckFriendType {
 
     public static FriendType checkFriendType(String friendName) {
         if (StringUtils.isEmpty(friendName)) {
+            log.info("checkFriendType, friendName: {}, FriendType: {}", friendName, FriendType.FRIEND_NOT_EXISTS);
             return FriendType.FRIEND_NOT_EXISTS;
-        }
-        if (cache.containsKey(friendName)) {
-            return cache.getOrDefault(friendName, FriendType.FRIEND_NOT_EXISTS);
         }
 
         FriendType type = FriendType.FRIEND_DEFAULT;
+
+        if (cache.containsKey(friendName)) {
+            type = cache.getOrDefault(friendName, FriendType.FRIEND_NOT_EXISTS);
+            log.info("checkFriendType, friendName: {}, FriendType: {}, fromCache: true", friendName, type);
+            return type;
+        }
+
         for (String s : FRIEND_BLACK_LIST) {
             if (friendName.equals(s)) {
                 type = FriendType.FRIEND_BLACK;
@@ -55,6 +64,7 @@ public class CheckFriendType {
             }
         }
         cache.put(friendName, type);
+        log.info("checkFriendType, friendName: {}, FriendType: {}, fromCache: false", friendName, FriendType.FRIEND_NOT_EXISTS);
         return type;
     }
 

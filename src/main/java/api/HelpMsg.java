@@ -1,6 +1,7 @@
 package api;
 
 import IdentifyCommand.PreProcessMessage;
+import config.GlobalConfig;
 import cons.WxMsg;
 
 /**
@@ -11,14 +12,16 @@ import cons.WxMsg;
  */
 public class HelpMsg {
 
+    private static final String README_LINK = GlobalConfig.getValue("helpMsg.detail","https://github.com/scorego/WechatRobot");
 
     public static String getHelpMsg() {
         String commandPrefix = PreProcessMessage.getCommandPrefix();
-        String helpMsg = "WeChatBot指令详情：" + WxMsg.LINE
+        String helpMsg = "WeChat指令聊天机器人" + WxMsg.LINE
                 + "指令前缀：" + commandPrefix + WxMsg.LINE
                 + "指令前缀+具体指令开启相应模式。" + WxMsg.LINE
-                + "天气模式：" + "输入>城市+天气<查询天气，如北京天气。" + WxMsg.LINE
-                + "更多模式：" + "开发中" + WxMsg.LINE;
+                + "天气模式：" + "输入城市查询天气，如北京天气。" + WxMsg.LINE
+                + "更多模式：" + "开发中" + WxMsg.LINE
+                + "详情见" + README_LINK;
 
         return helpMsg;
     }

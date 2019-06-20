@@ -17,12 +17,9 @@ public class FriendChat {
     private static final String autoReplyFriendMsg = GlobalConfig.getValue("autoReplyFriendMsg", "");
 
     public static String dealFriendMsg(WXMessage message) {
-        if (autoReplyFriend) {
-            return autoReplyFriend(message);
-        }
         switch (CheckFriendType.checkFriendType(message.fromUser.name)) {
             case FRIEND_WHITE:
-                return ChatApi.chat(message);
+                return autoReplyFriend ? autoReplyFriend(message) : ChatApi.chat(message);
             case FRIEND_DEFAULT:
             case FRIEND_BLACK:
             default:
