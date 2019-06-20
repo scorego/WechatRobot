@@ -14,16 +14,20 @@ import java.util.HashMap;
  */
 public class GroupMsgUtil {
 
-    public static String getUserDisplayOrName(WXMessage message){
-        String name = message.fromUser.name;
-        for (HashMap.Entry<String, WXGroup.Member> entry : message.fromGroup.members.entrySet()){
-            if (name.equals(entry.getValue().name)){
-                if (StringUtils.isNotBlank(entry.getValue().display)){
-                    name = entry.getValue().display;
-                }
-                break;
-            }
-        }
-        return name;
+    public static String getUserDisplayOrName(WXMessage message) {
+        String display = message.fromGroup.members.containsKey(message.fromUser.id)
+                ? message.fromGroup.members.get(message.fromUser.id).display : null;
+        return StringUtils.isBlank(display) ? message.fromUser.name : display;
+
+//        String name = message.fromUser.name;
+//        for (HashMap.Entry<String, WXGroup.Member> entry : message.fromGroup.members.entrySet()){
+//            if (name.equals(entry.getValue().name)){
+//                if (StringUtils.isNotBlank(entry.getValue().display)){
+//                    name = entry.getValue().display;
+//                }
+//                break;
+//            }
+//        }
+//        return name;
     }
 }
