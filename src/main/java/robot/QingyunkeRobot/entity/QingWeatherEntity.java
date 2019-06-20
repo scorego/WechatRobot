@@ -30,7 +30,7 @@ public class QingWeatherEntity {
         }
         return cityInfo.getCityName() + "今日天气:"
                 + data.toString()
-                + "更新时间" + time.substring(11);
+                + "更新时间" + time.substring(11) + WxMsg.LINE;
     }
 }
 

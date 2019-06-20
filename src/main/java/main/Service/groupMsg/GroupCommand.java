@@ -1,9 +1,12 @@
 package main.Service.groupMsg;
 
 import IdentifyCommand.CheckCommandType;
+import IdentifyCommand.PreProcessMessage;
 import api.HelpMsg;
 import api.WeatherApi;
+import cons.WxMsg;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Created by IntelliJ IDEA.
@@ -30,6 +33,14 @@ public class GroupCommand {
     }
 
     public String doGroupCommand(WXMessage message) {
+        if (isFastCommand(message.content)) {
+            message.content = "天气";
+            String response = doGroupCommand(message);
+            if (StringUtils.isBlank(response)) {
+                return null;
+            }
+            return response + "【极速天气模式】更多模式输入" + PreProcessMessage.getCommandPrefix() + "了解。" + WxMsg.LINE;
+        }
         switch (CheckCommandType.getInstance().checkCommandType(message.content)) {
             case COMMAND_HELP:
                 return doGroupHelp(message);
@@ -43,6 +54,12 @@ public class GroupCommand {
                 return null;
         }
     }
+
+
+    private boolean isFastCommand(String content) {
+        return "?".equals(content) || "？".equals(content);
+    }
+
     private String doGroupHelp(WXMessage message) {
         switch (CheckGroupType.checkGroupType(message.fromGroup.name)) {
             case GROUP_WEATHER_ONLY:
@@ -52,6 +69,7 @@ public class GroupCommand {
                 return null;
         }
     }
+
     private String doGroupWeather(WXMessage message) {
         switch (CheckGroupType.checkGroupType(message.fromGroup.name)) {
             case GROUP_WEATHER_ONLY:

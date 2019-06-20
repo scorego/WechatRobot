@@ -21,8 +21,8 @@ public class HelpMsg {
                 + "指令前缀+具体指令开启相应模式。" + WxMsg.LINE
                 + "天气模式：" + "输入城市查询天气，如北京天气。" + WxMsg.LINE
                 + "更多模式：" + "开发中" + WxMsg.LINE
-                + "试着发一下\"？？天气\"。" + WxMsg.LINE
-                + "详情见" + README_LINK;
+                + "试着发一下\"" + PreProcessMessage.getCommandPrefix() +"天气\"。" + WxMsg.LINE
+                + "详情见" + README_LINK + WxMsg.LINE;
 
         return helpMsg;
     }
