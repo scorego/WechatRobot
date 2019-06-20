@@ -18,9 +18,11 @@ import me.xuxiaoxiao.chatapi.wechat.entity.message.WXVerify;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.GroupMsgUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -79,12 +81,13 @@ public class WechatBot {
 
                 if (message.fromGroup != null) {
                     boolean isCommand = PreProcessMessage.isCommand(message);
-                    log.info("判定为文字消息。来自于群：{}, 群成员: {}，isCommand: {}, 内容: {}", message.fromGroup.name, message.fromUser.name, isCommand, message.content);
+                    String display = GroupMsgUtil.getUserDisplayOrName(message);
+                    log.info("判定为文字消息。来自于群：{}, 用户: 群名片: {}, 用户昵称: {}，isCommand: {}, 内容: {}", message.fromGroup.name, display, message.fromUser.name, isCommand, message.content);
                     if (isCommand) {
                         PreProcessMessage.removeCommandFix(message);
                         String response = DoCommand.doGroupCommand(message);
                         if (StringUtils.isNotBlank(response)) {
-                            String atMePrefix = " @" + message.fromUser.name + WxMsg.AT_ME_SPACE + WxMsg.LINE;
+                            String atMePrefix = " @" + display + WxMsg.AT_ME_SPACE + WxMsg.LINE;
                             response = REPLY_PREFIX + atMePrefix + response;
                             log.info("回复消息，to:{}, content: {}", message.fromGroup.name, response);
                             client.sendText(message.fromGroup, response);
