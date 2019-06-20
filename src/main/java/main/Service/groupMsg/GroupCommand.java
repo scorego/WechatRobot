@@ -35,7 +35,7 @@ public class GroupCommand {
     public String doGroupCommand(WXMessage message) {
         if (isFastCommand(message.content)) {
             message.content = "天气";
-            String response = doGroupCommand(message);
+            String response = doGroupWeather(message);
             if (StringUtils.isBlank(response)) {
                 return null;
             }
