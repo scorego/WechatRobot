@@ -21,6 +21,7 @@ public class FriendChat {
             case FRIEND_WHITE:
                 return autoReplyFriend ? autoReplyFriend(message) : ChatApi.chat(message);
             case FRIEND_DEFAULT:
+                return autoReplyFriend ? autoReplyFriend(message) : null;
             case FRIEND_BLACK:
             default:
                 return null;

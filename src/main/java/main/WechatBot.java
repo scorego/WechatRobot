@@ -82,7 +82,7 @@ public class WechatBot {
                 if (message.fromGroup != null) {
                     boolean isCommand = PreProcessMessage.isCommand(message);
                     String display = GroupMsgUtil.getUserDisplayOrName(message);
-                    log.info("判定为文字消息。来自于群：{}, 用户: 群名片: {}, 用户昵称: {}，isCommand: {}, 内容: {}", message.fromGroup.name, display, message.fromUser.name, isCommand, message.content);
+                    log.info("判定为文字消息。来自于群：{}, 用户: {}, 群名片: {}, isCommand: {}, 内容: {}", message.fromGroup.name, message.fromUser.name, display, isCommand, message.content);
                     if (isCommand) {
                         PreProcessMessage.removeCommandFix(message);
                         String response = DoCommand.doGroupCommand(message);
