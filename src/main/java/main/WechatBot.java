@@ -61,24 +61,21 @@ public class WechatBot {
             log.info("获取到消息：{}", GSON.toJson(message));
 
             if (message instanceof WXVerify) {
-                //是好友请求消息
+                //好友请求消息
                 log.info("判定为好友请求消息。来自:{}", message.fromUser.name);
 //                同意好友请求
 //                client.passVerify((WXVerify) message);
             } else if (message instanceof WXLocation && message.fromUser != null && !message.fromUser.id.equals(client.userMe().id)) {
                 // 位置消息
                 if (message.fromGroup != null) {
-                    // 群消息
                     log.info("判定为位置消息。来自群: {}，用户: {}", message.fromGroup.name, message.fromUser.name);
 //                    // client.sendLocation(message.fromGroup, "120.14556", "30.23856", "我在这里", "西湖");
                 } else {
-                    // 用户消息
                     log.info("判定为位置消息。来自用户: {}", message.fromUser.name);
-                    client.sendLocation(message.fromUser, "120.14556", "30.23856", "我在这里", "西湖");
+//                    client.sendLocation(message.fromUser, "120.14556", "30.23856", "我在这里", "西湖");
                 }
             } else if (message instanceof WXText && message.fromUser != null && !message.fromUser.id.equals(client.userMe().id)) {
                 //是文字消息，并且发送消息的人不是自己
-
                 if (message.fromGroup != null) {
                     boolean isCommand = PreProcessMessage.isCommand(message);
                     String display = GroupMsgUtil.getUserDisplayOrName(message);
