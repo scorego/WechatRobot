@@ -1,4 +1,4 @@
-package main.Service.groupMsg;
+package main.service.groupMsg;
 
 import IdentifyCommand.CheckCommandType;
 import IdentifyCommand.PreProcessMessage;

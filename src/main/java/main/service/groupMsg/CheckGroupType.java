@@ -1,7 +1,6 @@
-package main.Service.groupMsg;
+package main.service.groupMsg;
 
 import config.GlobalConfig;
-import enums.FriendType;
 import enums.GroupType;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

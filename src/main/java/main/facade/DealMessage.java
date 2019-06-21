@@ -1,7 +1,7 @@
 package main.facade;
 
-import main.Service.friendMsg.FriendChat;
-import main.Service.groupMsg.GroupChat;
+import main.service.friendMsg.FriendChat;
+import main.service.groupMsg.GroupChat;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
 
 public class DealMessage {

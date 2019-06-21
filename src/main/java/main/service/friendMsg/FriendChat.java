@@ -1,4 +1,4 @@
-package main.Service.friendMsg;
+package main.service.friendMsg;
 
 import api.ChatApi;
 import config.GlobalConfig;

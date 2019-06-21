@@ -1,4 +1,4 @@
-package main.Service.groupMsg;
+package main.service.groupMsg;
 
 import api.ChatApi;
 import api.WeatherApi;

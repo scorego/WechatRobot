@@ -1,6 +1,6 @@
 package main.facade;
 
-import main.Service.groupMsg.GroupCommand;
+import main.service.groupMsg.GroupCommand;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
 
 /**
