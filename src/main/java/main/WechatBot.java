@@ -1,11 +1,9 @@
 package main;
 
-import IdentifyCommand.PreProcessMessage;
 import api.EveryDayHelloApi;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import config.GlobalConfig;
-import cons.WxMsg;
 import main.facade.DealMessage;
 import main.facade.DoCommand;
 import me.xuxiaoxiao.chatapi.wechat.WeChatClient;
@@ -18,7 +16,6 @@ import me.xuxiaoxiao.chatapi.wechat.entity.message.WXVerify;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import utils.GroupMsgUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -77,22 +74,14 @@ public class WechatBot {
             } else if (message instanceof WXText && message.fromUser != null && !message.fromUser.id.equals(client.userMe().id)) {
                 //是文字消息，并且发送消息的人不是自己
                 if (message.fromGroup != null) {
-                    boolean isCommand = PreProcessMessage.isCommand(message);
-                    String display = GroupMsgUtil.getUserDisplayOrName(message);
-                    log.info("判定为文字消息。来自于群：{}, 用户: {}, 群名片: {}, isCommand: {}, 内容: {}", message.fromGroup.name, message.fromUser.name, display, isCommand, message.content);
-                    if (isCommand) {
-                        PreProcessMessage.removeCommandFix(message);
-                        String response = DoCommand.doGroupCommand(message);
-                        if (StringUtils.isNotBlank(response)) {
-                            String atMePrefix = " @" + display + WxMsg.AT_ME_SPACE + WxMsg.LINE;
-                            response = REPLY_PREFIX + atMePrefix + response;
-                            log.info("回复消息，to:{}, content: {}", message.fromGroup.name, response);
-                            client.sendText(message.fromGroup, response);
-                        }
+                    String response = DoCommand.doGroupTextCommand(message);
+                    if (StringUtils.isNotBlank(response)) {
+                        response = REPLY_PREFIX + response;
+                        log.info("回复消息，to:{}, content: {}", message.fromGroup.name, response);
+                        client.sendText(message.fromGroup, response);
                     }
                 } else {
-                    log.info("判定为文字消息。来自于好友：{}, 好友备注: {}，内容: {}", message.fromUser.name, message.fromUser.remark, message.content);
-                    String response = DealMessage.dealFriendMsg(message);
+                    String response = DealMessage.dealFriendTextMsg(message);
                     if (StringUtils.isNotBlank(response)) {
                         response = REPLY_PREFIX + response;
                         log.info("回复消息，to:{}, content: {}", message.fromUser.name, response);
