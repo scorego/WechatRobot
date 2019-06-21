@@ -18,7 +18,7 @@ public enum GroupType {
      */
     GROUP_WEATHER_ONLY,
     /**
-     * 只回复@我的信息， 尚未实现
+     * 只回复@我的信息
      */
     GROUP_AT_ME_ONLY,
     /**
