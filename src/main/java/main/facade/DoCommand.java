@@ -2,7 +2,7 @@ package main.facade;
 
 import IdentifyCommand.PreProcessMessage;
 import cons.WxMsg;
-import main.service.groupMsg.GroupCommand;
+import main.service.groupMsg.GroupTextCommand;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -25,7 +25,7 @@ public class DoCommand {
         log.info("群文字消息。来自于群：{}, 用户: {}, 群名片: {}, isCommand: {}, 内容: {}", message.fromGroup.name, message.fromUser.name, display, isCommand, message.content);
         if (isCommand) {
             PreProcessMessage.removeCommandFix(message);
-            String response = GroupCommand.getInstance().doGroupCommand(message);
+            String response = GroupTextCommand.getInstance().doGroupCommand(message);
             if (StringUtils.isNotBlank(response)) {
                 String atMePrefix = " @" + display + WxMsg.AT_ME_SPACE + WxMsg.LINE;
                 return atMePrefix + response;

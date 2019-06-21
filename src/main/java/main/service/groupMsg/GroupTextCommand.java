@@ -14,18 +14,18 @@ import org.apache.commons.lang3.StringUtils;
  * @author Javior
  * @date 2019/6/20 15:47
  */
-public class GroupCommand {
+public class GroupTextCommand {
 
-    private static volatile GroupCommand INSTANCE;
+    private static volatile GroupTextCommand INSTANCE;
 
-    private GroupCommand() {
+    private GroupTextCommand() {
     }
 
-    public static GroupCommand getInstance() {
+    public static GroupTextCommand getInstance() {
         if (INSTANCE == null) {
-            synchronized (GroupCommand.class) {
+            synchronized (GroupTextCommand.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = new GroupCommand();
+                    INSTANCE = new GroupTextCommand();
                 }
             }
         }

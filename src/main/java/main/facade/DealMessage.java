@@ -1,10 +1,8 @@
 package main.facade;
 
-import IdentifyCommand.PreProcessMessage;
 import cons.WxMsg;
 import main.service.friendMsg.FriendChat;
 import main.service.groupMsg.GroupChat;
-import main.service.groupMsg.GroupCommand;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
