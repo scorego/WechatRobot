@@ -64,7 +64,7 @@ public class PreProcessMessage {
         if (StringUtils.isBlank(content) || content.length() < COMMAND_PREFIX_LENGTH) {
             return;
         }
-        message.content = content.substring(2).trim();
+        message.content = content.substring(COMMAND_PREFIX_LENGTH).trim();
         log.info("AtMeMsg::removeCommandFix, content:{}, newContent:{}", content, message.content);
     }
 }
