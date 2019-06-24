@@ -1,5 +1,6 @@
 package robot.RollToolsApi.entity;
 
+import cons.WxMsg;
 import lombok.Data;
 
 @Data
@@ -13,20 +14,21 @@ public class RollWeatherEntity {
 
     private RollWeatherData data;
 
-    public boolean isValid(){
+    public boolean isValid() {
         return code == SUCCESS;
     }
 
-    public String getWeather(){
+    public String getWeather() {
         return data.toString();
     }
-    public String getWeatherDefaultNull(){
+
+    public String getWeatherDefaultNull() {
         return isValid() ? data.toString() : null;
     }
 }
 
 @Data
-class RollWeatherData{
+class RollWeatherData {
     private String address;
     private String cityCode;
     private String temp;
@@ -38,12 +40,11 @@ class RollWeatherData{
 
     @Override
     public String toString() {
-        return address + "今日天气: " +
-                ", 温度" + temp  +
-                ", " + weather +
-                ", " + windDirection + '风' +
-                ", 风力" + windPower  +
-                ", 湿度" + humidity  +
-                ", 更新时间" + reportTime  + "。";
+        return address + WxMsg.LINE
+                + "【天气】 " + weather + WxMsg.LINE
+                + "【温度】" + temp + WxMsg.LINE
+                + "【湿度】" + humidity + WxMsg.LINE
+                + "【风力】" + windDirection + "风  " + windPower + WxMsg.LINE
+                + "【更新时间】" + reportTime + WxMsg.LINE;
     }
 }
