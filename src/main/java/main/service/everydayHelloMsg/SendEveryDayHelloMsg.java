@@ -1,4 +1,4 @@
-package everydayHelloMsg;
+package main.service.everydayHelloMsg;
 
 /**
  * Created by IntelliJ IDEA.
