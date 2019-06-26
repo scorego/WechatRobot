@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class EveryDayHelloWhiteList {
 
     private static volatile EveryDayHelloWhiteList INSTANCE;
-    
+
     private static final String EVERYDAY_HELLO_GROUP_WHITE_LIST = GlobalConfig.getValue("everydayHello.group.whitelist","");
 
     private static final String EVERYDAY_HELLO_FRIEND_WHITE_LIST = GlobalConfig.getValue("everydayHello.friend.whitelist","");
