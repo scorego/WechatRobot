@@ -18,6 +18,11 @@ import java.util.stream.Collectors;
 public class EveryDayHelloWhiteList {
 
     private static volatile EveryDayHelloWhiteList INSTANCE;
+    
+    private static final String EVERYDAY_HELLO_GROUP_WHITE_LIST = GlobalConfig.getValue("everydayHello.group.whitelist","");
+
+    private static final String EVERYDAY_HELLO_FRIEND_WHITE_LIST = GlobalConfig.getValue("everydayHello.friend.whitelist","");
+
 
     private EveryDayHelloWhiteList(){
         group = new LinkedList<>();
@@ -37,9 +42,6 @@ public class EveryDayHelloWhiteList {
         return INSTANCE;
     }
 
-    private static final String EVERYDAY_HELLO_GROUP_WHITE_LIST = GlobalConfig.getValue("everydayHello.group.whitelist","");
-
-    private static final String EVERYDAY_HELLO_FRIEND_WHITE_LIST = GlobalConfig.getValue("everydayHello.friend.whitelist","");
 
     @Getter
     private List<String> group;
