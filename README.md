@@ -70,4 +70,4 @@ RollToolsApi：https://github.com/MZCretin/RollToolsApi
 
 ### LICENSE
 
-[MIT](https://github.com/scorego/WechatRobot/blob/master/LICENSE.md)
+[Apache License 2.0](https://github.com/scorego/WechatRobot/blob/master/LICENSE.md)
