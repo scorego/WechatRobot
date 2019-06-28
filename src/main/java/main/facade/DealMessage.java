@@ -15,7 +15,7 @@ public class DealMessage {
 
     public static String dealGroupTextMsg(WXMessage message) {
         String display = GroupMsgUtil.getUserDisplayOrName(message);
-        log.info("群文字消息。来自于群：{}, 用户: {}, 群名片: {}, 内容: {}", message.fromGroup.name, message.fromUser.name, display, message.content);
+        log.info("群：{}, 用户: {}, 群名片: {}, 内容: {}", message.fromGroup.name, message.fromUser.name, display, message.content);
         String response = GroupChat.getInstance().dealGroupMsg(message);
         if (StringUtils.isNotBlank(response)) {
             String atMePrefix = " @" + display + WxMsg.AT_ME_SPACE + WxMsg.LINE;
@@ -25,10 +25,10 @@ public class DealMessage {
     }
 
     public static String dealFriendTextMsg(WXMessage message) {
-        log.info("好友文字消息。来自于好友：{}, 好友备注: {}，内容: {}", message.fromUser.name, message.fromUser.remark, message.content);
+        log.info("好友：{}, 好友备注: {}，内容: {}", message.fromUser.name, message.fromUser.remark, message.content);
         String response = FriendChat.dealFriendMsg(message);
         if (StringUtils.isNotBlank(response)) {
-            // 回复好友不用@对方。这么写是为了以后加一些功能
+            // 回复好友不用@对方。这么写是为了以后扩展
             return response;
         }
         return null;

@@ -18,7 +18,12 @@ public class EveryDayHelloApi {
 
     public static String getEverydayHello() {
         String msg = getMsg();
-        return StringUtils.isBlank(msg) ? DEFAULT_EVERYDAY_HELLO : msg;
+        if (StringUtils.isBlank(msg)) {
+            msg = DEFAULT_EVERYDAY_HELLO;
+        }
+        String weatherMsg = WeatherApi.getWeatherByKeyword("北京天气");
+
+        return msg + weatherMsg;
     }
 
     private static String getMsg() {

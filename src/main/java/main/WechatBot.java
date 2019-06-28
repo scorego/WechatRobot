@@ -4,8 +4,10 @@ import api.EveryDayHelloApi;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import config.GlobalConfig;
+import lombok.Getter;
 import main.facade.DealMessage;
 import main.facade.DoCommand;
+import main.facade.SendEverydayMessage;
 import me.xuxiaoxiao.chatapi.wechat.WeChatClient;
 import me.xuxiaoxiao.chatapi.wechat.entity.contact.WXContact;
 import me.xuxiaoxiao.chatapi.wechat.entity.contact.WXGroup;
@@ -35,6 +37,9 @@ public class WechatBot {
 
     private static final Logger log = LoggerFactory.getLogger(WechatBot.class);
 
+    @Getter
+    private static WeChatClient weChatClient;
+
     /**
      * 新建一个微信监听器
      */
@@ -55,21 +60,22 @@ public class WechatBot {
 
             if (message instanceof WXVerify) {
                 //好友请求消息
-                log.info("判定为好友请求消息。来自:{}", message.fromUser.name);
+                log.info("收到好友请求消息。来自:{}", message.fromUser.name);
 //                同意好友请求
 //                client.passVerify((WXVerify) message);
             } else if (message instanceof WXLocation && message.fromUser != null && !message.fromUser.id.equals(client.userMe().id)) {
                 // 位置消息
                 if (message.fromGroup != null) {
-                    log.info("判定为位置消息。来自群: {}，用户: {}", message.fromGroup.name, message.fromUser.name);
+                    log.info("收到位置消息。来自群: {}，用户: {}", message.fromGroup.name, message.fromUser.name);
 //                    // client.sendLocation(message.fromGroup, "120.14556", "30.23856", "我在这里", "西湖");
                 } else {
-                    log.info("判定为位置消息。来自用户: {}", message.fromUser.name);
+                    log.info("收到位置消息。来自好友: {}", message.fromUser.name);
 //                    client.sendLocation(message.fromUser, "120.14556", "30.23856", "我在这里", "西湖");
                 }
             } else if (message instanceof WXText && message.fromUser != null && !message.fromUser.id.equals(client.userMe().id)) {
                 //是文字消息，并且发送消息的人不是自己
                 if (message.fromGroup != null) {
+                    log.info("收到文字消息。来自群: {}，用户: {}", message.fromGroup.name, message.fromUser.name);
                     String response = DoCommand.doGroupTextCommand(message);
                     if (StringUtils.isNotBlank(response)) {
                         response = REPLY_PREFIX + response;
@@ -77,6 +83,7 @@ public class WechatBot {
                         client.sendText(message.fromGroup, response);
                     }
                 } else {
+                    log.info("收到文字消息。来自好友: {}", message.fromUser.name);
                     String response = DealMessage.dealFriendTextMsg(message);
                     if (StringUtils.isNotBlank(response)) {
                         response = REPLY_PREFIX + response;
@@ -89,16 +96,16 @@ public class WechatBot {
 
         @Override
         public void onContact(@Nonnull WeChatClient client, @Nullable WXContact oldContact, @Nullable WXContact newContact) {
-            log.info("检测到联系人变更: 旧联系人名称：{}, 新联系人名称：{}", (oldContact == null ? "null" : oldContact.name), (newContact == null ? "null" : newContact.name));
+            if (oldContact != null && newContact != null && !oldContact.name.equals(newContact.name)) {
+                log.info("检测到联系人变更: 旧联系人名称：{}, 新联系人名称：{}", oldContact.name, newContact.name);
+            }
         }
     };
 
-    public static void main(String[] args) throws InterruptedException {
-        //新建一个模拟微信客户端
+    public static void main(String[] args) {
         WeChatClient wechatClient = new WeChatClient();
-        //为模拟微信客户端设置监听器
         wechatClient.setListener(LISTENER);
-        //启动模拟微信客户端
+        weChatClient = wechatClient;
         wechatClient.startup();
     }
 }

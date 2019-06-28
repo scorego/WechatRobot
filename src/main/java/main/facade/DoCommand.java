@@ -22,7 +22,7 @@ public class DoCommand {
     public static String doGroupTextCommand(WXMessage message) {
         boolean isCommand = PreProcessMessage.isCommand(message);
         String display = GroupMsgUtil.getUserDisplayOrName(message);
-        log.info("群文字消息。来自于群：{}, 用户: {}, 群名片: {}, isCommand: {}, 内容: {}", message.fromGroup.name, message.fromUser.name, display, isCommand, message.content);
+        log.info("群：{}, 用户: {}, 群名片: {}, isCommand: {}, 内容: {}", message.fromGroup.name, message.fromUser.name, display, isCommand, message.content);
         if (isCommand) {
             PreProcessMessage.removeCommandFix(message);
             String response = GroupTextCommand.getInstance().doGroupCommand(message);
