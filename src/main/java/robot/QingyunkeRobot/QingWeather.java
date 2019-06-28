@@ -36,14 +36,20 @@ public class QingWeather {
         if (StringUtils.isBlank(cityName)) {
             return null;
         }
-        if (cityName.endsWith("市")) {
-            cityName = cityName.substring(0, cityName.length() - 1);
+
+        // 部分地区有问题，已知的有：北京朝阳区和辽宁朝阳市；福田区；浦东新区
+        switch (cityName){
+            case "朝阳区":
+            case "朝阳":
+                return QingWeather.getWeatherByCityId("101010300");
+            case "福田区":
+                return null;
+            case "浦东新区":
+            case "浦东":
+                return QingWeather.getWeatherByCityId("101021300");
         }
-        // 有些区和市重名，比如北京朝阳区和辽宁朝阳市。
-//        if (cityName.endsWith("区")) {
-//            cityName = cityName.substring(0, cityName.length() - 1);
-//        }
-        if (cityName.endsWith("县")) {
+
+        if (cityName.endsWith("市") || cityName.endsWith("县")) {
             cityName = cityName.substring(0, cityName.length() - 1);
         }
         String cityId = CityIdUtil.getInstance().getCityId(cityName);
