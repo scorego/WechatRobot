@@ -48,17 +48,17 @@ public class CheckGroupType {
     private static List<String> BLACK_LIST = new LinkedList<>();
 
     static {
-        WHITE_LIST.addAll(Arrays.stream(GROUP_WHITELIST.split("#")).filter(StringUtils::isNoneBlank).collect(Collectors.toList()));
+        WHITE_LIST.addAll(Arrays.stream(GROUP_WHITELIST.split("#")).filter(StringUtils::isNotBlank).collect(Collectors.toList()));
 
-        WHITE_KEYWORD_LIST.addAll(Arrays.stream(GROUP_WHITE_KEYWORD.split("#")).filter(StringUtils::isNoneBlank).collect(Collectors.toList()));
+        WHITE_KEYWORD_LIST.addAll(Arrays.stream(GROUP_WHITE_KEYWORD.split("#")).filter(StringUtils::isNotBlank).collect(Collectors.toList()));
 
-        BLACK_KEYWORD_LIST.addAll(Arrays.stream(GROUP_BLACK_KEYWORD.split("#")).filter(StringUtils::isNoneBlank).collect(Collectors.toList()));
+        BLACK_KEYWORD_LIST.addAll(Arrays.stream(GROUP_BLACK_KEYWORD.split("#")).filter(StringUtils::isNotBlank).collect(Collectors.toList()));
 
-        BLACK_LIST.addAll(Arrays.stream(GROUP_BLACKLIST.split("#")).filter(StringUtils::isNoneBlank).collect(Collectors.toList()));
+        BLACK_LIST.addAll(Arrays.stream(GROUP_BLACKLIST.split("#")).filter(StringUtils::isNotBlank).collect(Collectors.toList()));
 
-        WEATHER_ONLY_LIST.addAll(Arrays.stream(GROUP_WEATHER_ONLY.split("#")).filter(StringUtils::isNoneBlank).collect(Collectors.toList()));
+        WEATHER_ONLY_LIST.addAll(Arrays.stream(GROUP_WEATHER_ONLY.split("#")).filter(StringUtils::isNotBlank).collect(Collectors.toList()));
 
-        WEATHER_KEYWORD_LIST.addAll(Arrays.stream(GROUP_WEATHER_KEYWORD.split("#")).filter(StringUtils::isNoneBlank).collect(Collectors.toList()));
+        WEATHER_KEYWORD_LIST.addAll(Arrays.stream(GROUP_WEATHER_KEYWORD.split("#")).filter(StringUtils::isNotBlank).collect(Collectors.toList()));
     }
 
     private static Map<String, GroupType> cache = new ConcurrentHashMap<>();

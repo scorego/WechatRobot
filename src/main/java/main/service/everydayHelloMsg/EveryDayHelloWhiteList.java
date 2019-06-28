@@ -26,9 +26,9 @@ public class EveryDayHelloWhiteList {
 
     private EveryDayHelloWhiteList(){
         group = new LinkedList<>();
-        group.addAll(Arrays.stream(EVERYDAY_HELLO_GROUP_WHITE_LIST.split("#")).filter(StringUtils::isNoneBlank).collect(Collectors.toList()));
+        group.addAll(Arrays.stream(EVERYDAY_HELLO_GROUP_WHITE_LIST.split("#")).filter(StringUtils::isNotBlank).collect(Collectors.toList()));
         friend = new LinkedList<>();
-        friend.addAll(Arrays.stream(EVERYDAY_HELLO_FRIEND_WHITE_LIST.split("#")).filter(StringUtils::isNoneBlank).collect(Collectors.toList()));
+        friend.addAll(Arrays.stream(EVERYDAY_HELLO_FRIEND_WHITE_LIST.split("#")).filter(StringUtils::isNotBlank).collect(Collectors.toList()));
     }
 
     public static EveryDayHelloWhiteList getInstance(){

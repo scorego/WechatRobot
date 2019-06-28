@@ -34,9 +34,9 @@ public class CheckFriendType {
     private static Map<String, FriendType> cache = new ConcurrentHashMap<>();
 
     static {
-        FRIEND_BLACK_LIST.addAll(Arrays.stream(FRIEND_BLACK.split("#")).filter(StringUtils::isNoneBlank).collect(Collectors.toList()));
+        FRIEND_BLACK_LIST.addAll(Arrays.stream(FRIEND_BLACK.split("#")).filter(StringUtils::isNotBlank).collect(Collectors.toList()));
 
-        FRIEND_WHITE_LIST.addAll(Arrays.stream(FRIEND_WHITE.split("#")).filter(StringUtils::isNoneBlank).collect(Collectors.toList()));
+        FRIEND_WHITE_LIST.addAll(Arrays.stream(FRIEND_WHITE.split("#")).filter(StringUtils::isNotBlank).collect(Collectors.toList()));
     }
 
     public static FriendType checkFriendType(String friendName) {
