@@ -45,7 +45,11 @@ public class EveryDayHelloWhiteList {
                     }
                 })
         );
-        log.info("每日一句群列表：{}", JSONObject.toJSONString(groupSet));
+        StringBuilder groupSetList = new StringBuilder();
+        for (WXGroup wxGroup : groupSet) {
+            groupSetList.append(wxGroup.name).append("  \t");
+        }
+        log.info("每日一句群列表：{}", groupSetList.toString());
 
         friendSet = new HashSet<>(friend.size());
         HashMap<String, WXUser> friendMap = WechatBot.getWeChatClient().userFriends();
@@ -56,7 +60,11 @@ public class EveryDayHelloWhiteList {
                     }
                 })
         );
-        log.info("每日一句好友列表：{}", JSONObject.toJSONString(friendSet));
+        StringBuilder friendSetList = new StringBuilder();
+        for (WXUser wxUser : friendSet) {
+            friendSetList.append(wxUser.name).append("  \t");
+        }
+        log.info("每日一句好友列表：{}", friendSetList.toString());
     }
 
     public static EveryDayHelloWhiteList getInstance() {
@@ -70,7 +78,6 @@ public class EveryDayHelloWhiteList {
         return INSTANCE;
     }
 
-
     @Getter
     private List<String> group;
 
@@ -81,12 +88,12 @@ public class EveryDayHelloWhiteList {
      * 要发送每日一句的群名单
      */
     @Getter
-    private HashSet<WXGroup> groupSet;
+    private Set<WXGroup> groupSet;
 
     /**
      * 要发送每日一句的好友名单
      */
     @Getter
-    private HashSet<WXUser> friendSet;
+    private Set<WXUser> friendSet;
 
 }

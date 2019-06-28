@@ -1,5 +1,6 @@
 package robot.Ciba.entity;
 
+import cons.WxMsg;
 import lombok.Data;
 
 import java.util.List;
@@ -29,7 +30,8 @@ public class CibaEveryDayHelloEntity {
     private String fenxiang_img;
 
     public String getSentence() {
-        return content  + note;
+        return content + WxMsg.LINE
+                + note + WxMsg.LINE;
     }
 }
 
