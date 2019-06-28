@@ -47,10 +47,6 @@ public class WechatBot {
         @Override
         public void onLogin(@Nonnull WeChatClient client) {
             log.info("onLogin：您有{}名好友，活跃微信群{}个", client.userFriends().size(), client.userGroups().size());
-            WXGroup group = client.userGroups().getOrDefault("EverydayWechat 交流群", null);
-            if (group != null) {
-                client.sendText(group, EveryDayHelloApi.getEverydayHello());
-            }
         }
 
         @Override
@@ -97,7 +93,7 @@ public class WechatBot {
         }
     };
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         //新建一个模拟微信客户端
         WeChatClient wechatClient = new WeChatClient();
         //为模拟微信客户端设置监听器
