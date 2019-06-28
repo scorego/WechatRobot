@@ -16,7 +16,7 @@ public class HelpMsg {
 
     public static String getHelpMsg() {
         String commandPrefix = PreProcessMessage.getCommandPrefix();
-        String helpMsg = "WeChat指令聊天机器人" + WxMsg.LINE
+        return "WeChat指令聊天机器人" + WxMsg.LINE
                 + "【指令前缀】" + commandPrefix + WxMsg.LINE
                 + "指令前缀+具体指令开启相应模式。" + WxMsg.LINE
                 + "【天气模式】" + "输入城市查询天气，如北京天气。" + WxMsg.LINE
@@ -24,7 +24,5 @@ public class HelpMsg {
                 + "【更多模式】" + "开发中" + WxMsg.LINE
                 + "试着发一下“" + PreProcessMessage.getCommandPrefix() +"？”。☺" + WxMsg.LINE
                 + "详情见" + README_LINK + WxMsg.LINE;
-
-        return helpMsg;
     }
 }
