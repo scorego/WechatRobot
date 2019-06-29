@@ -1,7 +1,6 @@
 import api.EveryDayHelloApi;
 import api.WeatherApi;
 import config.GlobalConfig;
-import main.facade.SendEverydayMessage;
 
 public class HttpTest {
 
@@ -14,7 +13,7 @@ public class HttpTest {
             System.out.println(response);
         }
 
-        String everydayHello = EveryDayHelloApi.getEverydayHello();
+        String everydayHello = EveryDayHelloApi.getGroupHelloMsg();
         System.out.println(everydayHello);
         System.out.println(GlobalConfig.getValue("autoReplyFriendMsg",""));
 

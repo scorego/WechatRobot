@@ -2,8 +2,6 @@ package main.service.everydayHelloMsg;
 
 import api.EveryDayHelloApi;
 import main.WechatBot;
-import me.xuxiaoxiao.chatapi.wechat.entity.contact.WXGroup;
-import me.xuxiaoxiao.chatapi.wechat.entity.contact.WXUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +18,7 @@ public class SendEverydayHelloMsg {
 
 
     public static void SendGroupEverydayHelloMsg() {
-        String msg = EveryDayHelloApi.getEverydayHello();
+        String msg = EveryDayHelloApi.getGroupHelloMsg();
         log.info("Start SendGroupEverydayHelloMsg, msg: {}", msg);
         EveryDayHelloWhiteList.getInstance().getGroupSet().forEach(group -> {
             WechatBot.getWeChatClient().sendText(group, msg);
@@ -30,7 +28,13 @@ public class SendEverydayHelloMsg {
     }
 
     public static void SendFriendEverydayHelloMsg(){
-        // todo
+        String msg = EveryDayHelloApi.getFriendHelloMsg();
+        log.info("Start SendFriendEverydayHelloMsg, msg: {}", msg);
+        EveryDayHelloWhiteList.getInstance().getFriendSet().forEach(friend -> {
+            WechatBot.getWeChatClient().sendText(friend, msg);
+            log.info("SendFriendEverydayHelloMsg, friend: {}", friend.name);
+        });
+        log.info("Finish SendFriendEverydayHelloMsg.");
     }
 
 }

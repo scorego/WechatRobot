@@ -55,7 +55,7 @@ public class WeatherApi {
         return response;
     }
 
-    private static String getWeatherByCityName(String cityName) {
+    public static String getWeatherByCityName(String cityName) {
         log.info("WeatherApi:getWeatherByCityName, WEATHER_ROBOT:{}, cityName:{}", WEATHER_ROBOT, cityName);
         switch (WEATHER_ROBOT) {
             case "QingyunkeRobot":

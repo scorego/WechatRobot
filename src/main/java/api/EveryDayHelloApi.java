@@ -17,18 +17,23 @@ public class EveryDayHelloApi {
 
     private static final String DEFAULT_EVERYDAY_HELLO = GlobalConfig.getValue("everydayHello.default", "");
 
-    public static String getEverydayHello() {
+    public static String getGroupHelloMsg() {
         String msg = getMsg();
         if (StringUtils.isBlank(msg)) {
             msg = DEFAULT_EVERYDAY_HELLO;
         }
-        String weatherMsg = WeatherApi.getWeatherByKeyword("北京天气");
+        String weatherMsg = WeatherApi.getWeatherByCityName("北京");
 
         return  weatherMsg
                 + WxMsg.LINE
                 + "【每日一句】" + msg
                 + "【详情】输入？？了解更多。" + WxMsg.LINE;
     }
+
+    public static String getFriendHelloMsg(){
+        return "";
+    }
+
 
     private static String getMsg() {
         switch (EVERYDAY_HELLO) {
