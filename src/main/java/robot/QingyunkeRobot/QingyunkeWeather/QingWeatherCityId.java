@@ -1,27 +1,26 @@
-package utils;
+package robot.QingyunkeRobot.QingyunkeWeather;
 
 import config.QingWeatherCityConfig;
-import entity.QingWeatherCityEntity;
+import robot.QingyunkeRobot.QingyunkeWeather.entity.QingWeatherCityEntity;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class CityIdUtil {
+public class QingWeatherCityId {
 
-    private static volatile CityIdUtil INSTANCE;
+    private static volatile QingWeatherCityId INSTANCE;
 
-    private CityIdUtil() {
+    private QingWeatherCityId() {
         cityList = QingWeatherCityConfig.getInstance().getCityList();
     }
 
-    public static CityIdUtil getInstance() {
+    public static QingWeatherCityId getInstance() {
         if (INSTANCE == null) {
             synchronized (QingWeatherCityConfig.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = new CityIdUtil();
+                    INSTANCE = new QingWeatherCityId();
                 }
             }
         }

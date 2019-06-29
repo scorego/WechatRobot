@@ -4,6 +4,7 @@ import api.EveryDayHelloApi;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import config.GlobalConfig;
+import cons.WxMsg;
 import lombok.Getter;
 import main.facade.DealMessage;
 import main.facade.DoCommand;
@@ -18,6 +19,7 @@ import me.xuxiaoxiao.chatapi.wechat.entity.message.WXVerify;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import schedule.EverydayHelloSchedule;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -33,7 +35,13 @@ public class WechatBot {
 
     private static final Gson GSON = new GsonBuilder().disableHtmlEscaping().create();
 
-    private static final String REPLY_PREFIX = GlobalConfig.getValue("replyPrefix", "");
+    private static  String REPLY_PREFIX = GlobalConfig.getValue("replyPrefix", "");
+
+    static{
+        if (StringUtils.isNotBlank(REPLY_PREFIX)){
+            REPLY_PREFIX  += WxMsg.LINE;
+        }
+    }
 
     private static final Logger log = LoggerFactory.getLogger(WechatBot.class);
 
@@ -56,6 +64,7 @@ public class WechatBot {
 
         @Override
         public void onMessage(@Nonnull WeChatClient client, @Nonnull WXMessage message) {
+            EverydayHelloSchedule.startEverydaySchedule();
             log.info("获取到消息：{}", GSON.toJson(message));
 
             if (message instanceof WXVerify) {

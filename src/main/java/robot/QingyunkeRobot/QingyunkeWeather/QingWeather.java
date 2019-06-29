@@ -1,10 +1,9 @@
-package robot.QingyunkeRobot;
+package robot.QingyunkeRobot.QingyunkeWeather;
 
 import config.GlobalConfig;
 import org.apache.commons.lang3.StringUtils;
-import robot.QingyunkeRobot.entity.QingWeatherEntity;
+import robot.QingyunkeRobot.QingyunkeWeather.entity.QingWeatherEntity;
 import com.alibaba.fastjson.JSON;
-import utils.CityIdUtil;
 import utils.HttpRequestUtil;
 
 public class QingWeather {
@@ -52,7 +51,7 @@ public class QingWeather {
         if (cityName.endsWith("市") || cityName.endsWith("县")) {
             cityName = cityName.substring(0, cityName.length() - 1);
         }
-        String cityId = CityIdUtil.getInstance().getCityId(cityName);
+        String cityId = QingWeatherCityId.getInstance().getCityId(cityName);
         return QingWeather.getWeatherByCityId(cityId);
     }
 }

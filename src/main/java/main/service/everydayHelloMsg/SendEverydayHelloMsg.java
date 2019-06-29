@@ -7,7 +7,6 @@ import me.xuxiaoxiao.chatapi.wechat.entity.contact.WXUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashSet;
 
 /**
  * Created by IntelliJ IDEA.

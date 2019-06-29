@@ -2,7 +2,7 @@ package config;
 
 import com.alibaba.fastjson.JSON;
 import lombok.Getter;
-import entity.QingWeatherCityEntity;
+import robot.QingyunkeRobot.QingyunkeWeather.entity.QingWeatherCityEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

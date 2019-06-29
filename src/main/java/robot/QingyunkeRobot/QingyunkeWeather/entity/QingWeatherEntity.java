@@ -1,9 +1,8 @@
-package robot.QingyunkeRobot.entity;
+package robot.QingyunkeRobot.QingyunkeWeather.entity;
 
 import cons.WxMsg;
 import lombok.Data;
 
-import java.util.Date;
 import java.util.List;
 
 

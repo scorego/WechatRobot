@@ -1,6 +1,7 @@
 package api;
 
 import config.GlobalConfig;
+import cons.WxMsg;
 import org.apache.commons.lang3.StringUtils;
 import robot.Ciba.CibaEveryDayHello;
 
@@ -23,7 +24,9 @@ public class EveryDayHelloApi {
         }
         String weatherMsg = WeatherApi.getWeatherByKeyword("北京天气");
 
-        return msg + weatherMsg;
+        return  weatherMsg
+                + msg
+                + "输入？？了解更多。" + WxMsg.LINE;
     }
 
     private static String getMsg() {

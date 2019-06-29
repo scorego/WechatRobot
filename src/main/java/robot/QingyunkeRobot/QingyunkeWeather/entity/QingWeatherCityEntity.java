@@ -1,4 +1,4 @@
-package entity;
+package robot.QingyunkeRobot.QingyunkeWeather.entity;
 
 import lombok.Data;
 
