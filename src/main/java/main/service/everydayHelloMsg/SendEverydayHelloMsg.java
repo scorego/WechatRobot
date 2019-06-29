@@ -19,14 +19,18 @@ public class SendEverydayHelloMsg {
     private static final Logger log = LoggerFactory.getLogger(SendEverydayHelloMsg.class);
 
 
-    public static void SendGroupEveryDayHelloMsg() {
+    public static void SendGroupEverydayHelloMsg() {
         String msg = EveryDayHelloApi.getEverydayHello();
-        log.info("Start SendGroupEveryDayHelloMsg, msg: {}", msg);
+        log.info("Start SendGroupEverydayHelloMsg, msg: {}", msg);
         EveryDayHelloWhiteList.getInstance().getGroupSet().forEach(group -> {
             WechatBot.getWeChatClient().sendText(group, msg);
-            log.info("SendGroupEveryDayHelloMsg, group: {}", group.name);
+            log.info("SendGroupEverydayHelloMsg, group: {}", group.name);
         });
-        log.info("Finish SendGroupEveryDayHelloMsg.");
+        log.info("Finish SendGroupEverydayHelloMsg.");
+    }
+
+    public static void SendFriendEverydayHelloMsg(){
+        // todo
     }
 
 }

@@ -15,7 +15,7 @@ public class SendEverydayMessage {
     private static final Logger log = LoggerFactory.getLogger(SendEverydayMessage.class);
 
     public static void sendGroupEverydayHello(){
-        SendEverydayHelloMsg.SendGroupEveryDayHelloMsg();
+        SendEverydayHelloMsg.SendGroupEverydayHelloMsg();
     }
 
 

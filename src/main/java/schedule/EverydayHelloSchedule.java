@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import utils.DateUtil;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -22,9 +21,11 @@ public class EverydayHelloSchedule {
 
     private static final Logger log = LoggerFactory.getLogger(EverydayHelloSchedule.class);
 
-    private static final long MILLE_SECONDS_PER_DAY = 24 * 60 * 60 * 1000;
+    private static final int MILLE_SECONDS_PER_MINUTE = 60 * 1000;
 
-    private static final long MILLE_SECONDS_PER_HOUR = 60 * 60 * 1000;
+    private static final int MILLE_SECONDS_PER_HOUR = 60 * MILLE_SECONDS_PER_MINUTE;
+
+    private static final int MILLE_SECONDS_PER_DAY = 24 * MILLE_SECONDS_PER_HOUR;
 
     private static final boolean ENABLE = GlobalConfig.getValue("everydayHello.enable", "false").equalsIgnoreCase("true");
 
@@ -40,7 +41,7 @@ public class EverydayHelloSchedule {
             GROUP_TIME = "083000";
         }
 
-        String GROUP_PERIOD_CONFIG = GlobalConfig.getValue("everydayHello.group.period", "").trim();
+        String GROUP_PERIOD_CONFIG = GlobalConfig.getValue("everydayHello.group.period.hour", "").trim();
         if (StringUtils.isNotBlank(GROUP_PERIOD_CONFIG)) {
             try {
                 GROUP_PERIOD = Long.parseLong(GROUP_PERIOD_CONFIG) * MILLE_SECONDS_PER_HOUR;
@@ -70,11 +71,11 @@ public class EverydayHelloSchedule {
             log.error("解析scheduleDate失败。");
             return;
         }
-        if (curTime == null || GROUP_TIME.compareTo(curTime) >= 0) {
-            scheduleDate = DateUtil.addDate(scheduleDate, 1);
+        if (curTime != null && GROUP_TIME.compareTo(curTime) <= 0) {
+            scheduleDate = DateUtil.addOneDay(scheduleDate);
         }
 
-        log.info("EverydayHelloSchedule::startEverydaySchedule, schedule。 scheduleDate: {}, period: {}分钟", scheduleDate, GROUP_PERIOD / 60000);
+        log.info("EverydayHelloSchedule::startEverydaySchedule, schedule。 scheduleDate: {}, period: {}分钟", scheduleDate, GROUP_PERIOD / MILLE_SECONDS_PER_MINUTE);
         timer.schedule(new EverydayHelloTask(), scheduleDate, GROUP_PERIOD);
         isScheduled = true;
     }
@@ -83,7 +84,7 @@ public class EverydayHelloSchedule {
         @Override
         public void run() {
             log.info("EverydayHelloSchedule::EverydayHelloTask.run(), now is {}", DateUtil.getYYMMDDHHMMSSDate(new Date()));
-            SendEverydayHelloMsg.SendGroupEveryDayHelloMsg();
+            SendEverydayHelloMsg.SendGroupEverydayHelloMsg();
         }
     }
 

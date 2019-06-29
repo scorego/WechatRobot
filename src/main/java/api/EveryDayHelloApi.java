@@ -25,8 +25,9 @@ public class EveryDayHelloApi {
         String weatherMsg = WeatherApi.getWeatherByKeyword("北京天气");
 
         return  weatherMsg
-                + msg
-                + "输入？？了解更多。" + WxMsg.LINE;
+                + WxMsg.LINE
+                + "【每日一句】" + msg
+                + "【详情】输入？？了解更多。" + WxMsg.LINE;
     }
 
     private static String getMsg() {

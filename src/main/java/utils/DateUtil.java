@@ -13,8 +13,11 @@ public class DateUtil {
 
     private static final int MILLSECONDSPERDAY = 24 * 60 * 60 * 1000;
 
-    private static final String YYMMDDHHMMSS = "yyyy-MM-dd HH:mm:ss";
+    private static final String YYMMDDHHMMSS = "yyyyMMddHHmmss";
 
+    public static Date addOneDay(Date oldDate){
+        return addDate(oldDate,1);
+    }
 
     public static Date addDate(Date oldDate, int addDays){
         long time = oldDate.getTime();

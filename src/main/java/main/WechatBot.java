@@ -20,6 +20,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import schedule.EverydayHelloSchedule;
+import utils.QRCodeUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -35,11 +36,11 @@ public class WechatBot {
 
     private static final Gson GSON = new GsonBuilder().disableHtmlEscaping().create();
 
-    private static  String REPLY_PREFIX = GlobalConfig.getValue("replyPrefix", "");
+    private static String REPLY_PREFIX = GlobalConfig.getValue("replyPrefix", "");
 
-    static{
-        if (StringUtils.isNotBlank(REPLY_PREFIX)){
-            REPLY_PREFIX  += WxMsg.LINE;
+    static {
+        if (StringUtils.isNotBlank(REPLY_PREFIX)) {
+            REPLY_PREFIX += WxMsg.LINE;
         }
     }
 
@@ -55,6 +56,7 @@ public class WechatBot {
         @Override
         public void onQRCode(@Nonnull WeChatClient client, @Nonnull String qrCode) {
             log.info("onQRCode：{}", qrCode);
+//            log.info(QRCodeUtil.printQRCode(qrCode));
         }
 
         @Override
