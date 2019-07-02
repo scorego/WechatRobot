@@ -20,6 +20,7 @@
 
 ## 最近动态
 
+- 新增Redis缓存，可将天气查询结果、垃圾分类查询结果缓存在Redis。如果自己没有Redis，可在配置文件中关闭缓存。
 - 增加垃圾分类查询功能，可在群聊中查询垃圾如何分类。
 - 天气接口默认改回Qingyunke
 ---
@@ -28,10 +29,11 @@
 
 需求环境：jdk 1.8+、Maven
   
-配置文件是[`resource/config.properties`](/src/main/resources/config.properties)。  
+全局配置文件是[`resource/config.properties`](/src/main/resources/config.properties)。    
+缓存配置文件是[`resource/redis.properties`](/src/main/resources/redis.properties)。     
 程序入口：[`main/WechatBot.java`](/src/main/java/main/WechatBot.java)   
 启动程序后打开控制台输出的二维码链接，并使用微信扫描。     
-提示：任何非官方途径登陆网页微信都有可能导致封停账号登陆网页微信的权限。建议使用小号。   
+提示：任何非官方途径登陆网页微信都有可能导致封停账号登陆网页微信的权限(不影响其他端的使用)。建议使用小号。   
 
 #### 激活指令
 

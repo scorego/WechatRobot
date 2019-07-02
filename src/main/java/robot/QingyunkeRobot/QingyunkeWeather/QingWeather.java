@@ -39,18 +39,27 @@ public class QingWeather {
 
         // 部分地区有问题，已知的有：北京朝阳区和辽宁朝阳市；福田区；浦东新区
         switch (cityName) {
-            case "朝阳区":
-            case "朝阳":
-                return QingWeather.getWeatherByCityId("101010300");
+            case "朝阳市":
+                // 查天气时，朝阳默认为北京朝阳区；朝阳市为辽宁朝阳市
+                return QingWeather.getWeatherByCityId("101071201");
             case "福田区":
             case "福田":
                 return null;
             case "浦东新区":
             case "浦东":
                 return QingWeather.getWeatherByCityId("101021300");
+            case "帝都":
+                // 帝都默认为北京
+                return QingWeather.getWeatherByCityId("101010100");
+            case "魔都":
+                // 魔都默认为上海
+                return QingWeather.getWeatherByCityId("101020100");
+            case "长安":
+                // 长安默认为西安
+                return QingWeather.getWeatherByCityId("101110101");
         }
 
-        if (cityName.endsWith("市") || cityName.endsWith("县")) {
+        if (cityName.endsWith("市") || cityName.endsWith("县") || cityName.endsWith("区")) {
             cityName = cityName.substring(0, cityName.length() - 1);
         }
         String cityId = QingWeatherCityId.getInstance().getCityId(cityName);

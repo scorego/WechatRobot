@@ -47,7 +47,6 @@ public class QingWeatherCityId {
                 return cityEntity.getCity_code();
             }
         }
-        cityIdMap.put(cityName, null);
         return null;
     }
 }

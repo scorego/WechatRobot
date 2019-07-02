@@ -1,9 +1,13 @@
 package api;
 
+import cache.RCacheEntity;
+import config.RedisConfig;
 import cons.WxMsg;
 import enums.RubbishType;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import robot.RubbishClassificationApp.RubbishApp;
 
 /**
@@ -14,6 +18,15 @@ import robot.RubbishClassificationApp.RubbishApp;
  */
 public class RubbishClassificationApi {
 
+    private static final Logger log = LoggerFactory.getLogger(RubbishClassificationApi.class);
+
+    private static final boolean REDIS_ENABLE = RedisConfig.isRedisEnable();
+
+    /**
+     * 垃圾分类缓存默认24小时
+     */
+    private static final int RUBBISH_CACHE_DURATION_SECONDS = 60 * 60 * 24;
+
     public static String dealRubbishMsg(WXMessage message) {
         String content = message.content.substring(1).trim();
         return classifyRubbish(content);
@@ -23,7 +36,7 @@ public class RubbishClassificationApi {
         if (StringUtils.isBlank(rubbish)) {
             return "生活垃圾主要包括有害垃圾、可回收物、湿垃圾/厨余垃圾、干垃圾/其他垃圾。垃圾分类，从我做起。";
         }
-        RubbishType rubbishType = checkRubbishType(rubbish);
+        RubbishType rubbishType = checkRubbishType(rubbish.trim());
         String tip = getRubbishTypeTip(rubbishType);
         switch (rubbishType) {
             case HAZARDOUS_WASTE:
@@ -33,12 +46,41 @@ public class RubbishClassificationApi {
                 return "【分类结果】" + rubbish + "属于" + rubbishType.getName() + "。" + WxMsg.LINE + tip;
             case DEFAULT_TYPE:
             default:
-                return tip;
+                return "抱歉，未找到\"" + rubbish + "\"分类信息。" + WxMsg.LINE;
         }
     }
 
     private static RubbishType checkRubbishType(String rubbish) {
-        return RubbishApp.getRubbishType(rubbish);
+        if (!REDIS_ENABLE) {
+            return RubbishApp.getRubbishType(rubbish);
+        }
+
+        // 1. 构造缓存key
+        RCacheEntity.KeyBuilder rubbishTypeKeyBuilder = new RCacheEntity.KeyBuilder("rubbishType").addParam("item", rubbish);
+        RCacheEntity rCacheEntity = new RCacheEntity(rubbishTypeKeyBuilder, RUBBISH_CACHE_DURATION_SECONDS);
+
+        // 2. 有缓存，更新缓存过期时间，返回缓存结果
+        String stringType;
+        RubbishType rubbishType;
+        if ((stringType = rCacheEntity.get()) != null) {
+            rubbishType = RubbishType.findByValue(Integer.valueOf(stringType));
+            if (rubbishType != RubbishType.DEFAULT_TYPE) {
+                // 查询不到结果的记录不更新缓存过期时间
+                rCacheEntity.save();
+            }
+            log.info("RubbishClassificationApi::checkRubbishType, cache >> rubbish: {}, result: {}", rubbish, rubbishType);
+            return rubbishType;
+        }
+
+        // 3. 无缓存，查询结果，存入缓存
+        rubbishType = RubbishApp.getRubbishType(rubbish);
+        if (rubbishType == null) {
+            rubbishType = RubbishType.DEFAULT_TYPE;
+        }
+        stringType = String.valueOf(rubbishType.getValue());
+        rCacheEntity.setValue(stringType).save();
+
+        return rubbishType;
     }
 
     private static String getRubbishTypeTip(RubbishType type) {
@@ -59,7 +101,7 @@ public class RubbishClassificationApi {
                         + "【投放要求】" + "尽量沥干水分；" + "难以辨识类别的生活垃圾投入干垃圾容器内。" + WxMsg.LINE;
             case DEFAULT_TYPE:
             default:
-                return "抱歉，未找到该类型垃圾信息。" + WxMsg.LINE;
+                return "";
         }
     }
 }

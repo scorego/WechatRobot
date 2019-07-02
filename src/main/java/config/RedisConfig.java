@@ -30,5 +30,10 @@ public class RedisConfig {
         String value = pp.getProperty(key);
         return StringUtils.isBlank(value) ? defaultValue : value;
     }
+
+    public static boolean isRedisEnable() {
+        return "true".equalsIgnoreCase(getValue("redis.enable", "false"));
+    }
+
 }
 
