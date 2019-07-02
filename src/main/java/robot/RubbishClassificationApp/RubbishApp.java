@@ -1,5 +1,6 @@
 package robot.RubbishClassificationApp;
 
+import cache.RCacheEntity;
 import config.GlobalConfig;
 import enums.RubbishType;
 import org.apache.commons.lang3.StringUtils;
@@ -24,23 +25,40 @@ public class RubbishApp {
         if (StringUtils.isBlank(rubbish)) {
             return null;
         }
+        RCacheEntity.KeyBuilder rubbishTypeKeyBuilder = new RCacheEntity.KeyBuilder("rubbishType").addParam("item", rubbish);
+        RCacheEntity rCacheEntity = new RCacheEntity(rubbishTypeKeyBuilder);
+        // 1.有缓存
+        String stringType;
+        RubbishType rubbishType;
+        if ((stringType = rCacheEntity.get()) != null) {
+            rubbishType = RubbishType.findByValue(Integer.valueOf(stringType));
+            log.info("RubbishApp::getRubbishType, cache >> rubbish: {}, result: {}", rubbish, rubbishType);
+            return rubbishType;
+        }
+        // 2. 无缓存
         String link = LA_JI_FEN_LEI_APP + rubbish;
         String result = HttpRequestUtil.doGet(link);
-        log.info("RubbishApp::getRubbishType, rubbish: {}, result: {}", rubbish, result);
+        log.info("RubbishApp::getRubbishType, httpRequest >> rubbish: {}, result: {}", rubbish, result);
+
         if (StringUtils.isBlank(result)) {
-            return RubbishType.DEFAULT_TYPE;
-        }
-        if (result.contains("干垃圾是指")) {
-            return RubbishType.RESIDUAL_WASTE;
+            rubbishType = RubbishType.DEFAULT_TYPE;
+        } else if (result.contains("干垃圾是指")) {
+            rubbishType = RubbishType.RESIDUAL_WASTE;
         } else if (result.contains("湿垃圾是指")) {
-            return RubbishType.HOUSEHOLD_FOOD_WASTE;
+            rubbishType = RubbishType.HOUSEHOLD_FOOD_WASTE;
         } else if (result.contains("有害垃圾是指")) {
-            return RubbishType.HAZARDOUS_WASTE;
+            rubbishType = RubbishType.HAZARDOUS_WASTE;
         } else if (result.contains("可回收物是指")) {
             return RubbishType.RECYCLABLE_WASTE;
         } else {
-            return RubbishType.DEFAULT_TYPE;
+            rubbishType = RubbishType.DEFAULT_TYPE;
         }
+
+        // 缓存结果
+        stringType = String.valueOf(rubbishType.getValue());
+        rCacheEntity.setValue(stringType).save();
+
+        return rubbishType;
     }
 
 

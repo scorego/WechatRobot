@@ -1,5 +1,6 @@
 import api.EveryDayHelloApi;
 import api.WeatherApi;
+import cache.RCacheEntity;
 import config.GlobalConfig;
 import robot.RubbishClassificationApp.RubbishApp;
 
@@ -18,7 +19,12 @@ public class HttpTest {
 //        System.out.println(everydayHello);
 //        System.out.println(GlobalConfig.getValue("autoReplyFriendMsg",""));
 
-        System.out.println(RubbishApp.getRubbishType("电池").getName());
+//        System.out.println(RubbishApp.getRubbishType("电池").getName());
+
+        RCacheEntity.KeyBuilder keyBuilder = new RCacheEntity.KeyBuilder("test").addParam("aa", 1);
+        RCacheEntity rCacheEntity = new RCacheEntity(keyBuilder);
+//        System.out.println(rCacheEntity.setValue("a").save());
+        System.out.println(rCacheEntity.get() == null);
 
     }
 }

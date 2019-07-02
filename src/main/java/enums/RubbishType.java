@@ -26,8 +26,27 @@ public enum RubbishType {
     @Getter
     private String name;
 
+    public static RubbishType findByValue(int value) {
+        switch (value) {
+            case 1:
+                return HAZARDOUS_WASTE;
+            case 2:
+                return RECYCLABLE_WASTE;
+            case 3:
+                return HOUSEHOLD_FOOD_WASTE;
+            case 4:
+                return RESIDUAL_WASTE;
+            case 5:
+                return DEFAULT_TYPE;
+            default:
+                return null;
+        }
+    }
+
+
     private RubbishType(int value, String name) {
         this.value = value;
         this.name = name;
     }
+
 }
