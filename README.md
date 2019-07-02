@@ -42,7 +42,6 @@
       <img src="/doc/doc1.jpg" width = "500" height = "1500" />
 </div> 
 
-![avatar](/doc/doc1.jpg)
 
 #### 1. 天气模式
 
