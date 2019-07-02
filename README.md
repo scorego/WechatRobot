@@ -82,6 +82,13 @@
 
 RollToolsApi：https://github.com/MZCretin/RollToolsApi  
 
+#### 3. 每日一句
+
+金山词霸： http://open.iciba.com/dsapi/
+
+#### 4. 垃圾分类
+
+LAJIFENLEIAPP: http://lajifenleiapp.com/sk/
 
 ### LICENSE
 
