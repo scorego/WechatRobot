@@ -38,6 +38,9 @@ public class CheckCommandType {
         if (isWeatherCommand(content)){
             return CommandType.COMMAND_WEATHER;
         }
+        if (isRubbishCommand(content)){
+            return CommandType.COMMAND_RUBBISH;
+        }
         if (isDiDiCommand(content)){
             return CommandType.COMMAND_DIDI;
         }
@@ -46,6 +49,10 @@ public class CheckCommandType {
 
     private boolean isWeatherCommand(String content) {
         return (content.startsWith("天气") || content.endsWith("天气"));
+    }
+
+    private boolean isRubbishCommand(String content) {
+        return (content.startsWith("？") || content.startsWith("?"));
     }
 
     private boolean isDiDiCommand(String content){

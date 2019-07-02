@@ -31,6 +31,7 @@ public class EveryDayHelloApi {
     }
 
     public static String getFriendHelloMsg(){
+        // 暂未启用
         return "";
     }
 

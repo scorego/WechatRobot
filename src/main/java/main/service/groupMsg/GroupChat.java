@@ -39,7 +39,7 @@ public class GroupChat {
             case GROUP_WHITELIST:
                 return dealAllMsg(message);
             case GROUP_DEFAULT:
-            case GROUP_WEATHER_ONLY:
+            case GROUP_MODE_ONLY:
                 return dealWeatherQueryMsg(message);
             case GROUP_NOT_EXISTS:
             case GROUP_BLACKLIST:

@@ -12,7 +12,14 @@ import lombok.Getter;
 @Getter
 public enum CommandType {
     COMMAND_HELP,
+    /**
+     * 查天气
+     */
     COMMAND_WEATHER,
+    /**
+     * 查垃圾分类
+     */
+    COMMAND_RUBBISH,
     COMMAND_DIDI,
     COMMAND_CHAT,
     COMMAND_DEFAULT,

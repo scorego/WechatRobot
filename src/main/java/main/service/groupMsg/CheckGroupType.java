@@ -31,17 +31,17 @@ public class CheckGroupType {
 
     private static final String GROUP_BLACK_KEYWORD = GlobalConfig.getValue("group.blackKeyword", "");
 
-    private static final String GROUP_WEATHER_ONLY = GlobalConfig.getValue("group.weatherOnly", "");
+    private static final String GROUP_MODE_ONLY = GlobalConfig.getValue("group.modeOnly", "");
 
-    private static final String GROUP_WEATHER_KEYWORD = GlobalConfig.getValue("group.weatherOnlyKeyword", "");
+    private static final String GROUP_MODE_KEYWORD = GlobalConfig.getValue("group.modeOnlyKeyword", "");
 
     private static List<String> WHITE_LIST = new LinkedList<>();
 
     private static List<String> WHITE_KEYWORD_LIST = new LinkedList<>();
 
-    private static List<String> WEATHER_KEYWORD_LIST = new LinkedList<>();
+    private static List<String> MODE_KEYWORD_LIST = new LinkedList<>();
 
-    private static List<String> WEATHER_ONLY_LIST = new LinkedList<>();
+    private static List<String> MODE_ONLY_LIST = new LinkedList<>();
 
     private static List<String> BLACK_KEYWORD_LIST = new LinkedList<>();
 
@@ -56,9 +56,9 @@ public class CheckGroupType {
 
         BLACK_LIST.addAll(Arrays.stream(GROUP_BLACKLIST.split("#")).filter(StringUtils::isNotBlank).collect(Collectors.toList()));
 
-        WEATHER_ONLY_LIST.addAll(Arrays.stream(GROUP_WEATHER_ONLY.split("#")).filter(StringUtils::isNotBlank).collect(Collectors.toList()));
+        MODE_ONLY_LIST.addAll(Arrays.stream(GROUP_MODE_ONLY.split("#")).filter(StringUtils::isNotBlank).collect(Collectors.toList()));
 
-        WEATHER_KEYWORD_LIST.addAll(Arrays.stream(GROUP_WEATHER_KEYWORD.split("#")).filter(StringUtils::isNotBlank).collect(Collectors.toList()));
+        MODE_KEYWORD_LIST.addAll(Arrays.stream(GROUP_MODE_KEYWORD.split("#")).filter(StringUtils::isNotBlank).collect(Collectors.toList()));
     }
 
     private static Map<String, GroupType> cache = new ConcurrentHashMap<>();
@@ -96,14 +96,14 @@ public class CheckGroupType {
                 type = GroupType.GROUP_WHITELIST;
         }
 
-        for (String s : WEATHER_KEYWORD_LIST) {
+        for (String s : MODE_KEYWORD_LIST) {
             if (from.contains(s)) {
-                type = GroupType.GROUP_WEATHER_ONLY;
+                type = GroupType.GROUP_MODE_ONLY;
             }
         }
-        for (String s : WEATHER_ONLY_LIST) {
+        for (String s : MODE_ONLY_LIST) {
             if (from.equals(s))
-                type = GroupType.GROUP_WEATHER_ONLY;
+                type = GroupType.GROUP_MODE_ONLY;
         }
         cache.put(from, type);
         log.info("checkGroupType, GroupName: {}, GroupType: {}, fromCache: false", from, type);

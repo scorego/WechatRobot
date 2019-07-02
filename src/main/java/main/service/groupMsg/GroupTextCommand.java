@@ -34,7 +34,7 @@ public class GroupTextCommand {
     }
 
     public String doGroupCommand(WXMessage message) {
-        // 垃圾分类
+        // 极速模式为垃圾分类
         if (isFastCommand(message.content)) {
             String response = doRubbishCheck(message);
             if (StringUtils.isBlank(response)) {
@@ -47,6 +47,8 @@ public class GroupTextCommand {
                 return doGroupHelp(message);
             case COMMAND_WEATHER:
                 return doGroupWeather(message);
+            case COMMAND_RUBBISH:
+                return doGroupRubbish(message);
             case COMMAND_DIDI:
                 return "";
             case COMMAND_DEFAULT:
@@ -64,7 +66,7 @@ public class GroupTextCommand {
 
     private String doGroupHelp(WXMessage message) {
         switch (CheckGroupType.checkGroupType(message.fromGroup.name)) {
-            case GROUP_WEATHER_ONLY:
+            case GROUP_MODE_ONLY:
             case GROUP_WHITELIST:
                 return HelpMsg.getHelpMsg();
             default:
@@ -74,18 +76,28 @@ public class GroupTextCommand {
 
     private String doGroupWeather(WXMessage message) {
         switch (CheckGroupType.checkGroupType(message.fromGroup.name)) {
-            case GROUP_WEATHER_ONLY:
+            case GROUP_MODE_ONLY:
             case GROUP_WHITELIST:
                 return WeatherApi.dealWeatherMsg(message);
             default:
                 return null;
         }
     }
+
+    private String doGroupRubbish(WXMessage message) {
+        switch (CheckGroupType.checkGroupType(message.fromGroup.name)) {
+            case GROUP_MODE_ONLY:
+            case GROUP_WHITELIST:
+                return RubbishClassificationApi.dealRubbishMsg(message);
+            default:
+                return null;
+        }
+    }
     private String doRubbishCheck(WXMessage message) {
         switch (CheckGroupType.checkGroupType(message.fromGroup.name)) {
-            case GROUP_WEATHER_ONLY:
+            case GROUP_MODE_ONLY:
             case GROUP_WHITELIST:
-                return RubbishClassificationApi.classfyRubbish(message.content.substring(1));
+                return RubbishClassificationApi.classifyRubbish(message.content.substring(1));
             default:
                 return null;
         }

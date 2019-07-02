@@ -14,9 +14,9 @@ public enum GroupType {
      */
     GROUP_WHITELIST,
     /**
-     * 只回复查询天气
+     * 只回复启用的模式
      */
-    GROUP_WEATHER_ONLY,
+    GROUP_MODE_ONLY,
     /**
      * 只回复@我的信息
      */
