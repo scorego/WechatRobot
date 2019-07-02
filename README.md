@@ -12,6 +12,7 @@
 
 ## TODO
 
+- [x] 垃圾分类模式
 - [ ] 投票模式
 - [ ] 拼车模式
 - [x] 每日一句
@@ -36,6 +37,12 @@
 
 默认的指令前缀是两个问号：`??`，中英文皆可。指令前缀＋具体指令组成一条完整的指令。如`北京天气`是一条天气指令，`??北京天气`是一条完整的指令，当具有天气模式权限的群里有群成员发送`??北京天气`时，此机器人会自动回复当日北京天气并@发送者。    
 指令前缀可在配置文件中自定义。  
+
+<div align=center>
+      <img src="/doc/doc1.jpg" width = "500" height = "1500" />
+</div> 
+
+![avatar](/doc/doc1.jpg)
 
 #### 1. 天气模式
 
@@ -75,6 +82,7 @@
 #### 2. RollToolsApi
 
 RollToolsApi：https://github.com/MZCretin/RollToolsApi  
+
 
 ### LICENSE
 
