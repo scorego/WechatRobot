@@ -20,8 +20,8 @@ public class HelpMsg {
                 + "【指令前缀】" + commandPrefix + WxMsg.LINE
                 + "指令前缀+具体指令开启相应模式。" + WxMsg.LINE
                 + "【天气模式】" + "查询城市天气，如" + commandPrefix + "北京天气。" + WxMsg.LINE
-                + "【极速模式】" + "查天气快捷指令：" + commandPrefix + "？" + WxMsg.LINE
-                + "试着发一下“" + PreProcessMessage.getCommandPrefix() +"？”。☺" + WxMsg.LINE
+                + "【极速模式】" + "查垃圾分类快捷指令：" + commandPrefix + "？" + WxMsg.LINE
+                + "试着发一下“" + PreProcessMessage.getCommandPrefix() +"天气”。☺" + WxMsg.LINE
                 + "详情见" + README_LINK + WxMsg.LINE;
     }
 }

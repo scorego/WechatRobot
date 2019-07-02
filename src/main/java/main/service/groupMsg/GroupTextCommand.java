@@ -3,6 +3,7 @@ package main.service.groupMsg;
 import IdentifyCommand.CheckCommandType;
 import IdentifyCommand.PreProcessMessage;
 import api.HelpMsg;
+import api.RubbishClassificationApi;
 import api.WeatherApi;
 import cons.WxMsg;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
@@ -33,9 +34,9 @@ public class GroupTextCommand {
     }
 
     public String doGroupCommand(WXMessage message) {
+        // 垃圾分类
         if (isFastCommand(message.content)) {
-            message.content = "天气";
-            String response = doGroupWeather(message);
+            String response = doRubbishCheck(message);
             if (StringUtils.isBlank(response)) {
                 return null;
             }
@@ -57,7 +58,8 @@ public class GroupTextCommand {
 
 
     private boolean isFastCommand(String content) {
-        return "?".equals(content) || "？".equals(content);
+        content = content.trim();
+        return content.startsWith("?") || content.startsWith("？");
     }
 
     private String doGroupHelp(WXMessage message) {
@@ -75,6 +77,15 @@ public class GroupTextCommand {
             case GROUP_WEATHER_ONLY:
             case GROUP_WHITELIST:
                 return WeatherApi.dealWeatherMsg(message);
+            default:
+                return null;
+        }
+    }
+    private String doRubbishCheck(WXMessage message) {
+        switch (CheckGroupType.checkGroupType(message.fromGroup.name)) {
+            case GROUP_WEATHER_ONLY:
+            case GROUP_WHITELIST:
+                return RubbishClassificationApi.classfyRubbish(message.content.substring(1));
             default:
                 return null;
         }
