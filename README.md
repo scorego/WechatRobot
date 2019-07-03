@@ -90,7 +90,7 @@ RollToolsApi：https://github.com/MZCretin/RollToolsApi
 
 #### 4. 垃圾分类
 
-LAJIFENLEIAPP: http://lajifenleiapp.com/sk/
+LAJIFENLEIAPP: http://lajifenleiapp.com/
 
 ### LICENSE
 
