@@ -1,6 +1,7 @@
 package utils;
 
-import com.sun.istack.internal.NotNull;
+
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +15,10 @@ public class HttpRequestUtil {
 
     private static final Logger log = LoggerFactory.getLogger(HttpRequestUtil.class);
 
-    public static String doGet(@NotNull String url){
+    public static String doGet(String url) {
+        if (StringUtils.isBlank(url)) {
+            return null;
+        }
         return httpRequest(url);
     }
 
@@ -46,7 +50,7 @@ public class HttpRequestUtil {
             inputStream = null;
             httpUrlConn.disconnect();
         } catch (Exception e) {
-            log.error("HttpRequestUtil::httpRequest error, requestUrl: {}",requestUrl, e);
+            log.error("HttpRequestUtil::httpRequest error, requestUrl: {}", requestUrl, e);
         }
         return buffer.toString();
     }
