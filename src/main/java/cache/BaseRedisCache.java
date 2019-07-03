@@ -1,7 +1,5 @@
 package cache;
 
-import config.RedisConfig;
-import org.apache.commons.lang3.StringUtils;
 import redis.clients.jedis.Jedis;
 
 /**
@@ -30,7 +28,6 @@ public class BaseRedisCache {
 
     private final static String REDIS_OK = "OK";
 
-//    private Jedis jedis = JedisPoolUtil.getJedis();
 
     public boolean save(String key, String value, int seconds) {
         Jedis jedis = JedisPoolUtil.getJedis();

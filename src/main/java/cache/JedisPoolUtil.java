@@ -23,35 +23,13 @@ public class JedisPoolUtil {
 
     private static JedisPool pool;
 
-    private static void createJedisPool() {
-
-        JedisPoolConfig config = new JedisPoolConfig();
-
-        // 设置空间连接
-        config.setMaxTotal(10);
-        config.setMaxIdle(10);
-        config.setMaxWaitMillis(1000 * 10);
-
-        // 创建连接池
-        pool = new JedisPool(config, HOST, PORT);
-
-    }
 
     /**
-     * 在多线程环境同步初始化
-     */
-    private static synchronized void poolInit() {
-        if (pool == null)
-            createJedisPool();
-    }
-
-    /**
-     * 获取一个jedis 对象
+     * 获取一个Jedis 对象
      *
      * @return
      */
     public static Jedis getJedis() {
-
         if (pool == null)
             poolInit();
         Jedis resource = pool.getResource();
@@ -61,13 +39,22 @@ public class JedisPoolUtil {
         return resource;
     }
 
-    /**
-     * 归还一个连接
-     *
-     * @param jedis
-     */
-    public static void returnRes(Jedis jedis) {
-        JedisPoolUtil.returnRes(jedis);
+    private static void createJedisPool() {
+        JedisPoolConfig config = new JedisPoolConfig();
+
+        config.setMaxTotal(10);
+        config.setMaxIdle(10);
+        config.setMaxWaitMillis(1000 * 10);
+
+        // 创建连接池
+        pool = new JedisPool(config, HOST, PORT);
     }
+
+
+    private static synchronized void poolInit() {
+        if (pool == null)
+            createJedisPool();
+    }
+
 
 }

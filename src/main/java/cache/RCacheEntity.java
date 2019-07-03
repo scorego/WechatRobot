@@ -74,7 +74,7 @@ public class RCacheEntity {
         String key;
 
         public KeyBuilder(String name) {
-            this.name = name;
+            this.name = (name == null) ? "" : name;
         }
 
         public KeyBuilder addParam(String name, Object object) {
@@ -82,7 +82,7 @@ public class RCacheEntity {
             return this;
         }
 
-        public String build() {
+        private String build() {
             StringBuilder result = new StringBuilder();
             if (StringUtils.isEmpty(key)) {
                 for (Map.Entry<String, Object> entry : keyMap.entrySet()) {
