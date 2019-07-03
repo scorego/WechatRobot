@@ -34,7 +34,9 @@ public class RubbishClassificationApi {
 
     public static String classifyRubbish(String rubbish) {
         if (StringUtils.isBlank(rubbish)) {
-            return "生活垃圾主要包括有害垃圾、可回收物、湿垃圾/厨余垃圾、干垃圾/其他垃圾。垃圾分类，从我做起。";
+            return "生活垃圾主要包括有害垃圾、可回收物、湿垃圾/厨余垃圾、干垃圾/其他垃圾。"
+            + "7月1日，《上海市生活垃圾管理条例》正式施行。个人混合投放垃圾，最高可罚款200元；单位混合投放或混合运输垃圾，最高可罚5万元。" + WxMsg.LINE
+            + "垃圾分类，从我做起。";
         }
         RubbishType rubbishType = checkRubbishType(rubbish.trim());
         String tip = getRubbishTypeTip(rubbishType);
