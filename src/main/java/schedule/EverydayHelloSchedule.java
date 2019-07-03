@@ -72,7 +72,7 @@ public class EverydayHelloSchedule {
             scheduleDate = DateUtil.addOneDay(scheduleDate);
         }
 
-        log.info("EverydayHelloSchedule::startEverydaySchedule, schedule >> scheduleDate: {}, period: {}分钟", scheduleDate, GROUP_PERIOD / MILLE_SECONDS_PER_MINUTE);
+        log.info("EverydayHelloSchedule::startEverydaySchedule, schedule >> scheduleDate: {}, period: {}分钟", DateUtil.getYYMMDDHHMMSSDate(scheduleDate), GROUP_PERIOD / MILLE_SECONDS_PER_MINUTE);
         timer.schedule(new EverydayHelloTask(), scheduleDate, GROUP_PERIOD);
         isScheduled = true;
     }
