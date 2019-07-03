@@ -26,7 +26,7 @@ public class RCacheEntity {
      */
     @Getter
     @Setter
-    private int expire = 60 * 60 * 24;
+    private int expireSeconds = 60 * 60 * 24;
 
     private BaseRedisCache baseRedisCache = BaseRedisCache.getInstance();
 
@@ -34,7 +34,7 @@ public class RCacheEntity {
         if (value == null) {
             return false;
         }
-        return baseRedisCache.save(getKey(), String.valueOf(value), expire);
+        return baseRedisCache.save(getKey(), value, expireSeconds);
     }
 
     public String get() {
@@ -52,7 +52,7 @@ public class RCacheEntity {
 
     public RCacheEntity(KeyBuilder keyBuilder, int expireSeconds) {
         this.keyBuilder = keyBuilder;
-        this.expire = expireSeconds;
+        this.expireSeconds = expireSeconds;
     }
 
 
@@ -83,12 +83,11 @@ public class RCacheEntity {
         }
 
         private String build() {
-            StringBuilder result = new StringBuilder();
+            StringBuilder result = new StringBuilder(name);
             if (StringUtils.isEmpty(key)) {
                 for (Map.Entry<String, Object> entry : keyMap.entrySet()) {
                     result.append(":").append(entry.getKey()).append(":").append(entry.getValue());
                 }
-                result.insert(0, this.name);
             } else {
                 result = new StringBuilder(key);
             }

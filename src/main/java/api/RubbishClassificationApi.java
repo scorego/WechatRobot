@@ -34,9 +34,9 @@ public class RubbishClassificationApi {
 
     public static String classifyRubbish(String rubbish) {
         if (StringUtils.isBlank(rubbish)) {
-            return "生活垃圾主要包括有害垃圾、可回收物、湿垃圾/厨余垃圾、干垃圾/其他垃圾。"
-            + "7月1日，《上海市生活垃圾管理条例》正式施行。个人混合投放垃圾，最高可罚款200元；单位混合投放或混合运输垃圾，最高可罚5万元。" + WxMsg.LINE
-            + "垃圾分类，从我做起。";
+            return "生活垃圾主要包括有害垃圾、可回收物、湿垃圾/厨余垃圾、干垃圾/其他垃圾。" + WxMsg.LINE
+                    + "7月1日，《上海市生活垃圾管理条例》正式施行。个人混合投放垃圾，最高可罚款200元；单位混合投放或混合运输垃圾，最高可罚5万元。" + WxMsg.LINE
+                    + "垃圾分类，从我做起。" + WxMsg.LINE;
         }
         RubbishType rubbishType = checkRubbishType(rubbish.trim());
         String tip = getRubbishTypeTip(rubbishType);
@@ -95,11 +95,11 @@ public class RubbishClassificationApi {
                         + "【投放要求】轻投轻放；清洁干燥，避免污染，费纸尽量平整；立体包装物请清空内容物，清洁后压扁投放；"
                         + "有尖锐边角的、应包裹后投放。" + WxMsg.LINE;
             case HOUSEHOLD_FOOD_WASTE:
-                return "【分类介绍】湿垃圾即厨余垃圾，是指日常生活垃圾产生的容易腐烂的生物质废弃物。" + WxMsg.LINE
+                return "【分类介绍】湿垃圾/厨余垃圾，指日常生活垃圾产生的容易腐烂的生物质废弃物。" + WxMsg.LINE
                         + "【投放要求】纯流质的食物垃圾（如牛奶）应直接倒进下水口；"
                         + "有包装物的湿垃圾应将包装物去除后分类投放；包装物请投放到对应的可回收物或干垃圾容器。" + WxMsg.LINE;
             case RESIDUAL_WASTE:
-                return "【分类介绍】干垃圾即其他垃圾，指除可回收物、有害垃圾、湿垃圾以外的其它生活废弃物。" + WxMsg.LINE
+                return "【分类介绍】干垃圾/其他垃圾，指除可回收物、有害垃圾、湿垃圾以外的其它生活废弃物。" + WxMsg.LINE
                         + "【投放要求】" + "尽量沥干水分；" + "难以辨识类别的生活垃圾投入干垃圾容器内。" + WxMsg.LINE;
             case DEFAULT_TYPE:
             default:

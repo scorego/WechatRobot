@@ -37,11 +37,7 @@ public class GroupTextCommand {
         // 极速模式为查询天气
         if (isFastCommand(message.content)) {
             message.content = "天气";
-            String response = doGroupWeather(message);
-            if (StringUtils.isBlank(response)) {
-                return null;
-            }
-            return response;
+            return doGroupWeather(message);
         }
         switch (CheckCommandType.getInstance().checkCommandType(message.content)) {
             case COMMAND_HELP:
@@ -90,21 +86,10 @@ public class GroupTextCommand {
             case GROUP_MODE_ONLY:
             case GROUP_WHITELIST:
                 return RubbishClassificationApi.dealRubbishMsg(message)
-                        + "【更多功能】更多功能输入\"" + PreProcessMessage.getCommandPrefix() + "\"了解。" + WxMsg.LINE;
+                        + "【更多功能】更多功能发送" + PreProcessMessage.getCommandPrefix() + "了解。" + WxMsg.LINE;
             default:
                 return null;
         }
     }
-
-    private String doRubbishCheck(WXMessage message) {
-        switch (CheckGroupType.checkGroupType(message.fromGroup.name)) {
-            case GROUP_MODE_ONLY:
-            case GROUP_WHITELIST:
-                return RubbishClassificationApi.classifyRubbish(message.content.substring(1));
-            default:
-                return null;
-        }
-    }
-
 
 }
