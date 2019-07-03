@@ -60,16 +60,15 @@ public class WechatBot {
 
         @Override
         public void onMessage(@Nonnull WeChatClient client, @Nonnull WXMessage message) {
+
             EverydayHelloSchedule.startEverydaySchedule();
+
             log.info("获取到消息：{}", GSON.toJson(message));
 
             if (message instanceof WXVerify) {
-                //好友请求消息
                 log.info("收到好友请求消息。来自:{}", message.fromUser.name);
-//                同意好友请求
 //                client.passVerify((WXVerify) message);
             } else if (message instanceof WXLocation && message.fromUser != null && !message.fromUser.id.equals(client.userMe().id)) {
-                // 位置消息
                 if (message.fromGroup != null) {
                     log.info("收到位置消息。来自群: {}，用户: {}", message.fromGroup.name, message.fromUser.name);
 //                    // client.sendLocation(message.fromGroup, "120.14556", "30.23856", "我在这里", "西湖");
@@ -78,22 +77,21 @@ public class WechatBot {
 //                    client.sendLocation(message.fromUser, "120.14556", "30.23856", "我在这里", "西湖");
                 }
             } else if (message instanceof WXText && message.fromUser != null && !message.fromUser.id.equals(client.userMe().id)) {
-                //是文字消息，并且发送消息的人不是自己
                 if (message.fromGroup != null) {
                     log.info("收到文字消息。来自群: {}，用户: {}，内容: {}", message.fromGroup.name, message.fromUser.name, message.content);
                     String response = DealMessage.dealGroupTextMsg(message);
                     if (StringUtils.isNotBlank(response)) {
                         response = REPLY_PREFIX + response;
-                        log.info("回复消息，to:{}, content: {}", message.fromGroup.name, response.trim());
-                        client.sendText(message.fromGroup, response.trim());
+                        log.info("回复消息，to:{}, content: {}", message.fromGroup.name, response);
+                        client.sendText(message.fromGroup, response);
                     }
                 } else {
                     log.info("收到文字消息。来自好友: {}", message.fromUser.name);
                     String response = DealMessage.dealFriendTextMsg(message);
                     if (StringUtils.isNotBlank(response)) {
                         response = REPLY_PREFIX + response;
-                        log.info("回复消息，to:{}, content: {}", message.fromUser.name, response.trim());
-                        client.sendText(message.fromUser, response.trim());
+                        log.info("回复消息，to:{}, content: {}", message.fromUser.name, response);
+                        client.sendText(message.fromUser, response);
                     }
                 }
             }
@@ -108,9 +106,8 @@ public class WechatBot {
     };
 
     public static void main(String[] args) {
-        WeChatClient wechatClient = new WeChatClient();
-        wechatClient.setListener(LISTENER);
-        weChatClient = wechatClient;
-        wechatClient.startup();
+        weChatClient = new WeChatClient();
+        weChatClient.setListener(LISTENER);
+        weChatClient.startup();
     }
 }

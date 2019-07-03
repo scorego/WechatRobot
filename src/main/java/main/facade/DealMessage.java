@@ -26,7 +26,7 @@ public class DealMessage {
         }
 
         if (StringUtils.isNotBlank(response)) {
-            String atMePrefix = " @" + display + WxMsg.AT_ME_SPACE + WxMsg.LINE;
+            String atMePrefix = "@" + display + WxMsg.AT_ME_SPACE + WxMsg.LINE;
             return atMePrefix + response;
         }
         return null;
