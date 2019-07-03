@@ -1,5 +1,6 @@
 package main.facade;
 
+import IdentifyCommand.PreProcessMessage;
 import cons.WxMsg;
 import main.service.friendMsg.FriendChat;
 import main.service.groupMsg.GroupChat;
@@ -14,9 +15,18 @@ public class DealMessage {
     private static final Logger log = LoggerFactory.getLogger(DealMessage.class);
 
     public static String dealGroupTextMsg(WXMessage message) {
+        boolean isCommand = PreProcessMessage.isCommand(message);
         String display = GroupMsgUtil.getUserDisplayOrName(message);
-        log.info("群：{}, 用户: {}, 群名片: {}, 内容: {}", message.fromGroup.name, message.fromUser.name, display, message.content);
-        String response = GroupChat.getInstance().dealGroupMsg(message);
+        log.info("群：{}, 用户: {}, 群名片: {}, isCommand: {}, 内容: {}", message.fromGroup.name, message.fromUser.name, display, isCommand, message.content);
+        String response;
+        if (isCommand) {
+            // 是指令的话执行指令
+            response = DoCommand.doGroupTextCommand(message);
+        } else {
+            // 否则白名单的群陪聊
+            response = GroupChat.getInstance().dealGroupChatMsg(message);
+        }
+
         if (StringUtils.isNotBlank(response)) {
             String atMePrefix = " @" + display + WxMsg.AT_ME_SPACE + WxMsg.LINE;
             return atMePrefix + response;
@@ -26,12 +36,7 @@ public class DealMessage {
 
     public static String dealFriendTextMsg(WXMessage message) {
         log.info("好友：{}, 好友备注: {}，内容: {}", message.fromUser.name, message.fromUser.remark, message.content);
-        String response = FriendChat.dealFriendMsg(message);
-        if (StringUtils.isNotBlank(response)) {
-            // 回复好友不用@对方。这么写是为了以后扩展
-            return response;
-        }
-        return null;
+        return FriendChat.dealFriendMsg(message);
     }
 
 

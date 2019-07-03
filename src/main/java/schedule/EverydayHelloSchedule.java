@@ -56,7 +56,6 @@ public class EverydayHelloSchedule {
 
     public static void startEverydaySchedule() {
         if (!ENABLE) {
-            log.info("每日一句功能未开启。EverydayHelloSchedule.ENABLE: {}", false);
             return;
         }
         if (isScheduled) {
@@ -75,7 +74,7 @@ public class EverydayHelloSchedule {
             scheduleDate = DateUtil.addOneDay(scheduleDate);
         }
 
-        log.info("EverydayHelloSchedule::startEverydaySchedule, schedule。 scheduleDate: {}, period: {}分钟", scheduleDate, GROUP_PERIOD / MILLE_SECONDS_PER_MINUTE);
+        log.info("EverydayHelloSchedule::startEverydaySchedule, schedule >> scheduleDate: {}, period: {}分钟", scheduleDate, GROUP_PERIOD / MILLE_SECONDS_PER_MINUTE);
         timer.schedule(new EverydayHelloTask(), scheduleDate, GROUP_PERIOD);
         isScheduled = true;
     }

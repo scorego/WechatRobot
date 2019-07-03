@@ -34,13 +34,14 @@ public class GroupTextCommand {
     }
 
     public String doGroupCommand(WXMessage message) {
-        // 极速模式为垃圾分类
+        // 极速模式为查询天气
         if (isFastCommand(message.content)) {
-            String response = doRubbishCheck(message);
+            message.content = "天气";
+            String response = doGroupWeather(message);
             if (StringUtils.isBlank(response)) {
                 return null;
             }
-            return response + "【更多功能】更多模式输入" + PreProcessMessage.getCommandPrefix() + "了解。" + WxMsg.LINE;
+            return response;
         }
         switch (CheckCommandType.getInstance().checkCommandType(message.content)) {
             case COMMAND_HELP:
@@ -61,7 +62,7 @@ public class GroupTextCommand {
 
     private boolean isFastCommand(String content) {
         content = content.trim();
-        return content.startsWith("?") || content.startsWith("？");
+        return "?".equals(content) || "？".equals(content);
     }
 
     private String doGroupHelp(WXMessage message) {
@@ -88,11 +89,13 @@ public class GroupTextCommand {
         switch (CheckGroupType.checkGroupType(message.fromGroup.name)) {
             case GROUP_MODE_ONLY:
             case GROUP_WHITELIST:
-                return RubbishClassificationApi.dealRubbishMsg(message);
+                return RubbishClassificationApi.dealRubbishMsg(message)
+                        + "【更多功能】更多功能输入\"" + PreProcessMessage.getCommandPrefix() + "\"了解。" + WxMsg.LINE;
             default:
                 return null;
         }
     }
+
     private String doRubbishCheck(WXMessage message) {
         switch (CheckGroupType.checkGroupType(message.fromGroup.name)) {
             case GROUP_MODE_ONLY:

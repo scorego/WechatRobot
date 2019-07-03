@@ -1,7 +1,6 @@
 package main.service.groupMsg;
 
 import api.ChatApi;
-import api.WeatherApi;
 import enums.GroupType;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
 import org.apache.commons.lang3.StringUtils;
@@ -31,16 +30,15 @@ public class GroupChat {
     }
 
 
-    public String dealGroupMsg(WXMessage message) {
+    public String dealGroupChatMsg(WXMessage message) {
         String groupName = message.fromGroup.name;
         GroupType groupType = CheckGroupType.checkGroupType(groupName);
-        log.info("GroupChat::dealGroupMsg, 群:{}, GroupType:{}",groupName, groupType);
+        log.info("GroupChat::dealGroupChatMsg, 群:{}, GroupType:{}", groupName, groupType);
         switch (groupType) {
             case GROUP_WHITELIST:
-                return dealAllMsg(message);
+                return dealChatMsg(message);
             case GROUP_DEFAULT:
             case GROUP_MODE_ONLY:
-                return dealWeatherQueryMsg(message);
             case GROUP_NOT_EXISTS:
             case GROUP_BLACKLIST:
             default:
@@ -49,37 +47,11 @@ public class GroupChat {
     }
 
 
-    private String dealWeatherQueryMsg(WXMessage message) {
-        String keyword = message.content;
-        // 太长的句子不太像是查询天气的
-        if (keyword == null || keyword.length() > 8){
-            return null;
-        }
-        if ((keyword.startsWith("天气") || keyword.endsWith("天气"))) {
-            return WeatherApi.dealWeatherMsg(message);
-        }
-        return null;
-    }
-
-    private String dealAllMsg(WXMessage message) {
+    private String dealChatMsg(WXMessage message) {
         String keyword = message.content;
         if (StringUtils.isBlank(keyword)) {
             return null;
         }
-        String response;
-        if (keyword.startsWith("天气") || keyword.endsWith("天气")) {
-            // 查询天气
-            response = dealWeatherQueryMsg(message);
-        } else {
-            // 不是查询天气就调用对话api
-            response = ChatApi.chat(message);
-        }
-
-        if (StringUtils.isEmpty(response)) {
-            return response;
-        }
-        String atMePreFix = AtMeMsg.isAtMe(message) ?  " @" + message.fromUser.name + " " : "";
-
-        return atMePreFix + response;
+        return ChatApi.chat(message);
     }
 }

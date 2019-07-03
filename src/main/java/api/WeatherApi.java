@@ -4,14 +4,12 @@ import cache.RCacheEntity;
 import config.GlobalConfig;
 import config.RedisConfig;
 import cons.WxMsg;
-import enums.RubbishType;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import robot.QingyunkeRobot.QingyunkeWeather.QingWeather;
 import robot.RollToolsApi.RollWeather;
-import robot.RubbishClassificationApp.RubbishApp;
 import utils.DateUtil;
 
 import java.util.Date;

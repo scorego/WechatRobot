@@ -1,17 +1,13 @@
 package main;
 
-import api.EveryDayHelloApi;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import config.GlobalConfig;
 import cons.WxMsg;
 import lombok.Getter;
 import main.facade.DealMessage;
-import main.facade.DoCommand;
-import main.facade.SendEverydayMessage;
 import me.xuxiaoxiao.chatapi.wechat.WeChatClient;
 import me.xuxiaoxiao.chatapi.wechat.entity.contact.WXContact;
-import me.xuxiaoxiao.chatapi.wechat.entity.contact.WXGroup;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXLocation;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXText;
@@ -20,7 +16,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import schedule.EverydayHelloSchedule;
-import utils.QRCodeUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -87,19 +82,19 @@ public class WechatBot {
                 //是文字消息，并且发送消息的人不是自己
                 if (message.fromGroup != null) {
                     log.info("收到文字消息。来自群: {}，用户: {}", message.fromGroup.name, message.fromUser.name);
-                    String response = DoCommand.doGroupTextCommand(message);
+                    String response = DealMessage.dealGroupTextMsg(message);
                     if (StringUtils.isNotBlank(response)) {
                         response = REPLY_PREFIX + response;
-                        log.info("回复消息，to:{}, content: {}", message.fromGroup.name, response);
-                        client.sendText(message.fromGroup, response);
+                        log.info("回复消息，to:{}, content: {}", message.fromGroup.name, response.trim());
+                        client.sendText(message.fromGroup, response.trim());
                     }
                 } else {
                     log.info("收到文字消息。来自好友: {}", message.fromUser.name);
                     String response = DealMessage.dealFriendTextMsg(message);
                     if (StringUtils.isNotBlank(response)) {
                         response = REPLY_PREFIX + response;
-                        log.info("回复消息，to:{}, content: {}", message.fromUser.name, response);
-                        client.sendText(message.fromUser, response);
+                        log.info("回复消息，to:{}, content: {}", message.fromUser.name, response.trim());
+                        client.sendText(message.fromUser, response.trim());
                     }
                 }
             }
