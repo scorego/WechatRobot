@@ -2,6 +2,7 @@ package api;
 
 import config.GlobalConfig;
 import cons.WxMsg;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import robot.Ciba.CibaEveryDayHello;
 
@@ -11,6 +12,7 @@ import robot.Ciba.CibaEveryDayHello;
  * @author Javior
  * @date 2019/6/18 12:27
  */
+@Slf4j
 public class EveryDayHelloApi {
 
     private static final String EVERYDAY_HELLO = GlobalConfig.getValue("everydayHelloApi", "");

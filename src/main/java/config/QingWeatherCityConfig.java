@@ -2,18 +2,15 @@ package config;
 
 import com.alibaba.fastjson.JSON;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import robot.QingyunkeRobot.QingyunkeWeather.entity.QingWeatherCityEntity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Slf4j
 public class QingWeatherCityConfig {
-
-    private static final Logger log = LoggerFactory.getLogger(QingWeatherCityConfig.class);
 
     private static final String CITY_JSON_FILE = GlobalConfig.getValue("cityJsonFile", "");
 

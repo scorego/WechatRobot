@@ -10,7 +10,6 @@ public class QingyunkeRobot {
 
     private static final String ChatRobot = GlobalConfig.getValue("QingyunkeRobot.chat", "");
 
-
     public static String getResponse(String keyWord) {
         if (StringUtils.isBlank(keyWord)) {
             return null;

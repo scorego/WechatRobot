@@ -4,10 +4,9 @@ import cache.RCacheEntity;
 import config.RedisConfig;
 import cons.WxMsg;
 import enums.RubbishType;
+import lombok.extern.slf4j.Slf4j;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import robot.RubbishClassificationApp.RubbishApp;
 
 /**
@@ -16,9 +15,8 @@ import robot.RubbishClassificationApp.RubbishApp;
  * @author Javior
  * @date 2019/7/1 21:41
  */
+@Slf4j
 public class RubbishClassificationApi {
-
-    private static final Logger log = LoggerFactory.getLogger(RubbishClassificationApi.class);
 
     private static final boolean REDIS_ENABLE = RedisConfig.isRedisEnable();
 

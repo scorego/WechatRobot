@@ -4,10 +4,9 @@ import cache.RCacheEntity;
 import config.GlobalConfig;
 import config.RedisConfig;
 import cons.WxMsg;
+import lombok.extern.slf4j.Slf4j;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import robot.QingyunkeRobot.QingyunkeWeather.QingWeather;
 import robot.RollToolsApi.RollWeather;
 import utils.DateUtil;
@@ -17,9 +16,9 @@ import java.util.Date;
 /**
  * 查询天气API
  */
-public class WeatherApi {
 
-    private static final Logger log = LoggerFactory.getLogger(WeatherApi.class);
+@Slf4j
+public class WeatherApi {
 
     private static final String WEATHER_ROBOT = GlobalConfig.getValue("weatherApi", "");
 

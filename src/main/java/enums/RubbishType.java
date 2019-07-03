@@ -44,7 +44,7 @@ public enum RubbishType {
     }
 
 
-    private RubbishType(int value, String name) {
+    RubbishType(int value, String name) {
         this.value = value;
         this.name = name;
     }

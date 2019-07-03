@@ -3,9 +3,8 @@ package main.service.friendMsg;
 import api.ChatApi;
 import config.GlobalConfig;
 import enums.FriendType;
+import lombok.extern.slf4j.Slf4j;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,9 +12,8 @@ import org.slf4j.LoggerFactory;
  * @author Javior
  * @date 2019/6/17 14:41
  */
+@Slf4j
 public class FriendChat {
-
-    private static final Logger log = LoggerFactory.getLogger(FriendChat.class);
 
     private static final boolean autoReplyFriend = GlobalConfig.getValue("autoReplyFriend", "false").equalsIgnoreCase("true");
 

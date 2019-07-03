@@ -2,16 +2,12 @@ package main.service.groupMsg;
 
 import api.ChatApi;
 import enums.GroupType;
+import lombok.extern.slf4j.Slf4j;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import utils.AtMeMsg;
 
-
+@Slf4j
 public class GroupChat {
-
-    private static final Logger log = LoggerFactory.getLogger(GroupChat.class);
 
     private static volatile GroupChat INSTANCE;
 

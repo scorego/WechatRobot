@@ -1,11 +1,10 @@
 package robot.RubbishClassificationApp;
 
-import cache.RCacheEntity;
+
 import config.GlobalConfig;
 import enums.RubbishType;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import utils.HttpRequestUtil;
 
 /**
@@ -14,9 +13,8 @@ import utils.HttpRequestUtil;
  * @author Javior
  * @date 2019/7/1 21:51
  */
+@Slf4j
 public class RubbishApp {
-
-    private static final Logger log = LoggerFactory.getLogger(RubbishApp.class);
 
     private static final String LA_JI_FEN_LEI_APP = GlobalConfig.getValue("rubbish.classification", "");
 

@@ -8,8 +8,7 @@ import utils.HttpRequestUtil;
 
 public class RollWeather {
 
-    private static final String ROLL_CURRENT_WEATHER = GlobalConfig.getValue("RollToolsApi.host","") + GlobalConfig.getValue("RollToolsApi.weather.current","");
-
+    private static final String ROLL_CURRENT_WEATHER = GlobalConfig.getValue("RollToolsApi.host", "") + GlobalConfig.getValue("RollToolsApi.weather.current", "");
 
     public static String getWeatherByKeyword(String keyword) {
         if (StringUtils.isBlank(keyword)) {
@@ -25,7 +24,7 @@ public class RollWeather {
             return null;
         }
         String response = HttpRequestUtil.doGet(ROLL_CURRENT_WEATHER + cityName);
-        if (StringUtils.isBlank(response)){
+        if (StringUtils.isBlank(response)) {
             return null;
         }
         RollWeatherEntity weather = JSON.parseObject(response, RollWeatherEntity.class);

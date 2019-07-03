@@ -1,7 +1,5 @@
 package utils;
 
-import com.alibaba.fastjson.asm.MethodWriter;
-import config.GlobalConfig;
 import cons.WxMsg;
 import me.xuxiaoxiao.chatapi.wechat.entity.contact.WXGroup;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
@@ -12,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.regex.Pattern;
 
 /**
  * Created by IntelliJ IDEA.

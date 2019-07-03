@@ -2,9 +2,8 @@ package main.service.friendMsg;
 
 import config.GlobalConfig;
 import enums.FriendType;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -19,9 +18,8 @@ import java.util.stream.Collectors;
  * @author Javior
  * @date 2019/6/17 16:52
  */
+@Slf4j
 public class CheckFriendType {
-
-    private static final Logger log = LoggerFactory.getLogger(CheckFriendType.class);
 
     private static final String FRIEND_BLACK = GlobalConfig.getValue("friend.blacklist", "");
 

@@ -1,10 +1,9 @@
 package IdentifyCommand;
 
 import config.GlobalConfig;
+import lombok.extern.slf4j.Slf4j;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,14 +11,12 @@ import org.slf4j.LoggerFactory;
  * @author Javior
  * @date 2019/6/20 15:20
  */
+@Slf4j
 public class PreProcessMessage {
-
-    private static final Logger log = LoggerFactory.getLogger(PreProcessMessage.class);
 
     /**
      * 配置文件中配置的指令前缀；为空时不生效
      */
-
     private static final String CONFIG_COMMAND_PREFIX = GlobalConfig.getValue("commandPrefix", "");
 
     /**

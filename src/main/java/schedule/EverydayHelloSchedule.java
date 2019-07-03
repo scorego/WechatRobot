@@ -1,10 +1,9 @@
 package schedule;
 
 import config.GlobalConfig;
+import lombok.extern.slf4j.Slf4j;
 import main.service.everydayHelloMsg.SendEverydayHelloMsg;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import utils.DateUtil;
 
 import java.util.Date;
@@ -17,9 +16,8 @@ import java.util.TimerTask;
  * @author Javior
  * @date 2019/6/29 15:01
  */
+@Slf4j
 public class EverydayHelloSchedule {
-
-    private static final Logger log = LoggerFactory.getLogger(EverydayHelloSchedule.class);
 
     private static final int MILLE_SECONDS_PER_MINUTE = 60 * 1000;
 

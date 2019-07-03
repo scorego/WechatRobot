@@ -2,17 +2,15 @@ package main.facade;
 
 import IdentifyCommand.PreProcessMessage;
 import cons.WxMsg;
+import lombok.extern.slf4j.Slf4j;
 import main.service.friendMsg.FriendChat;
 import main.service.groupMsg.GroupChat;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import utils.GroupMsgUtil;
 
+@Slf4j
 public class DealMessage {
-
-    private static final Logger log = LoggerFactory.getLogger(DealMessage.class);
 
     public static String dealGroupTextMsg(WXMessage message) {
         boolean isCommand = PreProcessMessage.isCommand(message);

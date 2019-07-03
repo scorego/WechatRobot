@@ -7,7 +7,6 @@ import api.RubbishClassificationApi;
 import api.WeatherApi;
 import cons.WxMsg;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * Created by IntelliJ IDEA.

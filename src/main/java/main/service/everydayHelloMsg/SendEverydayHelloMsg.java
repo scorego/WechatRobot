@@ -1,9 +1,8 @@
 package main.service.everydayHelloMsg;
 
 import api.EveryDayHelloApi;
+import lombok.extern.slf4j.Slf4j;
 import main.WechatBot;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 /**
@@ -12,10 +11,8 @@ import org.slf4j.LoggerFactory;
  * @author Javior
  * @date 2019/6/18 13:01
  */
+@Slf4j
 public class SendEverydayHelloMsg {
-
-    private static final Logger log = LoggerFactory.getLogger(SendEverydayHelloMsg.class);
-
 
     public static void SendGroupEverydayHelloMsg() {
         String msg = EveryDayHelloApi.getGroupHelloMsg();
@@ -27,7 +24,7 @@ public class SendEverydayHelloMsg {
         log.info("Finish SendGroupEverydayHelloMsg.");
     }
 
-    public static void SendFriendEverydayHelloMsg(){
+    public static void SendFriendEverydayHelloMsg() {
         String msg = EveryDayHelloApi.getFriendHelloMsg();
         log.info("Start SendFriendEverydayHelloMsg, msg: {}", msg);
         EveryDayHelloWhiteList.getInstance().getFriendSet().forEach(friend -> {

@@ -3,12 +3,11 @@ package main.service.everydayHelloMsg;
 import com.alibaba.fastjson.JSONObject;
 import config.GlobalConfig;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import main.WechatBot;
 import me.xuxiaoxiao.chatapi.wechat.entity.contact.WXGroup;
 import me.xuxiaoxiao.chatapi.wechat.entity.contact.WXUser;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -19,9 +18,8 @@ import java.util.stream.Collectors;
  * @author Javior
  * @date 2019/6/18 12:42
  */
+@Slf4j
 public class EveryDayHelloWhiteList {
-
-    private static final Logger log = LoggerFactory.getLogger(EveryDayHelloWhiteList.class);
 
     private static volatile EveryDayHelloWhiteList INSTANCE;
 

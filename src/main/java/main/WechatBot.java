@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import config.GlobalConfig;
 import cons.WxMsg;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import main.facade.DealMessage;
 import me.xuxiaoxiao.chatapi.wechat.WeChatClient;
 import me.xuxiaoxiao.chatapi.wechat.entity.contact.WXContact;
@@ -13,8 +14,6 @@ import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXText;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXVerify;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import schedule.EverydayHelloSchedule;
 
 import javax.annotation.Nonnull;
@@ -27,6 +26,7 @@ import javax.annotation.Nullable;
  * @author Javior
  * @date 2019/6/18 20:06
  */
+@Slf4j
 public class WechatBot {
 
     private static final Gson GSON = new GsonBuilder().disableHtmlEscaping().create();
@@ -39,7 +39,6 @@ public class WechatBot {
         }
     }
 
-    private static final Logger log = LoggerFactory.getLogger(WechatBot.class);
 
     @Getter
     private static WeChatClient weChatClient;
