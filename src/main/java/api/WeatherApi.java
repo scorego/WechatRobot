@@ -28,7 +28,7 @@ public class WeatherApi {
     private static final boolean REDIS_ENABLE = RedisConfig.isRedisEnable();
 
     /**
-     * 天气缓存默认3小时
+     * 天气缓存默认3小时。因为天气接口数据3小时更新一次
      */
     private static final int WEATHER_CACHE_DURATION_SECONDS = 60 * 60 * 3;
 

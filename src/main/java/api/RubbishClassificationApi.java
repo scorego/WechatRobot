@@ -23,9 +23,9 @@ public class RubbishClassificationApi {
     private static final boolean REDIS_ENABLE = RedisConfig.isRedisEnable();
 
     /**
-     * 垃圾分类缓存默认24小时
+     * 垃圾分类缓存默认30天
      */
-    private static final int RUBBISH_CACHE_DURATION_SECONDS = 60 * 60 * 24;
+    private static final int RUBBISH_CACHE_DURATION_SECONDS = 60 * 60 * 24 * 30;
 
     public static String dealRubbishMsg(WXMessage message) {
         String content = message.content.substring(1).trim();
