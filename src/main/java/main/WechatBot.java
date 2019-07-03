@@ -80,7 +80,7 @@ public class WechatBot {
             } else if (message instanceof WXText && message.fromUser != null && !message.fromUser.id.equals(client.userMe().id)) {
                 //是文字消息，并且发送消息的人不是自己
                 if (message.fromGroup != null) {
-                    log.info("收到文字消息。来自群: {}，用户: {}", message.fromGroup.name, message.fromUser.name);
+                    log.info("收到文字消息。来自群: {}，用户: {}，内容: {}", message.fromGroup.name, message.fromUser.name, message.content);
                     String response = DealMessage.dealGroupTextMsg(message);
                     if (StringUtils.isNotBlank(response)) {
                         response = REPLY_PREFIX + response;
