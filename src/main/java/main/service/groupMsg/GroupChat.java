@@ -1,7 +1,6 @@
 package main.service.groupMsg;
 
 import api.ChatApi;
-import enums.GroupType;
 import lombok.extern.slf4j.Slf4j;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
 import org.apache.commons.lang3.StringUtils;
@@ -28,9 +27,7 @@ public class GroupChat {
 
     public String dealGroupChatMsg(WXMessage message) {
         String groupName = message.fromGroup.name;
-        GroupType groupType = CheckGroupType.checkGroupType(groupName);
-        log.info("GroupChat::dealGroupChatMsg, 群:{}, GroupType:{}", groupName, groupType);
-        switch (groupType) {
+        switch (CheckGroupType.checkGroupType(groupName)) {
             case GROUP_WHITELIST:
                 return dealChatMsg(message);
             case GROUP_DEFAULT:
