@@ -116,7 +116,8 @@ LAJIFENLEIAPP: http://lajifenleiapp.com/
 
 这个项目离不开一下项目的灵感，在此对开发者表示感谢：
 
-- [EverydayWechat](https://github.com/sfyc23/EverydayWechat)  微信助手：1.每日定时给好友发送定制消息。2.自动回复好友。 (Python)
+- [EverydayWechat](https://github.com/sfyc23/EverydayWechat)    
+ 微信助手：1.每日定时给好友发送定制消息。2.自动回复好友。 (Python)  
 
 ### License
 
