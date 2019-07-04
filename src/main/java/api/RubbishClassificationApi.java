@@ -26,17 +26,20 @@ public class RubbishClassificationApi {
     private static final int RUBBISH_CACHE_DURATION_SECONDS = 60 * 60 * 24 * 30;
 
     public static String dealRubbishMsg(WXMessage message) {
-        String content = message.content.substring(1).trim();
+        String content = message.content.trim().substring(1).trim();
+        if (StringUtils.isBlank(content)){
+            return null;
+        }
         return classifyRubbish(content);
     }
 
-    public static String classifyRubbish(String rubbish) {
+    private static String classifyRubbish(String rubbish) {
         if (StringUtils.isBlank(rubbish)) {
             return "生活垃圾主要包括有害垃圾、可回收物、湿垃圾/厨余垃圾、干垃圾/其他垃圾。" + WxMsg.LINE
                     + "7月1日，《上海市生活垃圾管理条例》正式施行。个人混合投放垃圾，最高可罚款200元；单位混合投放或混合运输垃圾，最高可罚5万元。" + WxMsg.LINE
                     + "垃圾分类，从我做起。" + WxMsg.LINE;
         }
-        RubbishType rubbishType = checkRubbishType(rubbish.trim());
+        RubbishType rubbishType = checkRubbishType(rubbish);
         String tip = getRubbishTypeTip(rubbishType);
         switch (rubbishType) {
             case HAZARDOUS_WASTE:
@@ -46,7 +49,7 @@ public class RubbishClassificationApi {
                 return "【分类结果】" + rubbish + "属于" + rubbishType.getName() + "。" + WxMsg.LINE + tip;
             case DEFAULT_TYPE:
             default:
-                return "抱歉，未找到\"" + rubbish + "\"分类信息。" + WxMsg.LINE;
+                return "【分类结果】抱歉，未找到\"" + rubbish + "\"分类信息。" + WxMsg.LINE;
         }
     }
 

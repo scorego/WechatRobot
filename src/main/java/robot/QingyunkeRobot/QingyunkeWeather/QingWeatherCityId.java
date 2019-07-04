@@ -34,6 +34,7 @@ public class QingWeatherCityId {
 
 
     public String getCityId(String cityName) {
+        cityName = cityName.trim();
         if (StringUtils.isBlank(cityName)) {
             return null;
         }

@@ -56,6 +56,13 @@ public class PreProcessMessage {
         return IS_DEFAULT_COMMAND_PREFIX ? "？？" : CONFIG_COMMAND_PREFIX;
     }
 
+    public static String getCommandPrefix(boolean isEnglish) {
+        if (isEnglish){
+            return IS_DEFAULT_COMMAND_PREFIX ? "??" : CONFIG_COMMAND_PREFIX;
+        }
+        return getCommandPrefix();
+    }
+
     public static void removeCommandFix(WXMessage message) {
         String content = message.content;
         if (StringUtils.isBlank(content) || content.length() < COMMAND_PREFIX_LENGTH) {

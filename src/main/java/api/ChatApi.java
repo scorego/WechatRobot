@@ -17,7 +17,7 @@ public class ChatApi {
     private static final String CHAT_ROBOT = GlobalConfig.getValue("chatApi", "");
 
     public static String chat(WXMessage message) {
-        String keyword = message.content;
+        String keyword = message.content.trim();
         log.info("ChatApi::chat, keyword: {}", keyword);
 
         switch (CHAT_ROBOT) {

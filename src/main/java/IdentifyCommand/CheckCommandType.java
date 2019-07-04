@@ -44,6 +44,9 @@ public class CheckCommandType {
         if (isDiDiCommand(content)){
             return CommandType.COMMAND_DIDI;
         }
+        if (isVoteCommand(content)){
+            return CommandType.COMMAND_VOTE;
+        }
         return CommandType.COMMAND_DEFAULT;
     }
 
@@ -56,6 +59,10 @@ public class CheckCommandType {
     }
 
     private boolean isDiDiCommand(String content){
+        return false;
+    }
+
+    private boolean isVoteCommand(String content){
         return false;
     }
 

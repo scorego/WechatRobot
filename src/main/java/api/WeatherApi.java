@@ -34,38 +34,52 @@ public class WeatherApi {
         if (StringUtils.isBlank(keyword)) {
             return null;
         }
-        if ("天气预报".equals(keyword) || "天气".equals(keyword)) {
-            String fromUserCity = message.fromUser.city;
-            String response = getWeatherByCityName(fromUserCity);
-            return StringUtils.isBlank(response) ?
-                    "抱歉，未获取到您所在城市。输入指定市/区/县查天气，如\"北京天气\"。" + WxMsg.LINE : response;
+        if ("天气".equals(keyword)) {
+            return getFastWeatherCommand(message);
         }
-        if (keyword.startsWith("天气") || keyword.endsWith("天气")) {
+        if (keyword.startsWith("天气")) {
             return getWeatherByKeyword(keyword);
         }
         return null;
     }
 
+    /**
+     * 快速查询天气，根据发消息的用户微信名片上的地址发送天气预报
+     *
+     * @param message
+     * @return
+     */
+    private static String getFastWeatherCommand(WXMessage message) {
+        String fromUserCity = message.fromUser.city;
+        String response = getWeatherByCityName(fromUserCity);
+        return StringUtils.isNotBlank(response) ? response :
+                "抱歉，未获取到您所在城市。输入指定市/区/县查天气，如\"北京天气\"。" + WxMsg.LINE;
+    }
 
     /**
      * 根据关键字查询天气接口
      *
-     * @param keyword 关键字指以“天气”开头和结尾的词，举例：北京天气、天气北京
+     * @param keyword 关键字指以“天气”开头的词，举例：北京天气
      * @return 查询到天气返回天气；未查询到返回抱歉语句。
      */
     public static String getWeatherByKeyword(String keyword) {
-        if (WEATHER_ROBOT.equals("")) {
+        if (StringUtils.isBlank(WEATHER_ROBOT)) {
             return null;
         }
-        String cityName = keyword.startsWith("天气") ? keyword.substring(2).trim() : keyword.substring(0, keyword.length() - 2).trim();
+        String cityName = keyword.substring(2).trim();
         String response = getWeatherByCityName(cityName);
         if (StringUtils.isBlank(response)) {
-            response = "抱歉，未查询到\"" + keyword + "\"。" + "只支持查询国内(部分)市、区、县天气。" + WxMsg.LINE;
+            response = "抱歉，未查询到\"" + keyword + "\"。" + "只支持查询国内(部分)市/区/县天气。" + WxMsg.LINE;
         }
         log.info("WeatherApi::getWeatherByKeyword, keyword:{}, cityName:{},response:{}", keyword, cityName, response);
         return response;
     }
 
+    /**
+     * 根据城市名查询今日天气。未查询到返回null
+     * @param cityName
+     * @return
+     */
     public static String getWeatherByCityName(String cityName) {
         if (!REDIS_ENABLE) {
             return getWeatherWithoutCache(cityName);

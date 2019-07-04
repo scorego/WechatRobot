@@ -10,10 +10,13 @@ public class QingyunkeRobot {
 
     private static final String ChatRobot = GlobalConfig.getValue("QingyunkeRobot.chat", "");
 
+    private static final String RECEIVE_CHAT_MSG_LINE = "{br}";
+
     public static String getResponse(String keyWord) {
         if (StringUtils.isBlank(keyWord)) {
             return null;
         }
+        keyWord = keyWord.replace(" ", "%20");
         String response = HttpRequestUtil.doGet(ChatRobot + keyWord);
         if (StringUtils.isBlank(response)) {
             return null;
@@ -27,6 +30,6 @@ public class QingyunkeRobot {
         if (StringUtils.isBlank(content)) {
             return null;
         }
-        return content.replace("{br}", "\n");
+        return content.replace(RECEIVE_CHAT_MSG_LINE, "\n");
     }
 }
