@@ -15,36 +15,50 @@ import robot.Ciba.CibaEveryDayHello;
 @Slf4j
 public class EveryDayHelloApi {
 
-    private static final String EVERYDAY_HELLO = GlobalConfig.getValue("everydayHelloApi", "");
+    private static final String EVERYDAY_HELLO_API = GlobalConfig.getValue("everydayHelloApi", "");
 
-    private static final String DEFAULT_EVERYDAY_HELLO = GlobalConfig.getValue("everydayHello.default", "");
+    private static final String EVERYDAY_HELLO_WEATHER_CITY = GlobalConfig.getValue("everydayHello.weather.city", "北京");
+
+    private static String DEFAULT_EVERYDAY_HELLO = GlobalConfig.getValue("everydayHello.default", "");
+
+    static {
+        if (StringUtils.isNotBlank(DEFAULT_EVERYDAY_HELLO)) {
+            DEFAULT_EVERYDAY_HELLO += WxMsg.LINE;
+        }
+    }
 
     public static String getGroupHelloMsg() {
         String msg = getMsg();
-        if (StringUtils.isBlank(msg)) {
-            msg = DEFAULT_EVERYDAY_HELLO;
-        }
-        String weatherMsg = WeatherApi.getWeatherByCityName("北京");
 
-        return  weatherMsg
-                + WxMsg.LINE
-                + "【每日一句】" + msg
-                + "【详情】输入？？了解更多。" + WxMsg.LINE;
+        String weatherMsg = WeatherApi.getWeatherByCityName(EVERYDAY_HELLO_WEATHER_CITY);
+        if (StringUtils.isBlank(weatherMsg)) {
+            weatherMsg = WeatherApi.getWeatherByCityName("北京");
+        }
+
+        return msg
+                + "-------" + WxMsg.LINE
+                + weatherMsg + "【详情】发送？？了解更多" + WxMsg.LINE;
     }
 
-    public static String getFriendHelloMsg(){
+    public static String getFriendHelloMsg() {
         // 暂未启用
         return "";
     }
 
 
     private static String getMsg() {
-        switch (EVERYDAY_HELLO) {
+        String result;
+        switch (EVERYDAY_HELLO_API) {
             case "Ciba":
-                return CibaEveryDayHello.getCibaEveryday();
+                result = CibaEveryDayHello.getCibaEveryday();
+                break;
             default:
-                return null;
+                result = null;
         }
+        if (StringUtils.isBlank(result)) {
+            result = DEFAULT_EVERYDAY_HELLO;
+        }
+        return result;
     }
 
 }

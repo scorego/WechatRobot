@@ -15,9 +15,9 @@ public class CibaEveryDayHello {
 
     private static final String CIBA_EVERYDAY = GlobalConfig.getValue("ciba.everydayhello", "");
 
-    public static String getCibaEveryday(){
+    public static String getCibaEveryday() {
         String response = HttpRequestUtil.doGet(CIBA_EVERYDAY);
         CibaEveryDayHelloEntity everyDayEntity = JSON.parseObject(response, CibaEveryDayHelloEntity.class);
-        return everyDayEntity.getSentence();
+        return everyDayEntity == null ? null : everyDayEntity.getSentence();
     }
 }

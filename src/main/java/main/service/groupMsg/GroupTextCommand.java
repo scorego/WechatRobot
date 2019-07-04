@@ -85,7 +85,7 @@ public class GroupTextCommand {
             case GROUP_MODE_ONLY:
             case GROUP_WHITELIST:
                 return RubbishClassificationApi.dealRubbishMsg(message)
-                        + "【更多功能】更多功能发送" + PreProcessMessage.getCommandPrefix() + "了解。" + WxMsg.LINE;
+                        + "【更多功能】更多功能请发送" + PreProcessMessage.getCommandPrefix() + WxMsg.LINE;
             default:
                 return null;
         }

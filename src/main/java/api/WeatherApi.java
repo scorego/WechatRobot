@@ -89,7 +89,7 @@ public class WeatherApi {
         // 3. 无缓存，查询结果，存入缓存
         result = getWeatherWithoutCache(cityName);
         rCacheEntity.setValue(result).save();
-
+        log.info("WeatherApi::getWeatherByCityName, cache insert >> cityName: {}, date: {}, result: {}", cityName, curDate, result);
         return result;
 
 

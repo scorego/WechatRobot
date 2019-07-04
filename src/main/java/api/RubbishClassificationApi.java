@@ -79,6 +79,7 @@ public class RubbishClassificationApi {
         }
         stringType = String.valueOf(rubbishType.getValue());
         rCacheEntity.setValue(stringType).save();
+        log.info("RubbishClassificationApi::checkRubbishType, cache insert >> rubbish: {}, result: {}", rubbish, rubbishType);
 
         return rubbishType;
     }

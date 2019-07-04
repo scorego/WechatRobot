@@ -75,14 +75,14 @@ public class CheckGroupType {
             return type;
         }
 
-
-        for (String s : BLACK_KEYWORD_LIST) {
-            if (from.contains(s))
-                type = GroupType.GROUP_BLACKLIST;
+        for (String s : MODE_KEYWORD_LIST) {
+            if (from.contains(s)) {
+                type = GroupType.GROUP_MODE_ONLY;
+            }
         }
-        for (String s : BLACK_LIST) {
+        for (String s : MODE_ONLY_LIST) {
             if (from.equals(s))
-                type = GroupType.GROUP_BLACKLIST;
+                type = GroupType.GROUP_MODE_ONLY;
         }
 
         for (String s : WHITE_KEYWORD_LIST) {
@@ -94,14 +94,13 @@ public class CheckGroupType {
                 type = GroupType.GROUP_WHITELIST;
         }
 
-        for (String s : MODE_KEYWORD_LIST) {
-            if (from.contains(s)) {
-                type = GroupType.GROUP_MODE_ONLY;
-            }
+        for (String s : BLACK_KEYWORD_LIST) {
+            if (from.contains(s))
+                type = GroupType.GROUP_BLACKLIST;
         }
-        for (String s : MODE_ONLY_LIST) {
+        for (String s : BLACK_LIST) {
             if (from.equals(s))
-                type = GroupType.GROUP_MODE_ONLY;
+                type = GroupType.GROUP_BLACKLIST;
         }
         cache.put(from, type);
         log.info("checkGroupType, GroupName: {}, GroupType: {}, fromCache: false", from, type);
