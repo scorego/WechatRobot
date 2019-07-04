@@ -9,7 +9,6 @@ import enums.RubbishType;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import robot.AToolBox.entity.ToolBoxRubbishContentEntity;
 import utils.HttpRequestUtil;
 
 import java.io.UnsupportedEncodingException;
@@ -49,18 +48,18 @@ public class ToolBoxRubbish {
     public static RubbishType getRubbishType(String rubbish) {
         rubbish = rubbish.trim();
         if (StringUtils.isBlank(rubbish)) {
-            return RubbishType.DEFAULT_TYPE;
+            return RubbishType.NOT_EXISTS;
         }
         String rubbishResult = getRubbishResult(rubbish);
         if (StringUtils.isBlank(rubbishResult)) {
-            return RubbishType.DEFAULT_TYPE;
+            return RubbishType.NOT_EXISTS;
         }
 
         // 接口返回了有效数据
         Map<String, Map<String, String>> result = JSONObject.parseObject(rubbishResult, Map.class);
 
         if (result == null || result.isEmpty()) {
-            return RubbishType.DEFAULT_TYPE;
+            return RubbishType.NOT_EXISTS;
         }
 
         if (ENABLE_REDIS) {
@@ -78,7 +77,7 @@ public class ToolBoxRubbish {
 
     private static RubbishType getType(String stringType) {
         if (stringType == null) {
-            return RubbishType.DEFAULT_TYPE;
+            return RubbishType.NOT_EXISTS;
         }
         switch (stringType) {
             case "干垃圾":
@@ -90,7 +89,7 @@ public class ToolBoxRubbish {
             case "有害垃圾":
                 return RubbishType.HAZARDOUS_WASTE;
             default:
-                return RubbishType.DEFAULT_TYPE;
+                return RubbishType.NOT_EXISTS;
         }
     }
 

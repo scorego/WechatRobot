@@ -95,10 +95,12 @@ public class WeatherApi {
 
         String result = weatherCacheEntity.get();
         if (result != null) {
-            log.info("WeatherApi::getWeatherByCityName, from cache >> cityName: {}, result: {}", cityName, result);
+            log.info("WeatherApi::getWeatherByCityName, get from cache >> cityName: {}, result: {}", cityName, result);
             return result;
         }
 
+        // 缓存无数据
+        log.info("WeatherApi::getWeatherByCityName, cannot get from cache >> cityName: {}", cityName);
         result = getWeatherFromApi(cityName);
         if (weatherCacheEntity.setValue(result).save()) {
             log.info("WeatherApi::getWeatherByCityName, update cache >> cityName: {}, result: {}", cityName, result);

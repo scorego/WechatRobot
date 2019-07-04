@@ -45,7 +45,7 @@ public class RubbishApi {
      * @param rubbish
      * @return
      */
-    private static String classifyRubbish(String rubbish) {
+    public static String classifyRubbish(String rubbish) {
         if (StringUtils.isBlank(rubbish)) {
             return "生活垃圾主要包括有害垃圾、可回收物、湿垃圾/厨余垃圾、干垃圾/其他垃圾。" + WxMsg.LINE
                     + "7月1日，《上海市生活垃圾管理条例》正式施行。个人混合投放垃圾，最高可罚款200元；单位混合投放或混合运输垃圾，最高可罚5万元。" + WxMsg.LINE
@@ -59,7 +59,8 @@ public class RubbishApi {
             case HOUSEHOLD_FOOD_WASTE:
             case RESIDUAL_WASTE:
                 return "【分类结果】" + rubbish + "属于" + rubbishType.getName() + "。" + WxMsg.LINE + tip;
-            case DEFAULT_TYPE:
+            case NOT_EXISTS:
+            case NO_RESPONSE:
             default:
                 return "【分类结果】抱歉，未找到\"" + rubbish + "\"分类信息。" + WxMsg.LINE;
         }
@@ -78,15 +79,16 @@ public class RubbishApi {
 
         RubbishCacheEntity rubbishCacheEntity = RubbishTypeCache.getRubbishCacheEntity(rubbish);
         RubbishType rubbishType = rubbishCacheEntity.getRubbishType();
-        if (rubbishType != null && rubbishType != RubbishType.DEFAULT_TYPE) {
+        if (rubbishType != null && rubbishType != RubbishType.NO_RESPONSE) {
             log.info("RubbishApi::checkRubbishType, get from cache >> rubbish: {}, result: {}", rubbish, rubbishType);
             return rubbishType;
         }
 
         // 缓存无记录，查询并更新缓存
+        log.info("RubbishApi::checkRubbishType, cannot get from cache >> rubbish: {}", rubbish);
         rubbishType = getRubbishTypeFromApi(rubbish);
         if (rubbishType == null) {
-            rubbishType = RubbishType.DEFAULT_TYPE;
+            rubbishType = RubbishType.NO_RESPONSE;
         }
 
         if (rubbishCacheEntity.setValue(rubbishType).save()) {
@@ -111,9 +113,9 @@ public class RubbishApi {
                 result = ToolBoxRubbish.getRubbishType(rubbish);
                 break;
             default:
-                result = RubbishType.DEFAULT_TYPE;
+                result = RubbishType.NO_RESPONSE;
         }
-        log.info("RubbishApi::getRubbishTypeFromApi, rubbish: {}, type: {}", rubbish, result);
+        log.info("RubbishApi::getRubbishTypeFromApi, rubbishRobot:{}, rubbish: {}, type: {}", RUBBISH_API, rubbish, result);
         return result;
     }
 
@@ -133,7 +135,8 @@ public class RubbishApi {
             case RESIDUAL_WASTE:
                 return "【分类介绍】干垃圾/其他垃圾，指除可回收物、有害垃圾、湿垃圾以外的其它生活废弃物。" + WxMsg.LINE
                         + "【投放要求】" + "尽量沥干水分；" + "难以辨识类别的生活垃圾投入干垃圾容器内。" + WxMsg.LINE;
-            case DEFAULT_TYPE:
+            case NOT_EXISTS:
+            case NO_RESPONSE:
             default:
                 return "";
         }

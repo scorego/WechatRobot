@@ -18,7 +18,9 @@ public enum RubbishType {
 
     RESIDUAL_WASTE(4, "干垃圾/其它垃圾"),
 
-    DEFAULT_TYPE(5, "不存在");
+    NOT_EXISTS(5, "数据库未查到"),
+
+    NO_RESPONSE(6, "API无响应");
 
     @Getter
     private int value;
@@ -37,7 +39,9 @@ public enum RubbishType {
             case 4:
                 return RESIDUAL_WASTE;
             case 5:
-                return DEFAULT_TYPE;
+                return NOT_EXISTS;
+            case 6:
+                return NO_RESPONSE;
             default:
                 return null;
         }

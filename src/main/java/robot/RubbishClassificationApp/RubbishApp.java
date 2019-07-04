@@ -28,7 +28,7 @@ public class RubbishApp {
 
         RubbishType rubbishType;
         if (StringUtils.isBlank(response)) {
-            rubbishType = RubbishType.DEFAULT_TYPE;
+            rubbishType = RubbishType.NOT_EXISTS;
         } else if (response.contains("干垃圾是指")) {
             rubbishType = RubbishType.RESIDUAL_WASTE;
         } else if (response.contains("湿垃圾是指")) {
@@ -38,7 +38,7 @@ public class RubbishApp {
         } else if (response.contains("可回收物是指")) {
             return RubbishType.RECYCLABLE_WASTE;
         } else {
-            rubbishType = RubbishType.DEFAULT_TYPE;
+            rubbishType = RubbishType.NOT_EXISTS;
         }
         log.info("RubbishApp::getRubbishType, httpRequest >> rubbish: {}, result: {}", rubbish, rubbishType);
         return rubbishType;

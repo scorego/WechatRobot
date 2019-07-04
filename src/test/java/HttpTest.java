@@ -1,3 +1,5 @@
+import api.RubbishApi;
+import cache.redis.WeatherCache;
 import robot.AToolBox.ToolBoxRubbish;
 
 import java.util.Arrays;
@@ -23,10 +25,14 @@ public class HttpTest {
 //        RCacheEntity rCacheEntity = new RCacheEntity(keyBuilder);
 ////        System.out.println(rCacheEntity.setValue("a").setex());
 //        System.out.println(rCacheEntity.get() == null);
-        Arrays.stream(new String[]{"牛奶", "milk","塑料袋"}).forEach(a -> {
-                    System.out.println(ToolBoxRubbish.getRubbishType(a));
+
+        Arrays.stream(new String[]{"香水","米饭"}).forEach(a -> {
+                    System.out.println(RubbishApi.classifyRubbish(a));
                 }
         );
+
+
+
 
     }
 }
