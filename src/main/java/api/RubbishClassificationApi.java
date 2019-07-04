@@ -1,12 +1,15 @@
 package api;
 
-import cache.RCacheEntity;
+import cache.redis.RubbishTypeCache;
+import cache.redis.entity.RubbishCacheEntity;
+import config.GlobalConfig;
 import config.RedisConfig;
 import cons.WxMsg;
 import enums.RubbishType;
 import lombok.extern.slf4j.Slf4j;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
 import org.apache.commons.lang3.StringUtils;
+import robot.AToolBox.ToolBoxRubbish;
 import robot.RubbishClassificationApp.RubbishApp;
 
 /**
@@ -20,19 +23,28 @@ public class RubbishClassificationApi {
 
     private static final boolean REDIS_ENABLE = RedisConfig.isRedisEnable();
 
-    /**
-     * 垃圾分类缓存默认30天
-     */
-    private static final int RUBBISH_CACHE_DURATION_SECONDS = 60 * 60 * 24 * 30;
+    private static final String RUBBISH_API = GlobalConfig.getValue("rubbishApi", "");
 
+    /**
+     * 总入口
+     *
+     * @param message
+     * @return
+     */
     public static String dealRubbishMsg(WXMessage message) {
         String content = message.content.trim().substring(1).trim();
-        if (StringUtils.isBlank(content)){
+        if (StringUtils.isBlank(content)) {
             return null;
         }
         return classifyRubbish(content);
     }
 
+    /**
+     * 根据垃圾名返回回复的消息，包括数据库无记录等情况的处理
+     *
+     * @param rubbish
+     * @return
+     */
     private static String classifyRubbish(String rubbish) {
         if (StringUtils.isBlank(rubbish)) {
             return "生活垃圾主要包括有害垃圾、可回收物、湿垃圾/厨余垃圾、干垃圾/其他垃圾。" + WxMsg.LINE
@@ -53,38 +65,51 @@ public class RubbishClassificationApi {
         }
     }
 
+    /**
+     * 根据垃圾名查询具体垃圾分类。如果配置缓存开启，则完成缓存逻辑
+     *
+     * @param rubbish
+     * @return
+     */
     private static RubbishType checkRubbishType(String rubbish) {
         if (!REDIS_ENABLE) {
-            return RubbishApp.getRubbishType(rubbish);
+            return getRubbishTypeFromApi(rubbish);
         }
 
-        // 1. 构造缓存key
-        RCacheEntity.KeyBuilder rubbishTypeKeyBuilder = new RCacheEntity.KeyBuilder("rubbishType").addParam("item", rubbish);
-        RCacheEntity rCacheEntity = new RCacheEntity(rubbishTypeKeyBuilder, RUBBISH_CACHE_DURATION_SECONDS);
-
-        // 2. 有缓存，更新缓存过期时间，返回缓存结果
-        String stringType;
-        RubbishType rubbishType;
-        if ((stringType = rCacheEntity.get()) != null) {
-            rubbishType = RubbishType.findByValue(Integer.valueOf(stringType));
-            if (rubbishType != RubbishType.DEFAULT_TYPE) {
-                // 查询不到结果的记录不更新缓存过期时间
-                rCacheEntity.save();
-            }
-            log.info("RubbishClassificationApi::checkRubbishType, cache >> rubbish: {}, result: {}", rubbish, rubbishType);
+        RubbishCacheEntity rubbishCacheEntity = RubbishTypeCache.getRubbishCacheEntity(rubbish);
+        RubbishType rubbishType = rubbishCacheEntity.getRubbishType();
+        if (rubbishType != null && rubbishType != RubbishType.DEFAULT_TYPE) {
+            log.info("RubbishClassificationApi::checkRubbishType, get from cache >> rubbish: {}, result: {}", rubbish, rubbishType);
             return rubbishType;
         }
 
-        // 3. 无缓存，查询结果，存入缓存
-        rubbishType = RubbishApp.getRubbishType(rubbish);
+        // 缓存无记录，查询并更新缓存
+        rubbishType = getRubbishTypeFromApi(rubbish);
         if (rubbishType == null) {
             rubbishType = RubbishType.DEFAULT_TYPE;
         }
-        stringType = String.valueOf(rubbishType.getValue());
-        rCacheEntity.setValue(stringType).save();
-        log.info("RubbishClassificationApi::checkRubbishType, cache insert >> rubbish: {}, result: {}", rubbish, rubbishType);
 
+        if (rubbishCacheEntity.setValue(rubbishType).save()) {
+            log.info("RubbishClassificationApi::checkRubbishType, update cache >> rubbish: {}, result: {}", rubbish, rubbishType);
+        }
         return rubbishType;
+    }
+
+    /**
+     * 使用API查询垃圾分类，不走缓存
+     *
+     * @param rubbish
+     * @return
+     */
+    private static RubbishType getRubbishTypeFromApi(String rubbish) {
+        switch (RUBBISH_API) {
+            case "LaJjFenLeiAPP":
+                return RubbishApp.getRubbishType(rubbish);
+            case "AToolBox":
+                return ToolBoxRubbish.getRubbishType(rubbish);
+            default:
+                return RubbishType.DEFAULT_TYPE;
+        }
     }
 
     private static String getRubbishTypeTip(RubbishType type) {

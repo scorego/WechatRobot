@@ -1,4 +1,4 @@
-package cache;
+package cache.redis.provider;
 
 import config.RedisConfig;
 import org.apache.commons.lang3.StringUtils;

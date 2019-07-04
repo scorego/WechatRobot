@@ -128,6 +128,8 @@ RollToolsApi：https://github.com/MZCretin/RollToolsApi
 
 LAJIFENLEIAPP: http://lajifenleiapp.com/
 
+AToolBox: http://www.atoolbox.net/Tool.php?Id=804
+
 ## Acknowledgements
 
 本项目离不开以下项目的灵感，在此对开发者表示感谢：

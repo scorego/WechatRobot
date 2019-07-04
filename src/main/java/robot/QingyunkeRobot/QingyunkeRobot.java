@@ -6,6 +6,10 @@ import robot.QingyunkeRobot.entity.QingyunkeResponseEntity;
 import com.alibaba.fastjson.JSON;
 import utils.HttpRequestUtil;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 public class QingyunkeRobot {
 
     private static final String ChatRobot = GlobalConfig.getValue("QingyunkeRobot.chat", "");
@@ -16,8 +20,14 @@ public class QingyunkeRobot {
         if (StringUtils.isBlank(keyWord)) {
             return null;
         }
-        keyWord = keyWord.replace(" ", "%20");
-        String response = HttpRequestUtil.doGet(ChatRobot + keyWord);
+
+        String link = ChatRobot;
+        try {
+            link += URLEncoder.encode(keyWord, StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException e) {
+            link += keyWord;
+        }
+        String response = HttpRequestUtil.doGet(link);
         if (StringUtils.isBlank(response)) {
             return null;
         }

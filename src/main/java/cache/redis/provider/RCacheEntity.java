@@ -1,4 +1,4 @@
-package cache;
+package cache.redis.provider;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -34,7 +34,11 @@ public class RCacheEntity {
         if (value == null) {
             return false;
         }
-        return baseRedisCache.save(getKey(), value, expireSeconds);
+        if (expireSeconds > 0){
+            return baseRedisCache.setex(getKey(), value, expireSeconds);
+        }else{
+            return baseRedisCache.set(getKey(),value);
+        }
     }
 
     public String get() {

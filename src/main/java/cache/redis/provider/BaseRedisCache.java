@@ -1,4 +1,4 @@
-package cache;
+package cache.redis.provider;
 
 import redis.clients.jedis.Jedis;
 
@@ -29,9 +29,16 @@ public class BaseRedisCache {
     private final static String REDIS_OK = "OK";
 
 
-    public boolean save(String key, String value, int seconds) {
+    public boolean setex(String key, String value, int seconds) {
         Jedis jedis = JedisPoolUtil.getJedis();
         String result = jedis.setex(key, seconds, value);
+        jedis.close();
+        return REDIS_OK.equals(result);
+    }
+
+    public boolean set(String key, String value) {
+        Jedis jedis = JedisPoolUtil.getJedis();
+        String result = jedis.set(key, value);
         jedis.close();
         return REDIS_OK.equals(result);
     }

@@ -13,7 +13,7 @@ import utils.HttpRequestUtil;
  */
 public class CibaEveryDayHello {
 
-    private static final String CIBA_EVERYDAY = GlobalConfig.getValue("ciba.everydayhello", "");
+    private static final String CIBA_EVERYDAY = GlobalConfig.getValue("ciba.everydayHello", "");
 
     public static String getCibaEveryday() {
         String response = HttpRequestUtil.doGet(CIBA_EVERYDAY);

@@ -1,6 +1,7 @@
 package api;
 
-import cache.RCacheEntity;
+import cache.redis.WeatherCache;
+import cache.redis.entity.WeatherCacheEntity;
 import config.GlobalConfig;
 import config.RedisConfig;
 import cons.WxMsg;
@@ -9,9 +10,6 @@ import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
 import org.apache.commons.lang3.StringUtils;
 import robot.QingyunkeRobot.QingyunkeWeather.QingWeather;
 import robot.RollToolsApi.RollWeather;
-import utils.DateUtil;
-
-import java.util.Date;
 
 /**
  * 查询天气API
@@ -29,6 +27,13 @@ public class WeatherApi {
      */
     private static final int WEATHER_CACHE_DURATION_SECONDS = 60 * 60 * 3;
 
+
+    /**
+     * 总入口
+     *
+     * @param message
+     * @return
+     */
     public static String dealWeatherMsg(WXMessage message) {
         String keyword = message.content.trim();
         if (StringUtils.isBlank(keyword)) {
@@ -83,34 +88,25 @@ public class WeatherApi {
      */
     public static String getWeatherByCityName(String cityName) {
         if (!REDIS_ENABLE) {
-            return getWeatherWithoutCache(cityName);
+            return getWeatherFromApi(cityName);
         }
 
-        // 1. 构造缓存key
-        String curDate = DateUtil.getFormatDate(new Date(), "yyyyMMdd");
-        RCacheEntity.KeyBuilder rubbishTypeKeyBuilder = new RCacheEntity.KeyBuilder("weather")
-                .addParam("city", cityName)
-                .addParam("date", curDate);
-        RCacheEntity rCacheEntity = new RCacheEntity(rubbishTypeKeyBuilder, WEATHER_CACHE_DURATION_SECONDS);
+        WeatherCacheEntity weatherCacheEntity = WeatherCache.getWeatherCacheEntity(cityName);
 
-        // 2. 有缓存，更新缓存过期时间，返回缓存结果
-        String result;
-        if ((result = rCacheEntity.get()) != null) {
-            rCacheEntity.save();
-            log.info("WeatherApi::getWeatherByCityName, cache >> cityName: {}, date: {}, result: {}", cityName, curDate, result);
+        String result = weatherCacheEntity.get();
+        if (result != null) {
+            log.info("WeatherApi::getWeatherByCityName, from cache >> cityName: {}, result: {}", cityName, result);
             return result;
         }
 
-        // 3. 无缓存，查询结果，存入缓存
-        result = getWeatherWithoutCache(cityName);
-        rCacheEntity.setValue(result).save();
-        log.info("WeatherApi::getWeatherByCityName, cache insert >> cityName: {}, date: {}, result: {}", cityName, curDate, result);
+        result = getWeatherFromApi(cityName);
+        if (weatherCacheEntity.setValue(result).save()) {
+            log.info("WeatherApi::getWeatherByCityName, update cache >> cityName: {}, result: {}", cityName, result);
+        }
         return result;
-
-
     }
 
-    private static String getWeatherWithoutCache(String cityName) {
+    private static String getWeatherFromApi(String cityName) {
         String result;
         switch (WEATHER_ROBOT) {
             case "QingyunkeRobot":
@@ -122,7 +118,7 @@ public class WeatherApi {
             default:
                 result = null;
         }
-        log.info("WeatherApi:getWeatherWithoutCache, WEATHER_ROBOT:{}, cityName:{}, result: {}", WEATHER_ROBOT, cityName, result);
+        log.info("WeatherApi:getWeatherFromApi, WEATHER_ROBOT:{}, cityName:{}, result: {}", WEATHER_ROBOT, cityName, result);
         return result;
     }
 

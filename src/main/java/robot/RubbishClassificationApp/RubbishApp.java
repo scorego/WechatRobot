@@ -16,13 +16,12 @@ import utils.HttpRequestUtil;
 @Slf4j
 public class RubbishApp {
 
-    private static final String LA_JI_FEN_LEI_APP = GlobalConfig.getValue("rubbish.classification", "");
+    private static final String LA_JI_FEN_LEI_APP = GlobalConfig.getValue("rubbish.LaJjFenLeiAPP", "");
 
     public static RubbishType getRubbishType(String rubbish) {
         if (StringUtils.isBlank(rubbish)) {
             return null;
         }
-
         String link = LA_JI_FEN_LEI_APP + rubbish;
         String response = HttpRequestUtil.doGet(link);
         log.info("RubbishApp::getRubbishType, httpRequest >> rubbish: {}, response: {}", rubbish, response);
