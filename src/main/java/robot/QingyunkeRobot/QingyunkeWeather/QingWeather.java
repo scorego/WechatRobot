@@ -27,8 +27,7 @@ public class QingWeather {
         if (StringUtils.isBlank(keyWord)) {
             return null;
         }
-        String cityName = keyWord.startsWith("天气") ?
-                keyWord.substring(2) : keyWord.substring(0, keyWord.length() - 2);
+        String cityName = keyWord.substring(0, keyWord.length() - 2);
         return QingWeather.getWeatherByCityName(cityName);
     }
 

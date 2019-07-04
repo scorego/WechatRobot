@@ -37,7 +37,7 @@ public class WeatherApi {
         if ("天气".equals(keyword)) {
             return getFastWeatherCommand(message);
         }
-        if (keyword.startsWith("天气")) {
+        if (keyword.endsWith("天气")) {
             return getWeatherByKeyword(keyword);
         }
         return null;
@@ -66,7 +66,7 @@ public class WeatherApi {
         if (StringUtils.isBlank(WEATHER_ROBOT)) {
             return null;
         }
-        String cityName = keyword.substring(2).trim();
+        String cityName = keyword.substring(0, keyword.length() - 2).trim();
         String response = getWeatherByCityName(cityName);
         if (StringUtils.isBlank(response)) {
             response = "抱歉，未查询到\"" + keyword + "\"。" + "只支持查询国内(部分)市/区/县天气。" + WxMsg.LINE;
@@ -77,6 +77,7 @@ public class WeatherApi {
 
     /**
      * 根据城市名查询今日天气。未查询到返回null
+     *
      * @param cityName
      * @return
      */

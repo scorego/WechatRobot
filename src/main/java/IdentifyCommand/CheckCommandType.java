@@ -35,34 +35,34 @@ public class CheckCommandType {
         if (StringUtils.isBlank(content)) {
             return CommandType.COMMAND_HELP;
         }
-        if (isWeatherCommand(content)){
+        if (isWeatherCommand(content)) {
             return CommandType.COMMAND_WEATHER;
         }
-        if (isRubbishCommand(content)){
+        if (isRubbishCommand(content)) {
             return CommandType.COMMAND_RUBBISH;
         }
-        if (isDiDiCommand(content)){
+        if (isDiDiCommand(content)) {
             return CommandType.COMMAND_DIDI;
         }
-        if (isVoteCommand(content)){
+        if (isVoteCommand(content)) {
             return CommandType.COMMAND_VOTE;
         }
         return CommandType.COMMAND_DEFAULT;
     }
 
     private boolean isWeatherCommand(String content) {
-        return (content.startsWith("天气") || content.endsWith("天气"));
+        return content.endsWith("天气");
     }
 
     private boolean isRubbishCommand(String content) {
         return (content.startsWith("？") || content.startsWith("?"));
     }
 
-    private boolean isDiDiCommand(String content){
+    private boolean isDiDiCommand(String content) {
         return false;
     }
 
-    private boolean isVoteCommand(String content){
+    private boolean isVoteCommand(String content) {
         return false;
     }
 
