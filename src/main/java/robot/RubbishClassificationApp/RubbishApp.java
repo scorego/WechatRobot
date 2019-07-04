@@ -28,7 +28,7 @@ public class RubbishApp {
 
         RubbishType rubbishType;
         if (StringUtils.isBlank(response)) {
-            rubbishType = RubbishType.NOT_EXISTS;
+            rubbishType = RubbishType.NO_RESPONSE;
         } else if (response.contains("干垃圾是指")) {
             rubbishType = RubbishType.RESIDUAL_WASTE;
         } else if (response.contains("湿垃圾是指")) {

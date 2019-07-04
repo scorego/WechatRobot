@@ -39,9 +39,6 @@ public class ToolBoxRubbish {
         }
         String response = HttpRequestUtil.doGet(link);
         log.info("ToolBoxRubbish::getRubbishType, httpRequest >> rubbish: {}, response: {}", rubbish, response);
-        if ("[]".equals(response)) {
-            response = null;
-        }
         return response;
     }
 
@@ -52,6 +49,10 @@ public class ToolBoxRubbish {
         }
         String rubbishResult = getRubbishResult(rubbish);
         if (StringUtils.isBlank(rubbishResult)) {
+            // 接口无响应
+            return RubbishType.NO_RESPONSE;
+        } else if (!rubbishResult.startsWith("{")) {
+            // 接口没返回有效数据
             return RubbishType.NOT_EXISTS;
         }
 
