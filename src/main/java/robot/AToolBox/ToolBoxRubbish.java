@@ -9,6 +9,7 @@ import enums.RubbishType;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import robot.AToolBox.entity.ToolBoxRubbishContentEntity;
 import utils.HttpRequestUtil;
 
 import java.io.UnsupportedEncodingException;
@@ -51,9 +52,11 @@ public class ToolBoxRubbish {
             return RubbishType.DEFAULT_TYPE;
         }
         String rubbishResult = getRubbishResult(rubbish);
-        if (StringUtils.isBlank(rubbishResult)){
+        if (StringUtils.isBlank(rubbishResult)) {
             return RubbishType.DEFAULT_TYPE;
         }
+
+        // 接口返回了有效数据
         Map<String, Map<String, String>> result = JSONObject.parseObject(rubbishResult, Map.class);
 
         if (result == null || result.isEmpty()) {
@@ -65,12 +68,12 @@ public class ToolBoxRubbish {
         }
         String resultType = null;
         for (Map.Entry<String, Map<String, String>> mapEntry : result.entrySet()) {
-            if (rubbish.equals(mapEntry.getValue().get("name"))) {
-                resultType = mapEntry.getValue().get("type");
+            if (rubbish.equals(mapEntry.getValue().getOrDefault("name", ""))) {
+                resultType = mapEntry.getValue().getOrDefault("type", "");
                 break;
             }
         }
-        return (resultType == null) ? RubbishType.DEFAULT_TYPE : getType(resultType);
+        return getType(resultType);
     }
 
     private static RubbishType getType(String stringType) {
@@ -96,8 +99,8 @@ public class ToolBoxRubbish {
             return;
         }
         for (Map.Entry<String, Map<String, String>> mapEntry : map.entrySet()) {
-            RubbishCacheEntity rubbishCacheEntity = RubbishTypeCache.getRubbishCacheEntity(mapEntry.getValue().get("name"));
-            rubbishCacheEntity.setValue(getType(mapEntry.getValue().get("type"))).save();
+            RubbishCacheEntity rubbishCacheEntity = RubbishTypeCache.getRubbishCacheEntity(mapEntry.getValue().getOrDefault("name", ""));
+            rubbishCacheEntity.setValue(getType(mapEntry.getValue().getOrDefault("type", ""))).save();
         }
     }
 

@@ -31,13 +31,13 @@ public class RCacheEntity {
     private BaseRedisCache baseRedisCache = BaseRedisCache.getInstance();
 
     public boolean save() {
-        if (value == null) {
+        if (StringUtils.isEmpty(value)) {
             return false;
         }
-        if (expireSeconds > 0){
+        if (expireSeconds > 0) {
             return baseRedisCache.setex(getKey(), value, expireSeconds);
-        }else{
-            return baseRedisCache.set(getKey(),value);
+        } else {
+            return baseRedisCache.set(getKey(), value);
         }
     }
 
