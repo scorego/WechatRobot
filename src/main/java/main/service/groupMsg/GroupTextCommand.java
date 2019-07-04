@@ -3,7 +3,7 @@ package main.service.groupMsg;
 import IdentifyCommand.CheckCommandType;
 import IdentifyCommand.PreProcessMessage;
 import api.HelpMsg;
-import api.RubbishClassificationApi;
+import api.RubbishApi;
 import api.WeatherApi;
 import cons.WxMsg;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
@@ -86,7 +86,7 @@ public class GroupTextCommand {
         switch (CheckGroupType.checkGroupType(message.fromGroup.name)) {
             case GROUP_MODE_ONLY:
             case GROUP_WHITELIST:
-                return RubbishClassificationApi.dealRubbishMsg(message)
+                return RubbishApi.dealRubbishMsg(message)
                         + "【更多功能】了解更多请发送\"" + PreProcessMessage.getCommandPrefix(true) +"\"。" + WxMsg.LINE;
             default:
                 return null;

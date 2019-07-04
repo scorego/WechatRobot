@@ -19,7 +19,7 @@ import robot.RubbishClassificationApp.RubbishApp;
  * @date 2019/7/1 21:41
  */
 @Slf4j
-public class RubbishClassificationApi {
+public class RubbishApi {
 
     private static final boolean REDIS_ENABLE = RedisConfig.isRedisEnable();
 
@@ -79,7 +79,7 @@ public class RubbishClassificationApi {
         RubbishCacheEntity rubbishCacheEntity = RubbishTypeCache.getRubbishCacheEntity(rubbish);
         RubbishType rubbishType = rubbishCacheEntity.getRubbishType();
         if (rubbishType != null && rubbishType != RubbishType.DEFAULT_TYPE) {
-            log.info("RubbishClassificationApi::checkRubbishType, get from cache >> rubbish: {}, result: {}", rubbish, rubbishType);
+            log.info("RubbishApi::checkRubbishType, get from cache >> rubbish: {}, result: {}", rubbish, rubbishType);
             return rubbishType;
         }
 
@@ -90,7 +90,7 @@ public class RubbishClassificationApi {
         }
 
         if (rubbishCacheEntity.setValue(rubbishType).save()) {
-            log.info("RubbishClassificationApi::checkRubbishType, update cache >> rubbish: {}, result: {}", rubbish, rubbishType);
+            log.info("RubbishApi::checkRubbishType, update cache >> rubbish: {}, result: {}", rubbish, rubbishType);
         }
         return rubbishType;
     }
@@ -102,14 +102,19 @@ public class RubbishClassificationApi {
      * @return
      */
     private static RubbishType getRubbishTypeFromApi(String rubbish) {
+        RubbishType result;
         switch (RUBBISH_API) {
             case "LaJjFenLeiAPP":
-                return RubbishApp.getRubbishType(rubbish);
+                result = RubbishApp.getRubbishType(rubbish);
+                break;
             case "AToolBox":
-                return ToolBoxRubbish.getRubbishType(rubbish);
+                result = ToolBoxRubbish.getRubbishType(rubbish);
+                break;
             default:
-                return RubbishType.DEFAULT_TYPE;
+                result = RubbishType.DEFAULT_TYPE;
         }
+        log.info("RubbishApi::getRubbishTypeFromApi, rubbish: {}, type: {}", rubbish, result);
+        return result;
     }
 
     private static String getRubbishTypeTip(RubbishType type) {

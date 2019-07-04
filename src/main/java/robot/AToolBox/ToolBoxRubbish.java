@@ -51,20 +51,23 @@ public class ToolBoxRubbish {
             return RubbishType.DEFAULT_TYPE;
         }
         String rubbishResult = getRubbishResult(rubbish);
-        Map<String, Map<String, String>> result = JSONObject.parseObject(rubbishResult, Map.class);
-
-        if (ENABLE_REDIS) {
-            cacheAllResult(result);
+        if (StringUtils.isBlank(rubbishResult)){
+            return RubbishType.DEFAULT_TYPE;
         }
+        Map<String, Map<String, String>> result = JSONObject.parseObject(rubbishResult, Map.class);
 
         if (result == null || result.isEmpty()) {
             return RubbishType.DEFAULT_TYPE;
         }
 
+        if (ENABLE_REDIS) {
+            cacheAllResult(result);
+        }
         String resultType = null;
         for (Map.Entry<String, Map<String, String>> mapEntry : result.entrySet()) {
             if (rubbish.equals(mapEntry.getValue().get("name"))) {
                 resultType = mapEntry.getValue().get("type");
+                break;
             }
         }
         return (resultType == null) ? RubbishType.DEFAULT_TYPE : getType(resultType);
