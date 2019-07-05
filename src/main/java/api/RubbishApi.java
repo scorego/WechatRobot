@@ -1,10 +1,10 @@
 package api;
 
 import api.entity.RubbishToolBoxResponseEntity;
-import cache.redis.RubbishLinkListCache;
-import cache.redis.RubbishTypeCache;
+import cache.redis.RubbishLinkCacheFactory;
+import cache.redis.RubbishTypeCacheFactory;
 import cache.redis.entity.RubbishCacheEntity;
-import cache.redis.entity.RubbishLinkListEntity;
+import cache.redis.entity.RubbishLinkCacheEntity;
 import config.GlobalConfig;
 import config.RedisConfig;
 import cons.WxMsg;
@@ -73,8 +73,8 @@ public class RubbishApi {
             return getRubbishTypeFromApi(rubbish, entity);
         }
 
-        RubbishCacheEntity rubbishCacheEntity = RubbishTypeCache.getRubbishCacheEntity(rubbish);
-        RubbishLinkListEntity rubbishLinkListCache = RubbishLinkListCache.getRubbishLinkListCache(rubbish);
+        RubbishCacheEntity rubbishCacheEntity = RubbishTypeCacheFactory.getRubbishCacheEntity(rubbish);
+        RubbishLinkCacheEntity rubbishLinkListCache = RubbishLinkCacheFactory.getRubbishLinkCache(rubbish);
         RubbishType rubbishType = rubbishCacheEntity.getRubbishType();
         entity.setLinkRubbishString(rubbishLinkListCache.get());
 
@@ -165,7 +165,7 @@ public class RubbishApi {
             return getLinkRubbishListFromApi(rubbish);
         }
 
-        RubbishLinkListEntity rubbishLinkListCache = RubbishLinkListCache.getRubbishLinkListCache(rubbish);
+        RubbishLinkCacheEntity rubbishLinkListCache = RubbishLinkCacheFactory.getRubbishLinkCache(rubbish);
         String result;
         if ((result = rubbishLinkListCache.get()) != null && !ToolBoxRubbish.RUBBISH_LINK_NO_RESPONSE.equals(result)) {
             if (ToolBoxRubbish.RUBBISH_LINK_NOT_EXIST.equals(result)) {

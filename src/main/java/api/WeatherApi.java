@@ -1,6 +1,6 @@
 package api;
 
-import cache.redis.WeatherCache;
+import cache.redis.WeatherCacheFactory;
 import cache.redis.entity.WeatherCacheEntity;
 import config.GlobalConfig;
 import config.RedisConfig;
@@ -91,7 +91,7 @@ public class WeatherApi {
             return getWeatherFromApi(cityName);
         }
 
-        WeatherCacheEntity weatherCacheEntity = WeatherCache.getWeatherCacheEntity(cityName);
+        WeatherCacheEntity weatherCacheEntity = WeatherCacheFactory.getWeatherCacheEntity(cityName);
 
         String result = weatherCacheEntity.get();
         if (result != null) {

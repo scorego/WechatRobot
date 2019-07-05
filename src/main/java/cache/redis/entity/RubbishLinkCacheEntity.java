@@ -8,13 +8,13 @@ import cache.redis.provider.RCacheEntity;
  * @author Javior
  * @date 2019/7/5 13:38
  */
-public class RubbishLinkListEntity extends RCacheEntity {
+public class RubbishLinkCacheEntity extends RCacheEntity {
 
-    public RubbishLinkListEntity(KeyBuilder keyBuilder) {
+    public RubbishLinkCacheEntity(KeyBuilder keyBuilder) {
         super(keyBuilder);
     }
 
-    public RubbishLinkListEntity(KeyBuilder keyBuilder, int expireSeconds) {
+    public RubbishLinkCacheEntity(KeyBuilder keyBuilder, int expireSeconds) {
         super(keyBuilder, expireSeconds);
     }
 

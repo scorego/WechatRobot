@@ -10,7 +10,7 @@ import lombok.NonNull;
  * @date 2019/7/4 16:04
  */
 
-public class RubbishTypeCache {
+public class RubbishTypeCacheFactory {
 
 
     /**

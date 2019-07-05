@@ -1,6 +1,4 @@
 import api.RubbishApi;
-import cache.redis.WeatherCache;
-import robot.AToolBox.ToolBoxRubbish;
 
 import java.util.Arrays;
 

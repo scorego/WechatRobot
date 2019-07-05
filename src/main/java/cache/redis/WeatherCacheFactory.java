@@ -14,7 +14,7 @@ import java.util.Date;
  * @date 2019/7/4 16:29
  */
 
-public class WeatherCache {
+public class WeatherCacheFactory {
 
     /**
      * 天气缓存默认3小时。因为天气接口数据3小时更新一次

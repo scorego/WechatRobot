@@ -1,10 +1,10 @@
 package robot.AToolBox;
 
 import api.entity.RubbishToolBoxResponseEntity;
-import cache.redis.RubbishLinkListCache;
-import cache.redis.RubbishTypeCache;
+import cache.redis.RubbishLinkCacheFactory;
+import cache.redis.RubbishTypeCacheFactory;
 import cache.redis.entity.RubbishCacheEntity;
-import cache.redis.entity.RubbishLinkListEntity;
+import cache.redis.entity.RubbishLinkCacheEntity;
 import com.alibaba.fastjson.JSONObject;
 import config.GlobalConfig;
 import config.RedisConfig;
@@ -116,13 +116,13 @@ public class ToolBoxRubbish {
             return;
         }
         for (Map.Entry<String, Map<String, String>> mapEntry : map.entrySet()) {
-            RubbishCacheEntity rubbishCacheEntity = RubbishTypeCache.getRubbishCacheEntity(mapEntry.getValue().getOrDefault("name", ""));
+            RubbishCacheEntity rubbishCacheEntity = RubbishTypeCacheFactory.getRubbishCacheEntity(mapEntry.getValue().getOrDefault("name", ""));
             rubbishCacheEntity.setValue(getType(mapEntry.getValue().getOrDefault("type", ""))).save();
         }
     }
 
     private static void cacheLinkRubbish(String rubbish, String linkRubbishList) {
-        RubbishLinkListEntity rubbishLinkListCache = RubbishLinkListCache.getRubbishLinkListCache(rubbish);
+        RubbishLinkCacheEntity rubbishLinkListCache = RubbishLinkCacheFactory.getRubbishLinkCache(rubbish);
         rubbishLinkListCache.setValue(linkRubbishList).save();
     }
 
