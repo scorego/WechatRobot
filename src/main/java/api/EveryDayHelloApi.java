@@ -21,9 +21,14 @@ public class EveryDayHelloApi {
 
     private static String DEFAULT_EVERYDAY_HELLO = GlobalConfig.getValue("everydayHello.default", "");
 
+    private static String EVERYDAY_HELLO_PREFIX = GlobalConfig.getValue("everydayHello.prefix", "");
+
     static {
         if (StringUtils.isNotBlank(DEFAULT_EVERYDAY_HELLO)) {
             DEFAULT_EVERYDAY_HELLO += WxMsg.LINE;
+        }
+        if (StringUtils.isNotBlank(EVERYDAY_HELLO_PREFIX)) {
+            EVERYDAY_HELLO_PREFIX += WxMsg.LINE;
         }
     }
 
@@ -35,9 +40,11 @@ public class EveryDayHelloApi {
             weatherMsg = WeatherApi.getWeatherByCityName("北京");
         }
 
-        return msg
+        return EVERYDAY_HELLO_PREFIX
+                + msg
                 + "-------" + WxMsg.LINE
-                + weatherMsg + "【详情】发送？？了解更多" + WxMsg.LINE;
+                + weatherMsg
+                + "【详情】了解更多请发送？？" + WxMsg.LINE;
     }
 
     public static String getFriendHelloMsg() {

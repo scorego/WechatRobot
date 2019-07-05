@@ -61,18 +61,24 @@ public class EverydayHelloSchedule {
         }
 
         Timer timer = new Timer(true);
-        Date curDate = new Date();
-        String curTime = DateUtil.getFormatDate(curDate, "HHmmss");
-        Date scheduleDate = DateUtil.parseDate(DateUtil.getFormatDate(curDate, "yyyyMMdd") + GROUP_TIME, "yyyyMMddHHmmss");
-        if (scheduleDate == null) {
-            log.error("解析scheduleDate失败。");
+        String curTime = null;
+        Date scheduleDate = null;
+        try {
+            Date curDate = new Date();
+            curTime = DateUtil.getFormatDate(curDate, "HHmmss");
+            scheduleDate = DateUtil.parseDate(DateUtil.getFormatDate(curDate, "yyyyMMdd") + GROUP_TIME, "yyyyMMddHHmmss");
+            if (scheduleDate == null) {
+                log.error("解析scheduleDate为空，调度失败。");
+                return;
+            }
+            if (curTime != null && GROUP_TIME.compareTo(curTime) <= 0) {
+                scheduleDate = DateUtil.addOneDay(scheduleDate);
+            }
+        } catch (Exception e) {
+            log.error("解析scheduleDate失败，调度失败，返回。", e);
             return;
         }
-        if (curTime != null && GROUP_TIME.compareTo(curTime) <= 0) {
-            scheduleDate = DateUtil.addOneDay(scheduleDate);
-        }
-
-        log.info("EverydayHelloSchedule::startEverydaySchedule, schedule >> scheduleDate: {}, period: {}分钟", DateUtil.getYYMMDDHHMMSSDate(scheduleDate), GROUP_PERIOD / MILLE_SECONDS_PER_MINUTE);
+        log.info("EverydayHelloSchedule::startEverydaySchedule, schedule >> scheduleDate: {}, period: {}分钟", DateUtil.getViewDate(scheduleDate), GROUP_PERIOD / MILLE_SECONDS_PER_MINUTE);
         timer.schedule(new EverydayHelloTask(), scheduleDate, GROUP_PERIOD);
         isScheduled = true;
     }
@@ -80,8 +86,9 @@ public class EverydayHelloSchedule {
     private static class EverydayHelloTask extends TimerTask {
         @Override
         public void run() {
-            log.info("EverydayHelloSchedule::EverydayHelloTask.run(), now is {}", DateUtil.getYYMMDDHHMMSSDate(new Date()));
+            log.info("EverydayHelloSchedule::EverydayHelloTask.run(), now is {}", DateUtil.getViewDate(new Date()));
             SendEverydayHelloMsg.SendGroupEverydayHelloMsg();
+            SendEverydayHelloMsg.SendFriendEverydayHelloMsg();
         }
     }
 

@@ -35,6 +35,15 @@ public class DateUtil {
         }
     }
 
+    public static String getViewDate(Date date) {
+        try {
+            SimpleDateFormat targetformator = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            return targetformator.format(date);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 
     public static String getFormatDate(Date date, String pattern) {
         try {

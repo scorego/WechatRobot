@@ -1,10 +1,14 @@
 package robot.AToolBox;
 
+import api.entity.RubbishToolBoxResponseEntity;
+import cache.redis.RubbishLinkListCache;
 import cache.redis.RubbishTypeCache;
 import cache.redis.entity.RubbishCacheEntity;
+import cache.redis.entity.RubbishLinkListEntity;
 import com.alibaba.fastjson.JSONObject;
 import config.GlobalConfig;
 import config.RedisConfig;
+import cons.WxMsg;
 import enums.RubbishType;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +33,10 @@ public class ToolBoxRubbish {
 
     private static final boolean ENABLE_REDIS = RedisConfig.isRedisEnable();
 
+    public static final String RUBBISH_LINK_NOT_EXIST = "RUBBISH_LINK_NOT_EXIST";
+
+    public static final String RUBBISH_LINK_NO_RESPONSE = "RUBBISH_LINK_NO_RESPONSE";
+
     private static String getRubbishResult(@NonNull String rubbish) {
 
         String link = TOOL_BOX_RUBBISH;
@@ -42,17 +50,21 @@ public class ToolBoxRubbish {
         return response;
     }
 
-    public static RubbishType getRubbishType(String rubbish) {
+
+    public static RubbishType getRubbishType(String rubbish, RubbishToolBoxResponseEntity entity) {
         rubbish = rubbish.trim();
         if (StringUtils.isBlank(rubbish)) {
+            cacheLinkRubbish(rubbish, RUBBISH_LINK_NOT_EXIST);
             return RubbishType.NOT_EXISTS;
         }
         String rubbishResult = getRubbishResult(rubbish);
         if (StringUtils.isBlank(rubbishResult)) {
             // 接口无响应
+            cacheLinkRubbish(rubbish, RUBBISH_LINK_NO_RESPONSE);
             return RubbishType.NO_RESPONSE;
         } else if (!rubbishResult.startsWith("{")) {
             // 接口没返回有效数据
+            cacheLinkRubbish(rubbish, RUBBISH_LINK_NOT_EXIST);
             return RubbishType.NOT_EXISTS;
         }
 
@@ -60,10 +72,15 @@ public class ToolBoxRubbish {
         Map<String, Map<String, String>> result = JSONObject.parseObject(rubbishResult, Map.class);
 
         if (result == null || result.isEmpty()) {
+            cacheLinkRubbish(rubbish, RUBBISH_LINK_NOT_EXIST);
             return RubbishType.NOT_EXISTS;
         }
 
+        String linkRubbishList = getLinkRubbishList(result);
+        entity.setLinkRubbishString(linkRubbishList);
+
         if (ENABLE_REDIS) {
+            cacheLinkRubbish(rubbish, linkRubbishList);
             cacheAllResult(result);
         }
         String resultType = null;
@@ -102,6 +119,47 @@ public class ToolBoxRubbish {
             RubbishCacheEntity rubbishCacheEntity = RubbishTypeCache.getRubbishCacheEntity(mapEntry.getValue().getOrDefault("name", ""));
             rubbishCacheEntity.setValue(getType(mapEntry.getValue().getOrDefault("type", ""))).save();
         }
+    }
+
+    private static void cacheLinkRubbish(String rubbish, String linkRubbishList) {
+        RubbishLinkListEntity rubbishLinkListCache = RubbishLinkListCache.getRubbishLinkListCache(rubbish);
+        rubbishLinkListCache.setValue(linkRubbishList).save();
+    }
+
+    public static String getLinkRubbish(String rubbish) {
+        rubbish = rubbish.trim();
+        if (StringUtils.isBlank(rubbish)) {
+            return RUBBISH_LINK_NOT_EXIST;
+        }
+        String rubbishResult = getRubbishResult(rubbish);
+        if (StringUtils.isBlank(rubbishResult)) {
+            // 接口无响应
+            return RUBBISH_LINK_NO_RESPONSE;
+        } else if (!rubbishResult.startsWith("{")) {
+            // 接口没返回有效数据
+            return RUBBISH_LINK_NOT_EXIST;
+        }
+
+        // 接口返回了有效数据
+        Map<String, Map<String, String>> resultMap = JSONObject.parseObject(rubbishResult, Map.class);
+
+        if (resultMap == null || resultMap.isEmpty()) {
+            return RUBBISH_LINK_NOT_EXIST;
+        }
+
+        return getLinkRubbishList(resultMap);
+    }
+
+    private static String getLinkRubbishList(Map<String, Map<String, String>> map) {
+        if (map == null || map.isEmpty()) {
+            return "";
+        }
+        StringBuilder result = new StringBuilder(" ");
+        for (Map.Entry<String, Map<String, String>> mapEntry : map.entrySet()) {
+            result.append(mapEntry.getValue().getOrDefault("name", "")).append(" ");
+        }
+        result.append(WxMsg.LINE);
+        return result.toString().trim();
     }
 
 }

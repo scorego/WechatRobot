@@ -35,11 +35,11 @@ public class CheckCommandType {
         if (StringUtils.isBlank(content)) {
             return CommandType.COMMAND_HELP;
         }
-        if (isWeatherCommand(content)) {
-            return CommandType.COMMAND_WEATHER;
-        }
         if (isRubbishCommand(content)) {
             return CommandType.COMMAND_RUBBISH;
+        }
+        if (isWeatherCommand(content)) {
+            return CommandType.COMMAND_WEATHER;
         }
         if (isDiDiCommand(content)) {
             return CommandType.COMMAND_DIDI;

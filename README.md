@@ -1,6 +1,6 @@
-## 微信机器人
+## 微信机器人Java版
 
-根据指令自动回复好友消息、群聊陪聊、查天气、查垃圾分类，基于[ChatApi-WeChat](https://github.com/xuxiaoxiao-xxx/ChatApi-WeChat)构建。     
+个人微信(非公众号)微信机器人，根据指令自动回复好友消息、群聊陪聊、查天气、查垃圾分类，基于[ChatApi-WeChat](https://github.com/xuxiaoxiao-xxx/ChatApi-WeChat)构建。     
 
 ### 设计理念
 
@@ -17,7 +17,7 @@
 
 ## 最近动态
 
-- 垃圾分类接入AToolBox接口。AToolBox的数据库更全一些，但是接口有点慢。如果感觉响应太慢可以换回LAJIFENLEIAPP。  
+- 垃圾分类接入AToolBox接口。AToolBox的数据库更全一些，还有近似词提示，但是接口有点慢。如果开了Redis缓存，则非首次查询性能很高。如果没开缓存且感觉响应太慢，可以换回LAJIFENLEIAPP。  
 - 新增Redis缓存，可将天气查询结果、垃圾分类查询结果缓存在Redis。如果自己没有Redis，可在配置文件中关闭缓存。关闭缓存不影响任何功能。
 - 增加垃圾分类查询功能，可在群聊中查询垃圾如何分类。
 ---

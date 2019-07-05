@@ -26,7 +26,7 @@ public class HttpTest {
 ////        System.out.println(rCacheEntity.setValue("a").setex());
 //        System.out.println(rCacheEntity.get() == null);
 
-        Arrays.stream(new String[]{"香水","米饭"}).forEach(a -> {
+        Arrays.stream(new String[]{"龙虾壳","米饭"}).forEach(a -> {
                     System.out.println(RubbishApi.classifyRubbish(a));
                 }
         );
