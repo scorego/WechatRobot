@@ -76,7 +76,7 @@ public class ToolBoxRubbish {
             return RubbishType.NOT_EXISTS;
         }
 
-        String linkRubbishList = getLinkRubbishList(result);
+        String linkRubbishList = getLinkRubbishList(rubbish, result);
         entity.setLinkRubbishString(linkRubbishList);
 
         if (ENABLE_REDIS) {
@@ -147,19 +147,21 @@ public class ToolBoxRubbish {
             return RUBBISH_LINK_NOT_EXIST;
         }
 
-        return getLinkRubbishList(resultMap);
+        return getLinkRubbishList(rubbish, resultMap);
     }
 
-    private static String getLinkRubbishList(Map<String, Map<String, String>> map) {
+    private static String getLinkRubbishList(String rubbish, Map<String, Map<String, String>> map) {
         if (map == null || map.isEmpty()) {
             return "";
         }
         StringBuilder result = new StringBuilder(" ");
         for (Map.Entry<String, Map<String, String>> mapEntry : map.entrySet()) {
-            result.append(mapEntry.getValue().getOrDefault("name", "")).append(" ");
+            if (!rubbish.equals(mapEntry.getValue().getOrDefault("name", rubbish))) {
+                result.append(mapEntry.getValue().getOrDefault("name", "")).append(" ");
+            }
         }
-        result.append(WxMsg.LINE);
-        return result.toString().trim();
+        String trim = result.toString().trim();
+        return StringUtils.isEmpty(trim) ? "" : trim + WxMsg.LINE;
     }
 
 }

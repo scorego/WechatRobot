@@ -14,22 +14,12 @@ public class HttpTest {
 //        }
 //
 //        String everydayHello = EveryDayHelloApi.getGroupHelloMsg();
-//        System.out.println(everydayHello);
-//        System.out.println(GlobalConfig.getValue("autoReplyFriendMsg",""));
 
 //        System.out.println(RubbishApp.getRubbishType("电池").getName());
 
-//        RCacheEntity.KeyBuilder keyBuilder = new RCacheEntity.KeyBuilder("test").addParam("aa", 1);
-//        RCacheEntity rCacheEntity = new RCacheEntity(keyBuilder);
-////        System.out.println(rCacheEntity.setValue("a").setex());
-//        System.out.println(rCacheEntity.get() == null);
-
-        Arrays.stream(new String[]{"龙虾壳","米饭"}).forEach(a -> {
-                    System.out.println(RubbishApi.classifyRubbish(a));
-                }
-        );
-
-
+        String arr = "玉米塑料袋#龙虾壳#米饭#牛奶#矿泉水瓶#玉米#电池";
+//        String arr = "电池";
+        Arrays.stream(arr.split("#")).forEach(a -> System.out.println(RubbishApi.classifyRubbish(a)));
 
 
     }
