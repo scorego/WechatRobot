@@ -59,6 +59,8 @@ public class CacheTest {
                 System.out.println("response: " + response);
 
                 if (StringUtils.isBlank(response) || !response.startsWith("{")) {
+
+                    // todo
                     continue;
                 }
                 Map<String, Map<String, String>> result = JSONObject.parseObject(response, Map.class);
@@ -110,8 +112,6 @@ public class CacheTest {
                 String sss = StringUtils.isEmpty(trim) ? "" : trim + WxMsg.LINE;
                 rubbishLinkCache.getKeyBuilder().setName(rubbish);
                 rubbishLinkCache.setValue(sss).save();
-
-
             }
 
         }

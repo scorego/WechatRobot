@@ -73,15 +73,17 @@ public class RubbishApi {
             return getRubbishTypeFromApi(rubbish, entity);
         }
 
+
+        RubbishLinkCacheEntity rubbishLinkCacheEntity = RubbishLinkCacheFactory.getRubbishLinkCache(rubbish);
+        entity.setLinkRubbishString(rubbishLinkCacheEntity.get());
+        if (entity.getLinkRubbishString() == null) {
+            // 表示当前"垃圾"没有缓存"相关垃圾"信息，这种情况可能是查询其他"垃圾"时更新了本词条的垃圾分类
+            return getRubbishTypeFromApi(rubbish, entity);
+        }
+
         RubbishCacheEntity rubbishCacheEntity = RubbishTypeCacheFactory.getRubbishCacheEntity(rubbish);
         RubbishType rubbishType = rubbishCacheEntity.getRubbishType();
-        RubbishLinkCacheEntity rubbishLinkListCache = RubbishLinkCacheFactory.getRubbishLinkCache(rubbish);
-        entity.setLinkRubbishString(rubbishLinkListCache.get());
         if (rubbishType != null && rubbishType != RubbishType.NO_RESPONSE) {
-            if (rubbishLinkListCache.get() == null) {
-                // 表示当前"垃圾"没有缓存"相关垃圾"信息，这种情况可能是查询其他"垃圾"时更新了本词条的垃圾分类
-                getRubbishTypeFromApi(rubbish, entity);
-            }
             log.info("RubbishApi::checkRubbishType, get from cache >> rubbish: {}, result: {}", rubbish, rubbishType);
             return rubbishType;
         }
@@ -91,11 +93,11 @@ public class RubbishApi {
         rubbishType = getRubbishTypeFromApi(rubbish, entity);
         if (rubbishType == null) {
             rubbishType = RubbishType.NO_RESPONSE;
-            rubbishLinkListCache.setValue(ToolBoxRubbish.RUBBISH_LINK_NO_RESPONSE);
+            rubbishLinkCacheEntity.setValue(ToolBoxRubbish.RUBBISH_LINK_NO_RESPONSE);
         }
 
         rubbishCacheEntity.setValue(rubbishType).save();
-        entity.setLinkRubbishString(rubbishLinkListCache.get());
+        entity.setLinkRubbishString(rubbishLinkCacheEntity.get());
         log.info("RubbishApi::checkRubbishType, update cache >> rubbish: {}, result: {}", rubbish, rubbishType);
 
         return rubbishType;
