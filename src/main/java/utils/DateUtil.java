@@ -15,11 +15,11 @@ public class DateUtil {
 
     private static final String YYMMDDHHMMSS = "yyyyMMddHHmmss";
 
-    public static Date addOneDay(Date oldDate){
-        return addDate(oldDate,1);
+    public static Date addOneDay(Date oldDate) {
+        return addDate(oldDate, 1);
     }
 
-    public static Date addDate(Date oldDate, int addDays){
+    public static Date addDate(Date oldDate, int addDays) {
         long time = oldDate.getTime();
         long addTime = MILLSECONDSPERDAY * (long) addDays;
         time += addTime;
@@ -44,6 +44,15 @@ public class DateUtil {
         }
     }
 
+    public static String getCacheFormatDate(Date date) {
+        try {
+            SimpleDateFormat targetformator = new SimpleDateFormat("yyyyMMdd");
+            return targetformator.format(date);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 
     public static String getFormatDate(Date date, String pattern) {
         try {
@@ -53,6 +62,7 @@ public class DateUtil {
             return null;
         }
     }
+
     public static Date parseDate(String source, String pattern) {
         SimpleDateFormat formater = new SimpleDateFormat(pattern);
         try {
@@ -61,8 +71,6 @@ public class DateUtil {
             return null;
         }
     }
-
-
 
 
 }

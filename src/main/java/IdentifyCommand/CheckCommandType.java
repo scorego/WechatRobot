@@ -41,6 +41,12 @@ public class CheckCommandType {
         if (isWeatherCommand(content)) {
             return CommandType.COMMAND_WEATHER;
         }
+        if (isNewsCommand(content)) {
+            return CommandType.COMMAND_NEWS;
+        }
+        if (isZhihuHotCommand(content)) {
+            return CommandType.COMMAND_ZHIHU_HOT;
+        }
         if (isDiDiCommand(content)) {
             return CommandType.COMMAND_DIDI;
         }
@@ -54,8 +60,16 @@ public class CheckCommandType {
         return content.endsWith("天气");
     }
 
+    private boolean isNewsCommand(String content) {
+        return content.startsWith("新闻");
+    }
+
     private boolean isRubbishCommand(String content) {
         return (content.startsWith("？") || content.startsWith("?"));
+    }
+
+    private boolean isZhihuHotCommand(String content) {
+        return (content.startsWith("知乎"));
     }
 
     private boolean isDiDiCommand(String content) {

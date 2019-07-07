@@ -15,6 +15,6 @@ public class GroupMsgUtil {
     public static String getUserDisplayOrName(WXMessage message) {
         String display = message.fromGroup.members.containsKey(message.fromUser.id)
                 ? message.fromGroup.members.get(message.fromUser.id).display : null;
-        return StringUtils.isBlank(display) ? message.fromUser.name : display;
+        return StringUtils.isBlank(display) ? message.fromUser.name : display.trim();
     }
 }

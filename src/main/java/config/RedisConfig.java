@@ -33,5 +33,9 @@ public class RedisConfig {
         return "true".equalsIgnoreCase(getValue("redis.enable", "false"));
     }
 
+    public static boolean isRedisNotEnable() {
+        return !isRedisEnable();
+    }
+
 }
 

@@ -2,7 +2,6 @@ package cache.redis;
 
 
 import cache.redis.entity.WeatherCacheEntity;
-import cache.redis.provider.RCacheEntity;
 import utils.DateUtil;
 
 import java.util.Date;
@@ -31,7 +30,7 @@ public class WeatherCacheFactory {
     }
 
     public static WeatherCacheEntity getWeatherCacheEntity(String cityName) {
-        String today = DateUtil.getFormatDate(new Date(), "yyyyMMdd");
+        String today = DateUtil.getCacheFormatDate(new Date());
         WeatherCacheEntity.KeyBuilder keyBuilder = new WeatherCacheEntity.KeyBuilder("weather")
                 .addParam("city", cityName)
                 .addParam("date", today);

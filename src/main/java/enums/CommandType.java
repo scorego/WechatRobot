@@ -18,6 +18,16 @@ public enum CommandType {
     COMMAND_HELP,
 
     /**
+     * 当日新闻
+     */
+    COMMAND_NEWS,
+
+    /**
+     * 知乎热榜
+     */
+    COMMAND_ZHIHU_HOT,
+
+    /**
      * 查天气
      */
     COMMAND_WEATHER,

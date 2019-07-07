@@ -9,10 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import main.facade.DealMessage;
 import me.xuxiaoxiao.chatapi.wechat.WeChatClient;
 import me.xuxiaoxiao.chatapi.wechat.entity.contact.WXContact;
-import me.xuxiaoxiao.chatapi.wechat.entity.message.WXLocation;
-import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
-import me.xuxiaoxiao.chatapi.wechat.entity.message.WXText;
-import me.xuxiaoxiao.chatapi.wechat.entity.message.WXVerify;
+import me.xuxiaoxiao.chatapi.wechat.entity.message.*;
 import org.apache.commons.lang3.StringUtils;
 import schedule.EverydayHelloSchedule;
 
@@ -76,6 +73,9 @@ public class WechatBot {
                     log.info("收到位置消息。来自好友: {}", message.fromUser.name);
 //                    client.sendLocation(message.fromUser, "120.14556", "30.23856", "我在这里", "西湖");
                 }
+            } else if (message instanceof WXSystem) {
+
+                log.info("收到系统消息。msg {}", message.content);
             } else if (message instanceof WXText && message.fromUser != null && !message.fromUser.id.equals(client.userMe().id)) {
                 if (message.fromGroup != null) {
                     log.info("收到文字消息。来自群: {}，用户: {}，内容: {}", message.fromGroup.name, message.fromUser.name, message.content);

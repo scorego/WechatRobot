@@ -1,4 +1,7 @@
+import api.NewsApi;
 import api.RubbishApi;
+import robot.RollToolsApi.RollNews;
+import robot.Zhihu.ZhihuHot;
 
 import java.util.Arrays;
 
@@ -17,10 +20,12 @@ public class HttpTest {
 
 //        System.out.println(RubbishApp.getRubbishType("电池").getName());
 
-        String arr = "玉米塑料袋#龙虾壳#米饭#牛奶#矿泉水瓶#玉米#电池";
-//        String arr = "电池";
-        Arrays.stream(arr.split("#")).forEach(a -> System.out.println(RubbishApi.classifyRubbish(a)));
+//        String arr = "玉米塑料袋#龙虾壳#米饭#牛奶#矿泉水瓶#玉米#电池";
+//        Arrays.stream(arr.split("#")).forEach(a -> System.out.println(RubbishApi.classifyRubbish(a)));
 
-
+//        String s = NewsApi.getTodayNews("新闻");
+//        System.out.println(s);
+        String zhihuHot = ZhihuHot.getZhihuHot();
+        System.out.println(zhihuHot);
     }
 }

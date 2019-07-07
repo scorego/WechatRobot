@@ -2,9 +2,7 @@ package main.service.groupMsg;
 
 import IdentifyCommand.CheckCommandType;
 import IdentifyCommand.PreProcessMessage;
-import api.HelpMsg;
-import api.RubbishApi;
-import api.WeatherApi;
+import api.*;
 import cons.WxMsg;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.WXMessage;
 
@@ -43,6 +41,10 @@ public class GroupTextCommand {
                 return doGroupHelp(message);
             case COMMAND_WEATHER:
                 return doGroupWeather(message);
+            case COMMAND_NEWS:
+                return doGroupNews(message);
+            case  COMMAND_ZHIHU_HOT:
+                return doGroupZhihuHot(message);
             case COMMAND_RUBBISH:
                 return doGroupRubbish(message);
             case COMMAND_DIDI:
@@ -77,6 +79,25 @@ public class GroupTextCommand {
             case GROUP_MODE_ONLY:
             case GROUP_WHITELIST:
                 return WeatherApi.dealWeatherMsg(message);
+            default:
+                return null;
+        }
+    }
+
+    private String doGroupNews(WXMessage message) {
+        switch (CheckGroupType.checkGroupType(message.fromGroup.name)) {
+            case GROUP_MODE_ONLY:
+            case GROUP_WHITELIST:
+                return NewsApi.dealNewsMsg(message);
+            default:
+                return null;
+        }
+    }
+    private String doGroupZhihuHot(WXMessage message) {
+        switch (CheckGroupType.checkGroupType(message.fromGroup.name)) {
+            case GROUP_MODE_ONLY:
+            case GROUP_WHITELIST:
+                return ZhihuHotApi.dealZhihuHotMsg(message);
             default:
                 return null;
         }
