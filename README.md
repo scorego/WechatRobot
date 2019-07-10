@@ -115,7 +115,19 @@ E. 知乎热榜
 如果当日配置的时间已经过了，则会从次日开始正常执行。  
 向好友发送消息尚未启用。  
 
+### 6. 查看实时新闻
 
+```
+??新闻
+```
+
+### 7. 查看知乎热榜
+
+```
+??知乎
+？？知乎 1
+？？知乎 3
+```
 ## 数据来源
 
 ### 1. 青云客
@@ -138,6 +150,10 @@ RollToolsApi：https://github.com/MZCretin/RollToolsApi
 LAJIFENLEIAPP: http://lajifenleiapp.com/
 
 AToolBox: http://www.atoolbox.net/Tool.php?Id=804
+
+### 5. 知乎热榜 
+
+知乎日报：https://news-at.zhihu.com/api/6/news/hot
 
 ## Acknowledgements
 

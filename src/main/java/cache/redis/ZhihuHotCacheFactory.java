@@ -17,8 +17,8 @@ public class ZhihuHotCacheFactory {
     /**
      * 新闻缓存默认1小时。
      */
-//    private static final int ZHI_HU_HOT_CACHE_DURATION_SECONDS = 60 * 60;
-    private static final int ZHI_HU_HOT_CACHE_DURATION_SECONDS = 60;
+    private static final int ZHI_HU_HOT_CACHE_DURATION_SECONDS = 60 * 60;
+//    private static final int ZHI_HU_HOT_CACHE_DURATION_SECONDS = 60;
 
     /**
      * 单条新闻缓存时间为30天

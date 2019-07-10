@@ -52,7 +52,7 @@ public class ZhihuHot {
         CONTENT = zhihuHotEntity.getRecent();
         String content = zhihuHotEntity.getContent(ZHIHU_HOT_LIMIT);
         if (StringUtils.isNotBlank(content)) {
-            content = "实时知乎热榜：" + WxMsg.LINE
+            content = "每日知乎热榜：" + WxMsg.LINE
                     + content
                     + "查看详情请发送>> " + PreProcessMessage.getCommandPrefix() + "知乎" + " + 序号";
         }
