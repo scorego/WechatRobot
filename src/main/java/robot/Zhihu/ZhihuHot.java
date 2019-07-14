@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 import config.GlobalConfig;
 import config.RedisConfig;
 import cons.WxMsg;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import robot.Zhihu.entity.ZhihuHotContentEntity;
 import robot.Zhihu.entity.ZhihuHotDetailEntity;
@@ -22,6 +23,7 @@ import java.util.List;
  * @author Javior
  * @date 2019/7/7 18:53
  */
+@Slf4j
 public class ZhihuHot {
 
     private static final String ZHIHU_HOT_LINK = GlobalConfig.getValue("Zhihu.hot", "");
@@ -65,6 +67,7 @@ public class ZhihuHot {
             return null;
         }
         if (CONTENT == null || CONTENT.size() <= index || index < 0) {
+            log.info("getSingleZhihuHot, CONTENT:{}, index: {},return: null", CONTENT == null ? null : CONTENT.size(), index);
             return null;
         }
         ZhihuHotContentEntity entity = CONTENT.get(index);
