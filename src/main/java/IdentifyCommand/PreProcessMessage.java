@@ -69,6 +69,6 @@ public class PreProcessMessage {
             return;
         }
         message.content = content.substring(COMMAND_PREFIX_LENGTH).trim();
-        log.info("AtMeMsg::removeCommandFix, content:{}, newContent:{}", content, message.content);
+        log.info("PreProcessMessage::removeCommandFix, content:{}, newContent:{}", content, message.content);
     }
 }
