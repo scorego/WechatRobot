@@ -22,15 +22,13 @@ public class QingWeatherCityConfig {
     private QingWeatherCityConfig() {
         String filePath = QingWeatherCityConfig.class.getClassLoader().getResource("").getPath() + CITY_JSON_FILE;
         StringBuilder sb = new StringBuilder();
-        try {
-            InputStream is = new FileInputStream(filePath);
+        try (InputStream is = new FileInputStream(filePath)) {
             String line;
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            while ((line = reader.readLine()) != null) {
-                sb.append(line).append("\n");
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line).append("\n");
+                }
             }
-            reader.close();
-            is.close();
             cityList = JSON.parseArray(sb.toString(), QingWeatherCityEntity.class);
         } catch (IOException e) {
             log.error("QingWeather::读取city数据出错!", e);
