@@ -11,7 +11,7 @@ import java.util.Date;
  */
 public class DateUtil {
 
-    private static final int MILLSECONDSPERDAY = 24 * 60 * 60 * 1000;
+    private static final int MILLE_SECONDS_PER_DAY = 24 * 60 * 60 * 1000;
 
     private static final String YYMMDDHHMMSS = "yyyyMMddHHmmss";
 
@@ -21,7 +21,7 @@ public class DateUtil {
 
     public static Date addDate(Date oldDate, int addDays) {
         long time = oldDate.getTime();
-        long addTime = MILLSECONDSPERDAY * (long) addDays;
+        long addTime = MILLE_SECONDS_PER_DAY * (long) addDays;
         time += addTime;
         return new Date(time);
     }
