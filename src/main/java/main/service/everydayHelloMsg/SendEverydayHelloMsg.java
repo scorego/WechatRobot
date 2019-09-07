@@ -20,8 +20,8 @@ public class SendEverydayHelloMsg {
         log.info("Start SendGroupEverydayHelloMsg, msg: {}", msg);
         if (StringUtils.isNotBlank(msg)) {
             EveryDayHelloWhiteList.getInstance().getGroupSet().forEach(group -> {
-                WechatBot.getWeChatClient().sendText(group, msg);
                 log.info("SendGroupEverydayHelloMsg, group: {}", group.name);
+                WechatBot.getWeChatClient().sendText(group, msg);
             });
         }
         log.info("Finish SendGroupEverydayHelloMsg.");

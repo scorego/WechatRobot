@@ -1,6 +1,5 @@
 package main.service.everydayHelloMsg;
 
-import com.alibaba.fastjson.JSONObject;
 import config.GlobalConfig;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

@@ -57,9 +57,6 @@ public class WechatBot {
 
         @Override
         public void onMessage(@Nonnull WeChatClient client, @Nonnull WXMessage message) {
-
-            EverydayHelloSchedule.startEverydaySchedule();
-
             log.info("获取到消息：{}", GSON.toJson(message));
 
             if (message instanceof WXVerify) {
@@ -109,5 +106,8 @@ public class WechatBot {
         weChatClient = new WeChatClient();
         weChatClient.setListener(LISTENER);
         weChatClient.startup();
+
+        // 每日一句定时任务
+        EverydayHelloSchedule.startEverydaySchedule();
     }
 }
