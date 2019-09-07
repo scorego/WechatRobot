@@ -42,7 +42,7 @@ public class EverydayHelloSchedule {
             try {
                 GROUP_PERIOD = Long.parseLong(GROUP_PERIOD_CONFIG) * MILLE_SECONDS_PER_HOUR;
 //                 调试用，以分钟为单位
-                GROUP_PERIOD = Long.parseLong(GROUP_PERIOD_CONFIG) * 60 * 1000;
+//                GROUP_PERIOD = Long.parseLong(GROUP_PERIOD_CONFIG) * 60 * 1000;
             } catch (NumberFormatException e) {
                 log.error("startEverydaySchedule解析period失败。GROUP_PERIOD_CONFIG: {}", GROUP_PERIOD_CONFIG);
             }
