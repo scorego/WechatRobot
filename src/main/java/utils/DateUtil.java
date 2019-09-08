@@ -35,6 +35,10 @@ public class DateUtil {
         }
     }
 
+    public static String getCurViewDate() {
+        return getViewDate(new Date());
+    }
+
     public static String getViewDate(Date date) {
         try {
             SimpleDateFormat targetformator = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

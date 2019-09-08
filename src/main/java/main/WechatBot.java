@@ -2,6 +2,7 @@ package main;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import config.GlobalConfig;
 import cons.WxMsg;
 import lombok.Getter;
@@ -10,7 +11,9 @@ import main.facade.DealMessage;
 import me.xuxiaoxiao.chatapi.wechat.WeChatClient;
 import me.xuxiaoxiao.chatapi.wechat.entity.contact.WXContact;
 import me.xuxiaoxiao.chatapi.wechat.entity.message.*;
+
 import org.apache.commons.lang3.StringUtils;
+
 import schedule.EverydayHelloSchedule;
 
 import javax.annotation.Nonnull;
@@ -47,7 +50,7 @@ public class WechatBot {
         @Override
         public void onQRCode(@Nonnull WeChatClient client, @Nonnull String qrCode) {
             log.info("onQRCode：{}", qrCode);
-//            log.info(QRCodeUtil.printQRCode(qrCode));
+            //            log.info(QRCodeUtil.printQRCode(qrCode));
         }
 
         @Override
@@ -61,21 +64,25 @@ public class WechatBot {
 
             if (message instanceof WXVerify) {
                 log.info("收到好友请求消息。来自:{}", message.fromUser.name);
-//                client.passVerify((WXVerify) message);
-            } else if (message instanceof WXLocation && message.fromUser != null && !message.fromUser.id.equals(client.userMe().id)) {
+                //                client.passVerify((WXVerify) message);
+            } else if (message instanceof WXLocation && message.fromUser != null && !message.fromUser.id
+                    .equals(client.userMe().id)) {
                 if (message.fromGroup != null) {
                     log.info("收到位置消息。来自群: {}，用户: {}", message.fromGroup.name, message.fromUser.name);
-//                    // client.sendLocation(message.fromGroup, "120.14556", "30.23856", "我在这里", "西湖");
+                    //                    // client.sendLocation(message.fromGroup, "120.14556", "30.23856", "我在这里",
+                    //                    "西湖");
                 } else {
                     log.info("收到位置消息。来自好友: {}", message.fromUser.name);
-//                    client.sendLocation(message.fromUser, "120.14556", "30.23856", "我在这里", "西湖");
+                    //                    client.sendLocation(message.fromUser, "120.14556", "30.23856", "我在这里", "西湖");
                 }
             } else if (message instanceof WXSystem) {
 
                 log.info("收到系统消息。msg {}", message.content);
-            } else if (message instanceof WXText && message.fromUser != null && !message.fromUser.id.equals(client.userMe().id)) {
+            } else if (message instanceof WXText && message.fromUser != null && !message.fromUser.id
+                    .equals(client.userMe().id)) {
                 if (message.fromGroup != null) {
-                    log.info("收到文字消息。来自群: {}，用户: {}，内容: {}", message.fromGroup.name, message.fromUser.name, message.content);
+                    log.info("收到文字消息。来自群: {}，用户: {}，内容: {}", message.fromGroup.name, message.fromUser.name,
+                            message.content);
                     String response = DealMessage.dealGroupTextMsg(message);
                     if (StringUtils.isNotBlank(response)) {
                         response = REPLY_PREFIX + response;
@@ -95,7 +102,8 @@ public class WechatBot {
         }
 
         @Override
-        public void onContact(@Nonnull WeChatClient client, @Nullable WXContact oldContact, @Nullable WXContact newContact) {
+        public void onContact(@Nonnull WeChatClient client, @Nullable WXContact oldContact,
+                @Nullable WXContact newContact) {
             if (oldContact != null && newContact != null && !oldContact.name.equals(newContact.name)) {
                 log.info("检测到联系人变更: 旧联系人名称：{}, 新联系人名称：{}", oldContact.name, newContact.name);
             }
@@ -107,7 +115,7 @@ public class WechatBot {
         weChatClient.setListener(LISTENER);
         weChatClient.startup();
 
-        // 每日一句定时任务
-        EverydayHelloSchedule.startEverydaySchedule();
+        // 群每日一句定时任务
+        EverydayHelloSchedule.startGroupEverydaySchedule();
     }
 }
