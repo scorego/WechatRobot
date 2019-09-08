@@ -5,10 +5,7 @@ import enums.GroupType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -33,17 +30,17 @@ public class CheckGroupType {
 
     private static final String GROUP_MODE_KEYWORD = GlobalConfig.getValue("group.modeOnlyKeyword", "");
 
-    private static List<String> WHITE_LIST = new LinkedList<>();
+    private static List<String> WHITE_LIST = new ArrayList<>();
 
-    private static List<String> WHITE_KEYWORD_LIST = new LinkedList<>();
+    private static List<String> WHITE_KEYWORD_LIST = new ArrayList<>();
 
-    private static List<String> MODE_KEYWORD_LIST = new LinkedList<>();
+    private static List<String> MODE_KEYWORD_LIST = new ArrayList<>();
 
-    private static List<String> MODE_ONLY_LIST = new LinkedList<>();
+    private static List<String> MODE_ONLY_LIST = new ArrayList<>();
 
-    private static List<String> BLACK_KEYWORD_LIST = new LinkedList<>();
+    private static List<String> BLACK_KEYWORD_LIST = new ArrayList<>();
 
-    private static List<String> BLACK_LIST = new LinkedList<>();
+    private static List<String> BLACK_LIST = new ArrayList<>();
 
     static {
         WHITE_LIST.addAll(Arrays.stream(GROUP_WHITELIST.split("#")).filter(StringUtils::isNotBlank).collect(Collectors.toList()));
@@ -63,7 +60,6 @@ public class CheckGroupType {
 
     public static GroupType checkGroupType(String from) {
         if (StringUtils.isBlank(from)) {
-            log.info("checkGroupType, GroupName: {}, GroupType: {}", from, GroupType.GROUP_NOT_EXISTS);
             return GroupType.GROUP_NOT_EXISTS;
         }
 
@@ -71,7 +67,6 @@ public class CheckGroupType {
 
         if (cache.containsKey(from)) {
             type = cache.getOrDefault(from, GroupType.GROUP_NOT_EXISTS);
-            log.info("checkGroupType, GroupName: {}, GroupType: {}, fromCache: true", from, type);
             return type;
         }
 
@@ -103,7 +98,6 @@ public class CheckGroupType {
                 type = GroupType.GROUP_BLACKLIST;
         }
         cache.put(from, type);
-        log.info("checkGroupType, GroupName: {}, GroupType: {}, fromCache: false", from, type);
         return type;
     }
 }

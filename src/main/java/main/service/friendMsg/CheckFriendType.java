@@ -5,10 +5,7 @@ import enums.FriendType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -25,9 +22,9 @@ public class CheckFriendType {
 
     private static final String FRIEND_WHITE = GlobalConfig.getValue("friend.whitelist", "");
 
-    private static List<String> FRIEND_BLACK_LIST = new LinkedList<>();
+    private static List<String> FRIEND_BLACK_LIST = new ArrayList<>();
 
-    private static List<String> FRIEND_WHITE_LIST = new LinkedList<>();
+    private static List<String> FRIEND_WHITE_LIST = new ArrayList<>();
 
     private static Map<String, FriendType> cache = new ConcurrentHashMap<>();
 
@@ -39,7 +36,6 @@ public class CheckFriendType {
 
     public static FriendType checkFriendType(String friendName) {
         if (StringUtils.isEmpty(friendName)) {
-            log.info("checkFriendType, friendName: {}, FriendType: {}", friendName, FriendType.FRIEND_NOT_EXISTS);
             return FriendType.FRIEND_NOT_EXISTS;
         }
 
@@ -47,7 +43,6 @@ public class CheckFriendType {
 
         if (cache.containsKey(friendName)) {
             type = cache.getOrDefault(friendName, FriendType.FRIEND_NOT_EXISTS);
-            log.info("checkFriendType, friendName: {}, FriendType: {}, fromCache: true", friendName, type);
             return type;
         }
 
@@ -62,7 +57,6 @@ public class CheckFriendType {
             }
         }
         cache.put(friendName, type);
-        log.info("checkFriendType, friendName: {}, FriendType: {}, fromCache: false", friendName, FriendType.FRIEND_NOT_EXISTS);
         return type;
     }
 
