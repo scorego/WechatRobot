@@ -7,14 +7,14 @@
 
 ### 设计理念
 
-主要是想写一个群助手，作为在群里的工具使用。所以这个机器人响应的信息主要是以指令前缀开头的。虑到国内手机输入法的习惯，默认指令前缀是两个问号，因为拼音9宫格的布局问号在快捷栏里，方便输入。  
+主要是想写一个群助手，作为在群里的工具使用。所以这个机器人响应的信息主要是以指令前缀开头的。考虑到国内手机输入法的习惯，默认指令前缀是两个问号，因为拼音9宫格的布局问号在快捷栏里，方便输入。  
 对于具体指令，希望汉字优先，缩写为主。
 
 ---
 
 ## 最近动态
 
-- `fastjson`1.2.58爆出重大漏洞，升级为1.2.60，
+- `fastjson`1.2.58爆出重大漏洞，升级为1.2.60
 - 每日一句使用线程池调度，修复了之前使用`Timer`导致的调度稳定性差的bug
 - 新增查看每日新闻命令、查看知乎热榜命令。新功能必须开启redis才能使用。  
 - 垃圾分类接入AToolBox接口。AToolBox的数据库更全一些，还有近似词提示，但是接口有点慢，而且必须开启Redis。如果没开启redis缓存，可以换回LAJIFENLEIAPP。   
@@ -23,8 +23,8 @@
 
 ## 配置及使用
 
-需求环境：jdk 1.8+、Maven
-  
+需求环境：jdk 1.8+、Maven  
+
 全局配置文件是[`resource/config.properties`](/src/main/resources/config.properties)。    
 缓存配置文件是[`resource/redis.properties`](/src/main/resources/redis.properties)。     
 程序入口：[`main/WechatBot.java`](/src/main/java/main/WechatBot.java)   
