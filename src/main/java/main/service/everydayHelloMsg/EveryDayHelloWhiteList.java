@@ -3,7 +3,7 @@ package main.service.everydayHelloMsg;
 import config.GlobalConfig;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import main.WechatBot;
+import main.WechatBotClient;
 import me.xuxiaoxiao.chatapi.wechat.entity.contact.WXGroup;
 import me.xuxiaoxiao.chatapi.wechat.entity.contact.WXUser;
 import org.apache.commons.lang3.StringUtils;
@@ -34,7 +34,7 @@ public class EveryDayHelloWhiteList {
         friend.addAll(Arrays.stream(EVERYDAY_HELLO_FRIEND_WHITE_LIST.split("#")).filter(StringUtils::isNotBlank).collect(Collectors.toList()));
 
         groupSet = new HashSet<>(group.size());
-        HashMap<String, WXGroup> groupMap = WechatBot.getWeChatClient().userGroups();
+        HashMap<String, WXGroup> groupMap = WechatBotClient.getWeChatClient().userGroups();
         group.forEach(g ->
                 groupMap.forEach((key, value) -> {
                     if (value.name.equals(g)) {
@@ -49,7 +49,7 @@ public class EveryDayHelloWhiteList {
         log.info("每日一句群列表：{}", groupSetList.toString());
 
         friendSet = new HashSet<>(friend.size());
-        HashMap<String, WXUser> friendMap = WechatBot.getWeChatClient().userFriends();
+        HashMap<String, WXUser> friendMap = WechatBotClient.getWeChatClient().userFriends();
         friend.forEach(f ->
                 friendMap.forEach((key, value) -> {
                     if (value.name.equals(f)) {

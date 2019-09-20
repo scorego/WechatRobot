@@ -27,7 +27,7 @@
 
 全局配置文件是[`resource/config.properties`](/src/main/resources/config.properties)。    
 缓存配置文件是[`resource/redis.properties`](/src/main/resources/redis.properties)。     
-程序入口：[`main/WechatBot.java`](/src/main/java/main/WechatBot.java)   
+程序入口：[`WechatBot.java`](/src/main/java/WechatBot.java)   
 启动程序后打开控制台输出的二维码链接，并使用微信扫描。     
 提示：任何非官方途径登陆网页微信都有可能导致封停账号登陆网页微信的权限(不影响其他端的使用)。建议使用小号。   
 

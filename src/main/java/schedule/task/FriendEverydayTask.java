@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import api.EveryDayHelloApi;
 import lombok.extern.slf4j.Slf4j;
-import main.WechatBot;
+import main.WechatBotClient;
 import main.service.everydayHelloMsg.EveryDayHelloWhiteList;
 import schedule.base.BaseScheduleTask;
 
@@ -25,7 +25,7 @@ public class FriendEverydayTask extends BaseScheduleTask {
         log.info("friendEverydayHelloMsg, msg: {}", msg);
         if (StringUtils.isNotBlank(msg)) {
             EveryDayHelloWhiteList.getInstance().getFriendSet().forEach(friend -> {
-                WechatBot.getWeChatClient().sendText(friend, msg);
+                WechatBotClient.getWeChatClient().sendText(friend, msg);
                 log.info("SendFriendEverydayHelloMsg, friend: {}", friend.name);
             });
         }

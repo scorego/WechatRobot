@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
  * @date 2019/6/18 20:06
  */
 @Slf4j
-public class WechatBot {
+public class WechatBotClient {
 
     private static final Gson GSON = new GsonBuilder().disableHtmlEscaping().create();
 
@@ -110,7 +110,7 @@ public class WechatBot {
         }
     };
 
-    public static void main(String[] args) {
+    public static void run(String[] args) {
         weChatClient = new WeChatClient();
         weChatClient.setListener(LISTENER);
         weChatClient.startup();
